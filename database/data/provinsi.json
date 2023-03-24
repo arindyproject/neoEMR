@@ -1,0 +1,172 @@
+[
+	{
+		"id" : 1,
+		"kode" : "11",
+		"nama" : "ACEH"
+	},
+	{
+		"id" : 2,
+		"kode" : "12",
+		"nama" : "SUMATERA UTARA"
+	},
+	{
+		"id" : 3,
+		"kode" : "13",
+		"nama" : "SUMATERA BARAT"
+	},
+	{
+		"id" : 4,
+		"kode" : "14",
+		"nama" : "RIAU"
+	},
+	{
+		"id" : 5,
+		"kode" : "15",
+		"nama" : "JAMBI"
+	},
+	{
+		"id" : 6,
+		"kode" : "16",
+		"nama" : "SUMATERA SELATAN"
+	},
+	{
+		"id" : 7,
+		"kode" : "17",
+		"nama" : "BENGKULU"
+	},
+	{
+		"id" : 8,
+		"kode" : "18",
+		"nama" : "LAMPUNG"
+	},
+	{
+		"id" : 9,
+		"kode" : "19",
+		"nama" : "KEPULAUAN BANGKA BELITUNG"
+	},
+	{
+		"id" : 10,
+		"kode" : "21",
+		"nama" : "KEPULAUAN RIAU"
+	},
+	{
+		"id" : 11,
+		"kode" : "31",
+		"nama" : "DKI JAKARTA"
+	},
+	{
+		"id" : 12,
+		"kode" : "32",
+		"nama" : "JAWA BARAT"
+	},
+	{
+		"id" : 13,
+		"kode" : "33",
+		"nama" : "JAWA TENGAH"
+	},
+	{
+		"id" : 14,
+		"kode" : "34",
+		"nama" : "DI YOGYAKARTA"
+	},
+	{
+		"id" : 15,
+		"kode" : "35",
+		"nama" : "JAWA TIMUR"
+	},
+	{
+		"id" : 16,
+		"kode" : "36",
+		"nama" : "BANTEN"
+	},
+	{
+		"id" : 17,
+		"kode" : "51",
+		"nama" : "BALI"
+	},
+	{
+		"id" : 18,
+		"kode" : "52",
+		"nama" : "NUSA TENGGARA BARAT"
+	},
+	{
+		"id" : 19,
+		"kode" : "53",
+		"nama" : "NUSA TENGGARA TIMUR"
+	},
+	{
+		"id" : 20,
+		"kode" : "61",
+		"nama" : "KALIMANTAN BARAT"
+	},
+	{
+		"id" : 21,
+		"kode" : "62",
+		"nama" : "KALIMANTAN TENGAH"
+	},
+	{
+		"id" : 22,
+		"kode" : "63",
+		"nama" : "KALIMANTAN SELATAN"
+	},
+	{
+		"id" : 23,
+		"kode" : "64",
+		"nama" : "KALIMANTAN TIMUR"
+	},
+	{
+		"id" : 24,
+		"kode" : "65",
+		"nama" : "KALIMANTAN UTARA"
+	},
+	{
+		"id" : 25,
+		"kode" : "71",
+		"nama" : "SULAWESI UTARA"
+	},
+	{
+		"id" : 26,
+		"kode" : "72",
+		"nama" : "SULAWESI TENGAH"
+	},
+	{
+		"id" : 27,
+		"kode" : "73",
+		"nama" : "SULAWESI SELATAN"
+	},
+	{
+		"id" : 28,
+		"kode" : "74",
+		"nama" : "SULAWESI TENGGARA"
+	},
+	{
+		"id" : 29,
+		"kode" : "75",
+		"nama" : "GORONTALO"
+	},
+	{
+		"id" : 30,
+		"kode" : "76",
+		"nama" : "SULAWESI BARAT"
+	},
+	{
+		"id" : 31,
+		"kode" : "81",
+		"nama" : "MALUKU"
+	},
+	{
+		"id" : 32,
+		"kode" : "82",
+		"nama" : "MALUKU UTARA"
+	},
+	{
+		"id" : 33,
+		"kode" : "91",
+		"nama" : "PAPUA BARAT"
+	},
+	{
+		"id" : 34,
+		"kode" : "94",
+		"nama" : "PAPUA"
+	}
+]

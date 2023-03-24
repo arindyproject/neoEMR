@@ -1,0 +1,74 @@
+{
+    "name": "ArindyProject Master",
+    "tag_line": "gratis, jangan diJual ya..",
+    "alamat": "bukan alamat palsu ya",
+    "email": "dummy@gmail.com",
+    "no_tlp": "082211122370",
+    "dark_mode": "0",
+    "navbar_variants": "lightblue",
+    "navbar_fixed": "1",
+    "icon_mini": "1677467280.jpg",
+    "icon_medium": "1677467284.jpg",
+    "footer": "1",
+    "pop_up": "0",
+    "setting": {
+        "default": {
+            "def_alamat_country": {
+                "id": 103,
+                "name": "Indonesia",
+                "nama": "Indonesia",
+                "alpha_2": "ID",
+                "alpha_3": "IDN",
+                "country_code": "360",
+                "iso_3166_2": "ISO 3166-2:ID",
+                "region": "Asia",
+                "sub_region": "South-eastern Asia",
+                "intermediate_region": "",
+                "region_code": "142",
+                "sub_region_code": "035",
+                "intermediate_region_code": "",
+                "user_id": 1,
+                "created_at": null,
+                "updated_at": null
+            },
+            "def_alamat_provinsi": {
+                "id": 15,
+                "kode": "35",
+                "nama": "JAWA TIMUR",
+                "user_id": 1,
+                "created_at": null,
+                "updated_at": null
+            },
+            "def_alamat_kota": {
+                "id": 248,
+                "kode": "35-21",
+                "kode_kota": "21",
+                "nama": "KAB NGAWI",
+                "att_alamat_provinsis_id": 15,
+                "user_id": 1,
+                "created_at": null,
+                "updated_at": null
+            },
+            "def_alamat_kecamatan": {
+                "id": 3708,
+                "kode": "35-21-101",
+                "kode_kecamatan": "101",
+                "nama": "KASREMAN",
+                "att_alamat_kotas_id": 248,
+                "user_id": 1,
+                "created_at": null,
+                "updated_at": null
+            },
+            "def_alamat_kelurahan": {
+                "id": 46279,
+                "kode": "35-21-101-001",
+                "kode_kelurahan": "001",
+                "nama": "JATIREJO",
+                "att_alamat_kecamatans_id": 3708,
+                "user_id": 1,
+                "created_at": null,
+                "updated_at": null
+            }
+        }
+    }
+}
