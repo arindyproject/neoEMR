@@ -218,7 +218,7 @@
 
     @if (\App\Models\Config::get()['footer'] == "1")
     <footer class="main-footer">
-        <strong>Copyright © 2023
+        <strong>neoEMR by ArindyProject - Copyright © 2023
             <a href="https://github.com/arindyproject" target="_blank" class="btn"> <i class="fab fa-github"></i> GitHub</a>
             <a href="https://www.youtube.com/@arindyproject" target="_blank" class="btn"> <i class="fab fa-youtube"></i> Youtube</a>
             <a href="https://www.instagram.com/arindyproject" target="_blank" class="btn"> <i class="fab fa-instagram"></i> arindyproject</a>

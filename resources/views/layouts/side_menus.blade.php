@@ -10,6 +10,20 @@
     </a>
 </li>
 
+@if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('administration'))
+<li class="nav-item">
+    <a href="{{ route('administration') }}" class="nav-link {{ request()->is('administration/*') ? 'active' : '' }} {{ request()->is('administration') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-hospital-user"></i>
+        <p>
+            <b>
+                Administration
+            </b>
+        </p>
+
+    </a>
+</li>
+@endif
+
 
 @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('attribute'))
 <li class="nav-item">

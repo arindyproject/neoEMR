@@ -34,6 +34,12 @@ require_once __DIR__.'/w_attribute.php';
 
 
 
+//administration================================================================================================
+require_once __DIR__.'/w_administration.php'; 
+//administration================================================================================================
+
+
+
 Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
 
