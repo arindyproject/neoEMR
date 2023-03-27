@@ -43,6 +43,9 @@ class Patient extends Model
         'pendidikan_id',
         'pekerjaan_id',
 
+        'blood',
+        'note',
+
         'active',
         'author_id',
         'edithor_id',
