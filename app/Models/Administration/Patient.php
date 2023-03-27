@@ -51,20 +51,24 @@ class Patient extends Model
         'edithor_id',
     ];
 
+    public function usia(){
+        return \Carbon\Carbon::parse($this->birthDate)->diff(\Carbon\Carbon::now())->format('%y Tahun, %m Bulan, %d Hari');
+    }
+
     public function kelurahan(){
-        return $this->belongsTo('App\Models\att_alamat_kelurahans', 'address_kelurahan_id');
+        return $this->belongsTo('App\Models\attAlamatKelurahan', 'address_kelurahan_id');
     }
 
     public function kecamatan(){
-        return $this->belongsTo('App\Models\att_alamat_kecamatans', 'address_kecamatan_id');
+        return $this->belongsTo('App\Models\attAlamatKecamatan', 'address_kecamatan_id');
     }
 
     public function kota(){
-        return $this->belongsTo('App\Models\att_alamat_kotas', 'address_kota_id');
+        return $this->belongsTo('App\Models\attAlamatKota', 'address_kota_id');
     }
 
     public function provinsi(){
-        return $this->belongsTo('App\Models\att_alamat_provinsis', 'address_provinsi_id');
+        return $this->belongsTo('App\Models\attAlamatProvinsi', 'address_provinsi_id');
     }
 
 
