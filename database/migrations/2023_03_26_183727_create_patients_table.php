@@ -33,7 +33,8 @@ return new class extends Migration
            
 
             $table->string('photo')->nullable();
-
+            $table->string('no_bpjs')->nullable();
+            $table->string('no_tlp')->nullable();
             //-----------------------------------------------------------
             $table->unsignedBigInteger('agama_id')->nullable();
             $table->foreign('agama_id')->references('id')->on('att_jenis_agamas')->onDelete('set null'); 

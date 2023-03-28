@@ -18,6 +18,8 @@ class Patient extends Model
         'identity_type_id',
         'maritalStatus_id',
         'gender_id',
+        'no_bpjs',
+        'no_tlp',
 
         'postalCode',
         'address_alamat',
@@ -248,12 +250,12 @@ class Patient extends Model
                 "start" : "",
                 "end"   : ""
             },
-            "organization"  : "",
+            "organization"  : ""
         }]',
         //deceased----------------
         'deceased'  => '{
             "deceasedBoolean" : false,
             "deceasedDateTime": ""	
-        },'
+        }'
     ];
 }
