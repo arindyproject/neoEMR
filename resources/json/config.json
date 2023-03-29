@@ -60,9 +60,14 @@
                 "updated_at": null
             },
             "def_alamat_kelurahan": {
-                "id": "",
-                "nama": "",
-                "kode": ""
+                "id": 46280,
+                "kode": "35-21-101-002",
+                "kode_kelurahan": "002",
+                "nama": "CANGAKAN",
+                "att_alamat_kecamatans_id": 3708,
+                "user_id": 1,
+                "created_at": null,
+                "updated_at": null
             }
         },
         "form": {

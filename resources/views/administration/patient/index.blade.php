@@ -44,7 +44,7 @@
                                 <td>{{$item->usia()}}</td>
                                 <td>
                                     {{$item->address_alamat}},
-                                    {{$item->address_kelurahan_id   != '' ? $item->keluarahan->nama : ''}},
+                                    {{$item->address_kelurahan_id   != '' ? $item->kelurahan->nama : ''}},
                                     {{$item->address_kecamatan_id   != '' ? $item->kecamatan->nama : ''}},
                                     {{$item->address_kota_id        != '' ? $item->kota->nama : ''}},
                                     {{$item->address_provinsi_id    != '' ? $item->provinsi->nama : ''}}

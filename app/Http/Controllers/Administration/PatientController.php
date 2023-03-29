@@ -82,6 +82,7 @@ class PatientController extends Controller
     }
 
     public function store(Request $request ){
+        //----------------------------------------------------------------
         $to_val = [
             'full_name'         => "required|string|max:255",
             'place_of_birth'    => "nullable|string|max:255",
@@ -99,9 +100,40 @@ class PatientController extends Controller
             'address_kota_id'       => "nullable",
             'address_kecamatan_id'  => "nullable",
             'address_kelurahan_id'  => "nullable",
-        ];
-        $request->validate($to_val);
 
+            'note'  => "nullable",
+            'photo' => 'nullable|mimes:jpeg,png,jpg|max:4000',
+        ];
+
+        if ($this->mode_form == 'medium' || $this->mode_form == 'advance'){
+            $to_val['nama_ibu']             = "nullable"; 
+            $to_val['blood']                = "nullable"; 
+            $to_val['pendidikan_id']        = "nullable"; 
+            $to_val['pekerjaan_id']         = "nullable"; 
+            $to_val['agama_id']             = "nullable"; 
+            $to_val['kewarganegaraan_id']   = "nullable"; 
+            $to_val['suku']                 = "nullable"; 
+            $to_val['bahasa']               = "nullable"; 
+        }
+
+
+        $request->validate($to_val);
+        //----------------------------------------------------------------
+
+
+        //----------------------------------------------------------------
+        $photo_name = $request->photo;
+        if ($request->hasFile('photo')) {
+            $destinationPath = public_path('/images/dp_patient');
+            
+            $image = $request->file('photo');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $image->move($destinationPath, $name);
+            $photo_name = $name;
+        }
+        //----------------------------------------------------------------
+
+        //----------------------------------------------------------------
         $to_store = [
             'no_rm'             => Str::uuid()->toString(),
             'full_name'         => $request->full_name,
@@ -121,9 +153,25 @@ class PatientController extends Controller
             'address_kecamatan_id'  => $request->address_kecamatan_id,
             'address_kelurahan_id'  => $request->address_kelurahan_id,
 
+            'note'              => $request->note ,
+            'photo'             => $photo_name,
+            
+
             'active'    => true,
             'author_id' => Auth::user()->id
         ];
+
+        if ($this->mode_form == 'medium' || $this->mode_form == 'advance'){
+            $to_store['nama_ibu']             = $request->nama_ibu; 
+            $to_store['blood']                = $request->blood; 
+            $to_store['pendidikan_id']        = $request->pendidikan_id; 
+            $to_store['pekerjaan_id']         = $request->pekerjaan_id; 
+            $to_store['agama_id']             = $request->agama_id; 
+            $to_store['kewarganegaraan_id']   = $request->kewarganegaraan_id; 
+            $to_store['suku']                 = $request->suku; 
+            $to_store['bahasa']               = $request->bahasa; 
+        }
+        //----------------------------------------------------------------
        
         $pasien = Patient::create($to_store);
         if($pasien){

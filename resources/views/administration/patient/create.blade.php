@@ -16,7 +16,7 @@
 @endpush
 
 @section('content')
-<form action="{{Route('patient.store')}}" method="POST" class="form form-sm">
+<form action="{{Route('patient.store')}}" method="POST" class="form form-sm" enctype="multipart/form-data">
     @csrf
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -448,7 +448,7 @@
                                 </div>
                                 <!-- ---------------------------------------------------- -->
                             </div>
-                            <button type="submit" class="btn btn-success btn-block">SIMPAN</button>
+                            
                         </div>
                     </div>
                     <!-- ---------------------------------------------------- -->
@@ -458,6 +458,8 @@
         </div>
     </div>
 </div>
+
+<button type="submit" class="btn btn-success btn-block">SIMPAN</button>
 </form>
 
 
