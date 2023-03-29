@@ -20,16 +20,19 @@
                     {{$data->identity_type_id != '' ? $data->identityType->nama : ''}} <b class="float-right">{{$data->identity_number}}</b>
                 </li>
                 <li class="list-group-item">
-                    No HP <b class="float-right"></b>
+                    No HP/TLP <b class="float-right">{{$data->no_tlp}}</b>
+                </li>
+                <li class="list-group-item">
+                    BPJS/JKN <b class="float-right">{{$data->no_bpjs}}</b>
                 </li>
 
                 <li class="list-group-item">
                     Status
                     <b class="float-right">
                         @if($data->active == 1)
-                        AKTIF
+                        <i class="text-success">AKTIF</i>
                         @else
-                        NON AKTIF
+                        <i class="text-danger">NON AKTIF</i>
                         @endif
                     </b>
                 </li>

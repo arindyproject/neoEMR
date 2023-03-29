@@ -30,6 +30,8 @@
                         <th>Usia</th>
                         <th>Alamat</th>
                         <th>Kartu Identitas</th>
+                        <th>BPJS / JKN</th>
+                        <th>No TLP/HP</th>
                         <th>Menu</th>
                     </thead>
                     <tbody>
@@ -51,6 +53,8 @@
                                     {{$item->identity_type_id != '' ? $item->identityType->nama : ''}}:
                                     {{$item->identity_number}}
                                 </td>
+                                <td>{{$item->no_bpjs}}</td>
+                                <td>{{$item->no_tlp}}</td>
                                 <td>
                                     <a href="{{Route('patient.show', $item->no_rm)}}" class="btn btn-info btn-sm">Lihat</a>
                                 </td>

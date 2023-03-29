@@ -131,7 +131,7 @@
 
         //====================================================================================
         var s_country = $('.select2-country').select2({
-            
+            allowClear: true,
             placeholder: "Choose items...",
             minimumInputLength: 2,
             ajax: {
@@ -166,7 +166,7 @@
 
         //====================================================================================
         var s_kelurahan = $('.select2-kelurahan').select2({
-            
+            allowClear: true,
             placeholder: "Choose items...",
             minimumInputLength: 2,
             ajax: {
@@ -175,7 +175,7 @@
                 data: function (params) {
                     var query = {
                         q: params.term,
-                        id_kota : id_kecamatan
+                        id_kecamatan : id_kecamatan
                     }
                     return query;
                 },
@@ -205,7 +205,7 @@
 
         //====================================================================================
         var s_kecamatan = $('.select2-kecamatan').select2({
-            
+            allowClear: true,
             placeholder: "Choose items...",
             minimumInputLength: 2,
             ajax: {
@@ -246,7 +246,7 @@
 
         //====================================================================================
         var s_kota = $('.select2-kota').select2({
-            
+            allowClear: true,
             placeholder: "Choose items...",
             minimumInputLength: 2,
             ajax: {
@@ -290,7 +290,7 @@
         
         //====================================================================================
         var s_provinsi = $('.select2-provinsi').select2({
-            
+            allowClear: true,
             placeholder: "Choose items...",
             minimumInputLength: 2,
             ajax: {

@@ -17,6 +17,13 @@ class Config extends Model
         return $jsn['setting']['default'];
     }
 
+
+    public static function get_setting_form(){
+        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $jsn = json_decode($jsonString, true);
+        return $jsn['setting']['form'];
+    }
+
     public static function put_setting_default_alamat($country, $provinsi, $kota, $kecamatan, $kelurahan){
         $jsonString = file_get_contents(base_path('resources/json/config.json'));
         $data =  json_decode($jsonString, true);

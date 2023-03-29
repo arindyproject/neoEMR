@@ -159,8 +159,8 @@ class AlamatKelurahanController extends Controller
             select("kode", "kode_kelurahan","nama", "id")
             ->where('nama', 'LIKE', '%'. $request->get('q'). '%')
             ->where(function($query) use($request){
-                if($request->id_kota != ''){
-                    return $query->where('att_alamat_kecamatans_id', $request->id_kota);
+                if($request->id_kecamatan != ''){
+                    return $query->where('att_alamat_kecamatans_id', $request->id_kecamatan);
                 }
             })
             ->get();
