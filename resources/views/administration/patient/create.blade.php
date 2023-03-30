@@ -457,12 +457,21 @@
             </div>
         </div>
     </div>
+
+    <!-- advance --------------------------------------------- -->
+    @if ($mode_form == 'advance')
+    @include('administration.patient.advance_create')
+    @endif
+    <!-- advance --------------------------------------------- -->
+
 </div>
 
 <button type="submit" class="btn btn-success btn-block">SIMPAN</button>
 </form>
 
-
+@if ($mode_form == 'advance')
+@include('administration.patient.script_advance')
+@endif
 
 @include('administration.patient.scripts')
 @include('administration.m_float')
