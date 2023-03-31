@@ -17,26 +17,27 @@
             <div class="card-header bg-{{$bg}}">
                 <h3 class="card-title"><i class="fas fa-fire"></i> {{$title}}</h3>
             </div>
-            <div class="card-body">
-                <form action="{{Route($url_name_use)}}" method="POST" class="form ">
+            <div class="card-body table-responsive">
+                <form action="{{Route($urls_, $name)}}" method="POST" class="form ">
                     @csrf
+                    @method('PUT')
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-link"></i></span>
                         </div>
                         <input type="text" class="form-control" name="url" value="{{$data['url']}}">
                         <span class="input-group-append">
-                            <button type="submit" class="btn btn-info btn-flat"><i class="fas fa-save"></i> save url</button>
-                            <button type="button" class="btn btn-success btn-flat"><i class="fas fa-file-download"></i> download</button>
+                            <button type="submit" class="btn btn-success btn-flat"><i class="fas fa-file-download"></i> download</button>
                         </span>
                     </div>
                 </form>
 
-                @if ($json != '' && $json['text']['div'] != '')
+                @if ($json && $json['text']['div'] != '')
                     <div class="p-4">
                         {!! $json['text']['div'] !!}
                     </div>
                 @endif
+                
             </div>
         </div>
     </div>
@@ -49,7 +50,7 @@
             <div class="card-header bg-{{$bg}}">
                 <h3 class="card-title"><i class="fas fa-code"></i> JSON - {{$title}}</h3>
             </div>
-            <div class="card-body">
+            <div class="card-body p-0">
                 <textarea id="json-input" autocomplete="off" hidden>
                     {{json_encode($json)}}
                 </textarea>

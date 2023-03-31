@@ -81,6 +81,42 @@
             "name-use": {
                 "url": "https://www.hl7.org/fhir/codesystem-name-use.json",
                 "file": "codesystem-name-use.json"
+            },
+            "identifier-use": {
+                "url": "https://www.hl7.org/fhir/codesystem-identifier-use.json",
+                "file": "codesystem-identifier-use.json"
+            },
+            "identifier-type": {
+                "url": "https://terminology.hl7.org/3.1.0/CodeSystem-v2-0203.json",
+                "file": "codesystem-identifier-type.json"
+            },
+            "contact-point-system": {
+                "url": "https://www.hl7.org/fhir/codesystem-contact-point-system.json",
+                "file": "codesystem-contact-point-system.json"
+            },
+            "contact-point-use": {
+                "url": "https://www.hl7.org/fhir/codesystem-contact-point-use.json",
+                "file": "codesystem-contact-point-use.json"
+            },
+            "address-use": {
+                "url": "https://www.hl7.org/fhir/codesystem-address-use.json",
+                "file": "codesystem-address-use.json"
+            },
+            "address-type": {
+                "url": "https://www.hl7.org/fhir/codesystem-address-type.json",
+                "file": "codesystem-address-type.json"
+            },
+            "marital-status": {
+                "url": "https://terminology.hl7.org/5.1.0/CodeSystem-v3-MaritalStatus.json",
+                "file": "codesystem-marital-status.json"
+            },
+            "patient-contact-relationship": {
+                "url": "https://terminology.hl7.org/5.1.0/CodeSystem-v2-0131.json",
+                "file": "codesystem-patient-contact-relationship.json"
+            },
+            "administrative-gender": {
+                "url": "https://www.hl7.org/fhir/codesystem-administrative-gender.json",
+                "file": "codesystem-administrative-gender.json"
             }
         }
     }

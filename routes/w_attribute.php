@@ -83,14 +83,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
 
 
         //--------------fhair_hl7---------------------------------------------------------------------------------
-        //index-----------------------------------------------------------------------------------------------
-        Route::get('attributes/fhair_hl7/index', 'Attributes\FhairHl7ResourceController@index')->name('attributes.fhair_hl7.index');
-        //index-----------------------------------------------------------------------------------------------
+        Route::get('attributes/fhair_hl7/setting', 'Attributes\FhairHl7ResourceController@setting')->name('attributes.fhair_hl7.setting');
+        Route::post('attributes/fhair_hl7/setting', 'Attributes\FhairHl7ResourceController@setting_store')->name('attributes.fhair_hl7.setting');
 
-        //CodeSystem_name_use-----------------------------------------------------------------------------------------------
-        Route::get('attributes/fhair_hl7/CodeSystem_name_use', 'Attributes\FhairHl7ResourceController@CodeSystem_name_use')->name('attributes.fhair_hl7.CodeSystem_name_use');
-        Route::post('attributes/fhair_hl7/CodeSystem_name_use', 'Attributes\FhairHl7ResourceController@CodeSystem_name_use_store')->name('attributes.fhair_hl7.CodeSystem_name_use');
-        //CodeSystem_name_use-----------------------------------------------------------------------------------------------
+        Route::get('attributes/fhair_hl7/CodeSystem/{name}', 'Attributes\FhairHl7ResourceController@CodeSystem')->name('attributes.fhair_hl7.CodeSystem');
+        Route::put('attributes/fhair_hl7/CodeSystem/{name}', 'Attributes\FhairHl7ResourceController@CodeSystemStore')->name('attributes.fhair_hl7.CodeSystem');
         //--------------fhair_hl7---------------------------------------------------------------------------------
 
 
