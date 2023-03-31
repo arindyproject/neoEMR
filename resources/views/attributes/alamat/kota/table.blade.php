@@ -1,6 +1,6 @@
 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
     <div class="card">
-        <div class="card-header bg-{{\App\Models\Config::get()['navbar_variants']}} ">
+        <div class="card-header bg-{{$bg}} ">
             <h3 class="card-title">
                 <i class="fas fa-table"></i>
                 <b>Table {{$title}}</b>

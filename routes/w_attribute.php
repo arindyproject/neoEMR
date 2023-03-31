@@ -79,6 +79,21 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
 
         //--------------jenis---------------------------------------------------------------------------------
 
+
+
+
+        //--------------fhair_hl7---------------------------------------------------------------------------------
+        //index-----------------------------------------------------------------------------------------------
+        Route::get('attributes/fhair_hl7/index', 'Attributes\FhairHl7ResourceController@index')->name('attributes.fhair_hl7.index');
+        //index-----------------------------------------------------------------------------------------------
+
+        //CodeSystem_name_use-----------------------------------------------------------------------------------------------
+        Route::get('attributes/fhair_hl7/CodeSystem_name_use', 'Attributes\FhairHl7ResourceController@CodeSystem_name_use')->name('attributes.fhair_hl7.CodeSystem_name_use');
+        Route::post('attributes/fhair_hl7/CodeSystem_name_use', 'Attributes\FhairHl7ResourceController@CodeSystem_name_use_store')->name('attributes.fhair_hl7.CodeSystem_name_use');
+        //CodeSystem_name_use-----------------------------------------------------------------------------------------------
+        //--------------fhair_hl7---------------------------------------------------------------------------------
+
+
         //---------------------------------Attributes----------------------------------------------------------
     //});
     //role admin & attribute========================================================================================

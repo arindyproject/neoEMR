@@ -7,11 +7,21 @@
 
 
 <li class="nav-item dropdown d-none d-sm-inline-block">
-    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle {{ request()->is('attributes/jenis/*') ? 'active' : '' }}">
         <i class="fas fa-bold"></i><b>asic</b>
     </a>
     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow" style="left: 0px; right: inherit;">
         @include('attributes.jenis.menu_basic')
+    </ul>
+</li>
+
+
+<li class="nav-item dropdown d-none d-sm-inline-block">
+    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle {{ request()->is('attributes/fhair_hl7/*') ? 'active' : '' }}">
+        <i class="fas fa-fire"></i><b> FHAIR HL7</b>
+    </a>
+    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow" style="left: 0px; right: inherit;">
+        @include('attributes.jenis.menu_fhair')
     </ul>
 </li>
 

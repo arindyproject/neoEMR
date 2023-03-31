@@ -42,6 +42,8 @@ class JenisPekerjaanController extends Controller
             'url_store' => $this->url_store,
             'url_update'=> $this->url_update,
             'url_delete'=> $this->url_delete,
+
+            'bg'        => \App\Models\Config::get()['navbar_variants'],
         ];
 
     }

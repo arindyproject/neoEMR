@@ -66,14 +66,14 @@
                 //start---------------------------------------------------------------------------------------------
                 html_name += '<div class="form-group row"> <label for="peroide_start" class="col-sm-4 col-form-label">Start</label>';
                 html_name += '<div class="col-sm-8">';
-                html_name += '<input type="date" class="form-control form-control-sm" id="peroide_start" name="peroide_start[]" placeholder="Start" >';
+                html_name += '<input type="date" class="form-control form-control-sm" id="peroide_start" name="name_peroide_start[]" placeholder="Start" >';
                 html_name += '</div></div>';
                 //start---------------------------------------------------------------------------------------------
 
                 //end---------------------------------------------------------------------------------------------
                 html_name += '<div class="form-group row"> <label for="peroide_end" class="col-sm-4 col-form-label">end</label>';
                 html_name += '<div class="col-sm-8">';
-                html_name += '<input type="date" class="form-control form-control-sm" id="peroide_end" name="peroide_end[]" placeholder="end" >';
+                html_name += '<input type="date" class="form-control form-control-sm" id="peroide_end" name="name_peroide_end[]" placeholder="end" >';
                 html_name += '</div></div>';
                 //end---------------------------------------------------------------------------------------------
             html_name += '</div></div></div>';

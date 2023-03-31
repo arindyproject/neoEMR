@@ -30,7 +30,9 @@ class AlamatSettingController extends Controller
         $this->to_return    = [
             'title'      => $this->title,
             'url_index'  => $this->url_index,
-            'url_update' => $this->url_update
+            'url_update' => $this->url_update,
+
+            'bg'        => \App\Models\Config::get()['navbar_variants'],
         ];
         
     }

@@ -17,7 +17,7 @@
     
     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
         <div class="card">
-            <div class="card-header bg-{{\App\Models\Config::get()['navbar_variants']}} ">
+            <div class="card-header bg-{{$bg}} ">
                 <h3 class="card-title">
                     <i class="fas fa-plus-circle"></i>
                     <b>UPDATE {{$title}}</b>
@@ -147,7 +147,7 @@
                         @endif
                     </div>
                     
-                    <button class="btn btn-block btn-info bg-{{\App\Models\Config::get()['navbar_variants']}}" type="submit">Simpan</button>
+                    <button class="btn btn-block btn-info bg-{{$bg}}" type="submit">Simpan</button>
                 </form>
             </div>
         </div>

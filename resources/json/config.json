@@ -75,5 +75,13 @@
                 "mode": "advance"
             }
         }
+    },
+    "fhair_hl7": {
+        "CodeSystem": {
+            "name-use": {
+                "url": "https://www.hl7.org/fhir/codesystem-name-use.json",
+                "file": "codesystem-name-use.json"
+            }
+        }
     }
 }

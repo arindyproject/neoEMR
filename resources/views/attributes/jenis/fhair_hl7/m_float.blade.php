@@ -19,11 +19,11 @@
 		<div class="card-body p-0 overflow-hidden">
             <a href="{{Route('home')}}" class="btn btn-sm btn-block btn-success"><i class="fas fa-home"></i> HOME</a>
             <ul class="nav nav-pills flex-column">
-                @include('attributes.jenis.menu_basic')
-                @include('attributes.jenis.menu_basic')
-                @include('attributes.jenis.menu_basic')
+                @include('attributes.jenis.menu_fhair')
             </ul>
+            <a href="{{Route('attributes.jenis.index')}}" class="btn btn-sm btn-block btn-success"><i class="fas fa-cogs"></i> Index Attributes</a>
         </div>
+        
 	</div>
 	<div class="st-btn-container right-bottom">
 		<div class="st-button-main"><i class="fa fa-bars" aria-hidden="true"></i></div>

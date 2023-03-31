@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header bg-{{\App\Models\Config::get()['navbar_variants']}} ">
+                <div class="card-header bg-{{$bg}} ">
                     <h3 class="card-title">
                         <i class="fas fa-cogs"></i>
                         <b>DEFAULT {{$title}}</b>
@@ -105,7 +105,7 @@
                             @endif
                         </div> 
                         
-                        <button class="btn btn-block btn-info bg-{{\App\Models\Config::get()['navbar_variants']}}" type="submit">Simpan</button>
+                        <button class="btn btn-block btn-info bg-{{$bg}}" type="submit">Simpan</button>
                     </form>
                 </div>
             </div>

@@ -6,23 +6,51 @@ use Illuminate\Database\Eloquent\Model;
 
 class Config extends Model
 {
+    //==================================================================================
     public static function get(){
         $jsonString = file_get_contents(base_path('resources/json/config.json'));
         return json_decode($jsonString, true);
     }
+    //==================================================================================
 
+
+    //==================================================================================
     public static function get_setting_default(){
         $jsonString = file_get_contents(base_path('resources/json/config.json'));
         $jsn = json_decode($jsonString, true);
         return $jsn['setting']['default'];
     }
+    //==================================================================================
 
 
+    //==================================================================================
+    public static function get_fhair_cs(){
+        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $jsn = json_decode($jsonString, true);
+        return $jsn['fhair_hl7']['CodeSystem'];
+    }
+
+    public static function put_fhair_cs_url($name, $url){
+        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $data = json_decode($jsonString, true);
+
+        // Update Key
+        $data['fhair_hl7']['CodeSystem'][$name]['url']  = $url;
+
+        // Write File
+        $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
+    }
+    //==================================================================================
+
+
+    //==================================================================================
     public static function get_setting_form(){
         $jsonString = file_get_contents(base_path('resources/json/config.json'));
         $jsn = json_decode($jsonString, true);
         return $jsn['setting']['form'];
     }
+    //==================================================================================
 
     public static function put_setting_default_alamat($country, $provinsi, $kota, $kecamatan, $kelurahan){
         $jsonString = file_get_contents(base_path('resources/json/config.json'));
