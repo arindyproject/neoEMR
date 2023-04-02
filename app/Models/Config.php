@@ -30,6 +30,50 @@ class Config extends Model
         return $jsn['fhair_hl7']['CodeSystem'];
     }
 
+    public static function get_fhair_cs_name($name){
+        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $jsn = json_decode($jsonString, true);
+        $d = $jsn['fhair_hl7']['CodeSystem'][$name];
+        if($d){
+            $js = file_get_contents(base_path('resources/json/fhir/'. $d['file']));
+            $jsn = json_decode($js, true);
+            if($jsn){
+                $dd = [];
+                foreach($jsn['concept'] as $i){
+                    $i['url']       = $jsn['url'];
+                    $i['version']   = $jsn['version'];
+                    $i['identifier']= $jsn['identifier'];
+                    array_push($dd, $i);
+                }
+                return $dd;
+            }
+        }
+        return [
+            [
+                'code' => null,
+                'display' => 'none'
+            ]
+        ];
+    }
+
+    public static function get_fhair_cs_name_code($name,$code){
+        $d = self::get_fhair_cs_name($name);
+        foreach($d as $i){
+            if($i['code'] == $code){
+                return [
+                    'code' => [
+                        'system'    => $i['url'],
+                        'version'   => $i['version'],
+                        'code'      => $i['code'],
+                        'display'   => $i['display'],
+                    ],
+                    'text' => $i['definition']
+                ];
+            }
+        }
+        return null;
+    }
+
     public static function put_fhair_cs_url($name, $url){
         $jsonString = file_get_contents(base_path('resources/json/config.json'));
         $data = json_decode($jsonString, true);

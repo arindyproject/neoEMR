@@ -117,6 +117,10 @@
             "administrative-gender": {
                 "url": "https://www.hl7.org/fhir/codesystem-administrative-gender.json",
                 "file": "codesystem-administrative-gender.json"
+            },
+            "administrative-gender2": {
+                "url": "https://www.hl7.org/fhir/codesystem-administrative-gender.json",
+                "file": "codesystem-administrative-gender2.json"
             }
         }
     }

@@ -77,6 +77,12 @@ class PatientController extends Controller
         $this->to_return['country']         = attAlamatCountry::get();
 
         $this->to_return['default']         = Config::get_setting_default();
+        //return Config::get_fhair_cs_name_code('identifier-type','AC');
+        if($this->mode_form == 'advance'){
+            $this->to_return['name_use']        = Config::get_fhair_cs_name('name-use');
+            $this->to_return['identifier_use']  = Config::get_fhair_cs_name('identifier-use');
+            $this->to_return['identifier_type']  = Config::get_fhair_cs_name('identifier-type');
+        }
 
         return view('administration.patient.create', $this->to_return);
     }

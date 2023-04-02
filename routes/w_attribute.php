@@ -85,6 +85,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
         //--------------fhair_hl7---------------------------------------------------------------------------------
         Route::get('attributes/fhair_hl7/setting', 'Attributes\FhairHl7ResourceController@setting')->name('attributes.fhair_hl7.setting');
         Route::post('attributes/fhair_hl7/setting', 'Attributes\FhairHl7ResourceController@setting_store')->name('attributes.fhair_hl7.setting');
+        Route::delete('attributes/fhair_hl7/setting/delete/{name}', 'Attributes\FhairHl7ResourceController@setting_delete')->name('attributes.fhair_hl7.setting.delete');
 
         Route::get('attributes/fhair_hl7/CodeSystem/{name}', 'Attributes\FhairHl7ResourceController@CodeSystem')->name('attributes.fhair_hl7.CodeSystem');
         Route::put('attributes/fhair_hl7/CodeSystem/{name}', 'Attributes\FhairHl7ResourceController@CodeSystemStore')->name('attributes.fhair_hl7.CodeSystem');

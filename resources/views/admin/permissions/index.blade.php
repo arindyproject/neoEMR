@@ -118,10 +118,10 @@
                                         <a class="btn btn-sm btn-warning" href="{{Route('admin.permissions.edit', $item->id)}}"><i
                                             class="fas fa-edit"></i></a>
                                         <form action="{{Route('admin.permissions.delete', $item->id)}}" method="post"
-                                            class="delete-submit-form">
+                                            class="delete-submit-forms">
                                             @csrf
                                             @method('DELETE')
-                                            <button onclick="return false" class="btn btn-sm btn-danger delete-btn"><i
+                                            <button onclick="return ConfirmDelete();" class="btn btn-sm btn-danger delete-btns"><i
                                                     class="fas fa-trash-alt"></i></button>
                                         </form>
                                         @endif
@@ -140,4 +140,5 @@
 </div>
 @include('admin.m_float')
 @include('admin.scripts')
+
 @endsection

@@ -238,9 +238,15 @@
 
     <script type="text/javascript">
 
+        function ConfirmDelete()
+        {
+        return confirm("Are you sure you want to delete?");
+        }
+
         $(document).on('select2:open', () => {
             document.querySelector('.select2-search__field').focus();
         });
+
      
         $(function () {
             $('.delete-btn').on('click', function (e) {

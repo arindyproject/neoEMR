@@ -1,5 +1,9 @@
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/selectize/selectize.bootstrap3.min.css') }}"> 
+@endpush
+
 <!--Name ----------------------------------------------------------- -->
-<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
     <div class="card  collapsed-card">
         <div class="card-header bg-{{$bg}}">
             <h3 class="card-title">
@@ -8,7 +12,6 @@
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                 </button>
-
             </div>
         </div>
 
@@ -24,7 +27,7 @@
 
 
 <!--Identifier ----------------------------------------------------------- -->
-<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
     <div class="card  collapsed-card">
         <div class="card-header bg-{{$bg}}">
             <h3 class="card-title">
@@ -33,7 +36,6 @@
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                 </button>
-
             </div>
         </div>
 
@@ -41,6 +43,7 @@
             <div id="form-identifier">
 
             </div>
+            <button type="button" class="btn btn-sm btn-info btn-block btn-add-identifier"><i class="fas fa-plus-circle"></i> ADD</button>
         </div>
     </div>
 </div>
@@ -48,7 +51,7 @@
 
 
 <!--contact ----------------------------------------------------------- -->
-<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
     <div class="card  collapsed-card">
         <div class="card-header bg-{{$bg}}">
             <h3 class="card-title">
@@ -69,7 +72,7 @@
 
 
 <!--communication ----------------------------------------------------------- -->
-<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
     <div class="card  collapsed-card">
         <div class="card-header bg-{{$bg}}">
             <h3 class="card-title">
@@ -91,7 +94,7 @@
 
 
 <!--address ----------------------------------------------------------- -->
-<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
     <div class="card  collapsed-card">
         <div class="card-header bg-{{$bg}}">
             <h3 class="card-title">
@@ -113,7 +116,7 @@
 
 
 <!--telecom ----------------------------------------------------------- -->
-<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
     <div class="card  collapsed-card">
         <div class="card-header bg-{{$bg}}">
             <h3 class="card-title">

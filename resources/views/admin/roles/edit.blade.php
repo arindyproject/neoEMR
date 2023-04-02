@@ -132,10 +132,10 @@
                                         <a class="btn btn-sm btn-warning" href="{{Route('admin.roles.edit', $item->id)}}"><i
                                             class="fas fa-edit"></i></a>
                                         <form action="{{Route('admin.roles.delete', $item->id)}}" method="post"
-                                            class="delete-submit-form">
+                                            class="delete-submit-forms">
                                             @csrf
                                             @method('DELETE')
-                                            <button onclick="return false" class="btn btn-sm btn-danger delete-btn"><i
+                                            <button onclick="return ConfirmDelete();" class="btn btn-sm btn-danger delete-btns"><i
                                                     class="fas fa-trash-alt"></i></button>
                                         </form>
                                         @endif

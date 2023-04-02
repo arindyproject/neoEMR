@@ -60,9 +60,16 @@
                             <td>{{$i}}</td>
                             <td>{{$item['url']}}</td>
                             <td>{{$item['file']}}</td>
-                            <td>
+                            <td class="btn-group">
                                 <a href="{{Route($urls_, $i)}}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i>
                                     lihat</a>
+                                
+                                <form action="{{Route($url_setting. '.delete', $i)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button onclick="return ConfirmDelete();" class="btn btn-sm btn-danger"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

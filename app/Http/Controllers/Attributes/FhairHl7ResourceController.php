@@ -19,6 +19,7 @@ class FhairHl7ResourceController extends Controller
         $this->conf_cs      = Config::get_fhair_cs();
         $this->view_index   = 'attributes.jenis.fhair_hl7.index';
         $this->view_setting = 'attributes.jenis.fhair_hl7.setting';
+        $this->view_setting_edit = 'attributes.jenis.fhair_hl7.setting_edit';
         $this->urls_        = 'attributes.fhair_hl7.CodeSystem';
         $this->to_return    = [
             'title'     => $this->title,
@@ -91,7 +92,34 @@ class FhairHl7ResourceController extends Controller
         ];
         $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
         file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
-        return redirect()->back()->with('success', $this->title .' Berhasil DiTambahkan!!');
+
+
+        $response = @file_get_contents($request->url);
+        if($response  === FALSE){
+            return redirect()->back()->with('error', $this->title .' JSON file gagal di Download');
+        }else{
+            $newsData = json_decode($response);
+            $json     = response()->json($newsData)->getData();
+            $newJsonString = json_encode($json, JSON_PRETTY_PRINT);
+            file_put_contents(base_path('resources/json/fhir/' . $request->file), $newJsonString);
+            return redirect()->back()->with('success', $this->title .' Berhasil DiTambahkan!!');
+        }
+        
+    }
+
+    public function setting_delete($name){
+        $d = $this->conf_cs[$name];
+
+        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $data = json_decode($jsonString, true);
+        $del = File::delete(base_path('resources/json/fhir/' . $d['file']));
+
+        unset($data['fhair_hl7']['CodeSystem'][$name]);
+        $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
+
+        //return $d;
+        return redirect()->back()->with('success', 'Berhasil diHapus!!');
     }
     //==========================================================================================
 
