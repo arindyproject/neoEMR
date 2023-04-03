@@ -529,7 +529,7 @@
         var html_contact    = '<div class="callout callout-info">';
 
             //relationship------------------------------------------------------------------------------------------
-            html_contact += '<div class="form-group row"><label for="relationship" class="col-sm-2 col-form-label">Relationship</label><div class="col-sm-10">';
+            html_contact += '<div class="form-group row"><label for="relationship" class="col-sm-3 col-form-label">Relationship</label><div class="col-sm-9">';
             html_contact += '<select name="contact_relationship[]" id="contact_relationship" class="form-control form-control-sm " >';
             html_contact += '<option value="">select item...</option>';
             @foreach($contact_relationship as $itm)
@@ -538,6 +538,33 @@
             html_contact += '</select>';
             html_contact += '</div></div>';
             // relationship------------------------------------------------------------------------------------------
+
+
+            //name------------------------------------------------------------------------------------------------
+            html_contact += '<label for="name" class="col-sm-12 col-form-label">name</label><div class="form-group row">';
+            html_contact += '<div class="col-sm-12">';
+            html_contact += '<div class="callout callout-success">';
+                //use------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="use" class="col-sm-2 col-form-label">Use</label><div class="col-sm-10">';
+                html_contact += '<select name="contact_name_use[]" id="use" class="form-control form-control-sm " required>';
+                html_contact += '<option value="">select item...</option>';
+                @foreach($name_use as $itm)
+                html_contact += '<option value="{!! $itm['code'] !!}">{!! $itm['display'] !!}</option>';
+                @endforeach
+                html_contact += '</select>';
+                html_contact += '</div></div>';
+                //use------------------------------------------------------------------------------------------
+
+                //text------------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="text" class="col-sm-2 col-form-label">Text</label>';
+                html_contact += '<div class="col-sm-10">';
+                html_contact += '<input name="contact_name_text[]" type="text" class="form-control form-control-sm" id="text" placeholder="text" >';
+                html_contact += '<small>Text representation of the full name</small>';
+                html_contact += '</div></div>';
+                //text------------------------------------------------------------------------------------------------
+
+            html_contact += '</div></div></div>';
+            //name------------------------------------------------------------------------------------------------
 
         
         html_contact += '<hr>';
