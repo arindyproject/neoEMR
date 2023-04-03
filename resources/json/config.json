@@ -121,6 +121,10 @@
             "administrative-gender2": {
                 "url": "https://www.hl7.org/fhir/codesystem-administrative-gender.json",
                 "file": "codesystem-administrative-gender2.json"
+            },
+            "valueset-languages": {
+                "url": "https://www.hl7.org/fhir/valueset-languages.json",
+                "file": "valueset-languages.json"
             }
         }
     }

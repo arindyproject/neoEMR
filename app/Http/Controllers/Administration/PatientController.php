@@ -77,11 +77,21 @@ class PatientController extends Controller
         $this->to_return['country']         = attAlamatCountry::get();
 
         $this->to_return['default']         = Config::get_setting_default();
-        //return Config::get_fhair_cs_name_code('identifier-type','AC');
+        //return Config::get_fhair_cs_name('patient-contact-relationship');
         if($this->mode_form == 'advance'){
-            $this->to_return['name_use']        = Config::get_fhair_cs_name('name-use');
-            $this->to_return['identifier_use']  = Config::get_fhair_cs_name('identifier-use');
-            $this->to_return['identifier_type']  = Config::get_fhair_cs_name('identifier-type');
+            $this->to_return['name_use']            = Config::get_fhair_cs_name('name-use');
+            $this->to_return['identifier_use']      = Config::get_fhair_cs_name('identifier-use');
+            $this->to_return['identifier_type']     = Config::get_fhair_cs_name('identifier-type');
+            
+            $this->to_return['address_use']         = Config::get_fhair_cs_name('address-use');
+            $this->to_return['address_type']        = Config::get_fhair_cs_name('address-type');
+
+            $this->to_return['telecom_use']         = Config::get_fhair_cs_name('contact-point-use');
+            $this->to_return['telecom_system']      = Config::get_fhair_cs_name('contact-point-system');
+
+            $this->to_return['valueset_languages']  = Config::get_fhair_vs_name('valueset-languages');
+
+            $this->to_return['contact_relationship']= Config::get_fhair_cs_name('patient-contact-relationship');
         }
 
         return view('administration.patient.create', $this->to_return);

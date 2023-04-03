@@ -31,13 +31,11 @@
                         </span>
                     </div>
                 </form>
-
                 @if ($json && $json['text']['div'] != '')
                     <div class="p-4">
                         {!! $json['text']['div'] !!}
                     </div>
                 @endif
-                
             </div>
         </div>
     </div>
@@ -54,7 +52,6 @@
                 <textarea id="json-input" autocomplete="off" hidden>
                     {{json_encode($json)}}
                 </textarea>
-
                 <pre id="json-display"></pre>
             </div>
         </div>

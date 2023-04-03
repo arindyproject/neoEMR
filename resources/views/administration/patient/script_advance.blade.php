@@ -227,9 +227,348 @@
 
 
 
+        //communication=============================================================================================
+        var add_communication     = $(".btn-add-communication");
+        var form_communication    = $('#form-communication');
+        var x_communication       = 1;
+
+        var html_communication    = '<div class="callout callout-info">';
+
+            //language------------------------------------------------------------------------------------------
+            html_communication += '<div class="form-group row"><label for="type" class="col-sm-2 col-form-label">Language</label><div class="col-sm-10">';
+            html_communication += '<select name="language[]" id="language" class="form-control form-control-sm " required>';
+            html_communication += '<option value="">select item...</option>';
+            @foreach($valueset_languages as $itm)
+            html_communication += '<option value="{{ $itm['code'] }}">{{ $itm['code'] }} : {{ $itm['display'] }}</option>';
+            @endforeach
+            html_communication += '</select>';
+            html_communication += '</div></div>';
+            //language------------------------------------------------------------------------------------------
+
+        html_communication += '<hr>';
+        html_communication += '<button type="button" class="btn btn-sm btn-danger btn-block btn-remove-communication"><i class="fas fa-minus-circle"></i> Remove</button>';
+        html_communication += '</div>';
+
+        $(add_communication).click(function(e) {
+            e.preventDefault();
+            $(form_communication).append(html_communication); //add input box
+            $('select').selectize({
+                sortField: 'text'
+            });
+        });
+        $(form_communication).on("click", ".btn-remove-communication", function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure ?',
+                text: "apakah anda yakin menghapus item ini?? ",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent('div').remove();
+                    x_communication--;
+                }
+            });
+        });
+        //communication=============================================================================================
 
 
+
+
+        //address==================================================================================================
+        var add_address     = $(".btn-add-address");
+        var form_address    = $('#form-address');
+        var x_address       = 1;
+
+        var html_address    = '<div class="callout callout-info">';
+            //use------------------------------------------------------------------------------------------
+            html_address += '<div class="form-group row"><label for="use" class="col-sm-2 col-form-label">Use</label><div class="col-sm-10">';
+            html_address += '<select name="address_use[]" id="address_use" class="form-control form-control-sm " required>';
+            html_address += '<option value="">select item...</option>';
+            @foreach($address_use as $itm)
+            html_address += '<option value="{{ $itm['code'] }}">{{ $itm['display'] }}</option>';
+            @endforeach
+            html_address += '</select>';
+            html_address += '</div></div>';
+            //use------------------------------------------------------------------------------------------
+
+            //type------------------------------------------------------------------------------------------
+            html_address += '<div class="form-group row"><label for="type" class="col-sm-2 col-form-label">Type</label><div class="col-sm-10">';
+            html_address += '<select name="address_type[]" id="address_type" class="form-control form-control-sm " required>';
+            html_address += '<option value="">select item...</option>';
+            @foreach($address_type as $itm)
+            html_address += '<option value="{{ $itm['code'] }}">{{ $itm['code'] }} : {{ $itm['display'] }}</option>';
+            @endforeach
+            html_address += '</select>';
+            html_address += '</div></div>';
+            //type------------------------------------------------------------------------------------------
+
+            //text------------------------------------------------------------------------------------------------
+            html_address += '<div class="form-group row"><label for="text" class="col-sm-2 col-form-label">Text</label>';
+            html_address += '<div class="col-sm-10">';
+            html_address += '<input name="address_text[]" type="text" class="form-control form-control-sm" id="text" placeholder="text" >';
+            html_address += '<small>Text representation of the address</small>';
+            html_address += '</div></div>';
+            //text------------------------------------------------------------------------------------------------
+
+            //line------------------------------------------------------------------------------------------------
+            html_address += '<div class="form-group row"><label for="text" class="col-sm-2 col-form-label">Line</label>';
+            html_address += '<div class="col-sm-10">';
+            html_address += '<input name="address_line[]" type="text" class="form-control form-control-sm" id="line" placeholder="line" >';
+            html_address += '<small>Street name, number, direction & P.O. Box etc. This repeating element order: The order in which lines should appear in an address label</small>';
+            html_address += '</div></div>';
+            //line------------------------------------------------------------------------------------------------
+
+            //city------------------------------------------------------------------------------------------------
+            html_address += '<div class="form-group row"><label for="city" class="col-sm-2 col-form-label">City</label>';
+            html_address += '<div class="col-sm-10">';
+            html_address += '<input name="address_city[]" type="text" class="form-control form-control-sm" id="city" placeholder="city" >';
+            html_address += '<small>Name of city, town etc.</small>';
+            html_address += '</div></div>';
+            //city------------------------------------------------------------------------------------------------
+
+            //district------------------------------------------------------------------------------------------------
+            html_address += '<div class="form-group row"><label for="district" class="col-sm-2 col-form-label">District</label>';
+            html_address += '<div class="col-sm-10">';
+            html_address += '<input name="address_district[]" type="text" class="form-control form-control-sm" id="district" placeholder="district" >';
+            html_address += '<small>District name (aka county)</small>';
+            html_address += '</div></div>';
+            //district------------------------------------------------------------------------------------------------
+
+            //state------------------------------------------------------------------------------------------------
+            html_address += '<div class="form-group row"><label for="state" class="col-sm-2 col-form-label">State</label>';
+            html_address += '<div class="col-sm-10">';
+            html_address += '<input name="address_state[]" type="text" class="form-control form-control-sm" id="state" placeholder="state" >';
+            html_address += '<small>Sub-unit of country (abbreviations ok)</small>';
+            html_address += '</div></div>';
+            //state------------------------------------------------------------------------------------------------
+
+            //postalCode------------------------------------------------------------------------------------------------
+            html_address += '<div class="form-group row"><label for="postalCode" class="col-sm-2 col-form-label">postalCode</label>';
+            html_address += '<div class="col-sm-10">';
+            html_address += '<input name="address_postalCode[]" type="text" class="form-control form-control-sm" id="postalCode" placeholder="postalCode" >';
+            html_address += '<small>Postal code for area</small>';
+            html_address += '</div></div>';
+            //postalCode	------------------------------------------------------------------------------------------------
+
+            //country------------------------------------------------------------------------------------------------
+            html_address += '<div class="form-group row"><label for="country" class="col-sm-2 col-form-label">Country</label>';
+            html_address += '<div class="col-sm-10">';
+            html_address += '<input name="address_country[]" type="text" class="form-control form-control-sm" id="country" placeholder="country" >';
+            html_address += '<small>Country (e.g. may be ISO 3166 2 or 3 letter code)</small>';
+            html_address += '</div></div>';
+            //country------------------------------------------------------------------------------------------------
+
+            //peroide------------------------------------------------------------------------------------------------
+            html_address += '<label for="peroide" class="col-sm-12 col-form-label">peroide</label><div class="form-group row">';
+            html_address += '<div class="col-sm-12">';
+            html_address += '<div class="callout callout-success">';
+            html_address += '<small>Time period when name was/is in use</small>';
+                //start---------------------------------------------------------------------------------------------
+                html_address += '<div class="form-group row"> <label for="peroide_start" class="col-sm-4 col-form-label">Start</label>';
+                html_address += '<div class="col-sm-8">';
+                html_address += '<input type="date" class="form-control form-control-sm" id="address_peroide_start" name="address_peroide_start[]" placeholder="Start" >';
+                html_address += '</div></div>';
+                //start---------------------------------------------------------------------------------------------
+
+                //end---------------------------------------------------------------------------------------------
+                html_address += '<div class="form-group row"> <label for="peroide_end" class="col-sm-4 col-form-label">end</label>';
+                html_address += '<div class="col-sm-8">';
+                html_address += '<input type="date" class="form-control form-control-sm" id="address_peroide_end" name="address_peroide_end[]" placeholder="end" >';
+                html_address += '</div></div>';
+                //end---------------------------------------------------------------------------------------------
+                html_address += '</div></div></div>';
+            //peroide------------------------------------------------------------------------------------------------
+
+
+        
+        html_address += '<hr>';
+        html_address += '<button type="button" class="btn btn-sm btn-danger btn-block btn-remove-address"><i class="fas fa-minus-circle"></i> Remove</button>';
+        html_address += '</div>';
+
+
+        $(add_address).click(function(e) {
+            e.preventDefault();
+            $(form_address).append(html_address); //add input box
+            $('select').selectize({
+                sortField: 'text'
+            });
+        });
+        $(form_address).on("click", ".btn-remove-address", function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure ?',
+                text: "apakah anda yakin menghapus item ini?? ",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent('div').remove();
+                    x_address--;
+                }
+            });
+        });
+        //address==================================================================================================
+
+
+
+
+        //telecom==================================================================================================
+        var add_telecom     = $(".btn-add-telecom");
+        var form_telecom    = $('#form-telecom');
+        var x_telecom       = 1;
+
+        var html_telecom    = '<div class="callout callout-info">';
             
+            //use------------------------------------------------------------------------------------------
+            html_telecom += '<div class="form-group row"><label for="use" class="col-sm-2 col-form-label">Use</label><div class="col-sm-10">';
+            html_telecom += '<select name="telecom_use[]" id="telecom_use" class="form-control form-control-sm " required>';
+            html_telecom += '<option value="">select item...</option>';
+            @foreach($telecom_use as $itm)
+            html_telecom += '<option value="{{ $itm['code'] }}">{{ $itm['display'] }}</option>';
+            @endforeach
+            html_telecom += '</select>';
+            html_telecom += '</div></div>';
+            //use------------------------------------------------------------------------------------------
+
+
+            //system------------------------------------------------------------------------------------------
+            html_telecom += '<div class="form-group row"><label for="use" class="col-sm-2 col-form-label">System</label><div class="col-sm-10">';
+            html_telecom += '<select name="telecom_system[]" id="telecom_system" class="form-control form-control-sm " required>';
+            html_telecom += '<option value="">select item...</option>';
+            @foreach($telecom_system as $itm)
+            html_telecom += '<option value="{{ $itm['code'] }}">{{ $itm['display'] }}</option>';
+            @endforeach
+            html_telecom += '</select>';
+            html_telecom += '</div></div>';
+            //system------------------------------------------------------------------------------------------
+
+
+            //value------------------------------------------------------------------------------------------------
+            html_telecom += '<div class="form-group row"><label for="value" class="col-sm-2 col-form-label">Value</label>';
+            html_telecom += '<div class="col-sm-10">';
+            html_telecom += '<input name="telecom_value[]" type="text" class="form-control form-control-sm" id="value" placeholder="value" required>';
+            html_telecom += '<small>The actual contact point details</small>';
+            html_telecom += '</div></div>';
+            //value	------------------------------------------------------------------------------------------------
+
+            //rank------------------------------------------------------------------------------------------------
+            html_telecom += '<div class="form-group row"><label for="rank" class="col-sm-2 col-form-label">Rank</label>';
+            html_telecom += '<div class="col-sm-10">';
+            html_telecom += '<input name="telecom_rank[]" type="number" min="1" class="form-control form-control-sm" id="rank" placeholder="rank" >';
+            html_telecom += '<small>Specify preferred order of use (1 = highest)</small>';
+            html_telecom += '</div></div>';
+            //rank	------------------------------------------------------------------------------------------------   
+            
+
+            //peroide------------------------------------------------------------------------------------------------
+            html_telecom += '<label for="peroide" class="col-sm-12 col-form-label">peroide</label><div class="form-group row">';
+            html_telecom += '<div class="col-sm-12">';
+            html_telecom += '<div class="callout callout-success">';
+            html_telecom += '<small>Time period when name was/is in use</small>';
+                //start---------------------------------------------------------------------------------------------
+                html_telecom += '<div class="form-group row"> <label for="peroide_start" class="col-sm-4 col-form-label">Start</label>';
+                html_telecom += '<div class="col-sm-8">';
+                html_telecom += '<input type="date" class="form-control form-control-sm" id="telecom_peroide_start" name="telecom_peroide_start[]" placeholder="Start" >';
+                html_telecom += '</div></div>';
+                //start---------------------------------------------------------------------------------------------
+
+                //end---------------------------------------------------------------------------------------------
+                html_telecom += '<div class="form-group row"> <label for="peroide_end" class="col-sm-4 col-form-label">end</label>';
+                html_telecom += '<div class="col-sm-8">';
+                html_telecom += '<input type="date" class="form-control form-control-sm" id="telecom_peroide_end" name="telecom_peroide_end[]" placeholder="end" >';
+                html_telecom += '</div></div>';
+                //end---------------------------------------------------------------------------------------------
+                html_telecom += '</div></div></div>';
+            //peroide------------------------------------------------------------------------------------------------
+
+
+        html_telecom += '<hr>';
+        html_telecom += '<button type="button" class="btn btn-sm btn-danger btn-block btn-remove-telecom"><i class="fas fa-minus-circle"></i> Remove</button>';
+        html_telecom += '</div>';
+
+
+        $(add_telecom).click(function(e) {
+            e.preventDefault();
+            $(form_telecom).append(html_telecom); //add input box
+            $('select').selectize({
+                sortField: 'text'
+            });
+        });
+        $(form_telecom).on("click", ".btn-remove-telecom", function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure ?',
+                text: "apakah anda yakin menghapus item ini?? ",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent('div').remove();
+                    x_telecom--;
+                }
+            });
+        });
+        //telecom==================================================================================================
+
+        
+        //contact==================================================================================================
+        var add_contact     = $(".btn-add-contact");
+        var form_contact    = $('#form-contact');
+        var x_contact       = 1;
+
+        var html_contact    = '<div class="callout callout-info">';
+
+            //relationship------------------------------------------------------------------------------------------
+            html_contact += '<div class="form-group row"><label for="relationship" class="col-sm-2 col-form-label">Relationship</label><div class="col-sm-10">';
+            html_contact += '<select name="contact_relationship[]" id="contact_relationship" class="form-control form-control-sm " >';
+            html_contact += '<option value="">select item...</option>';
+            @foreach($contact_relationship as $itm)
+            html_contact += '<option value="{{ $itm['code'] }}">{{ $itm['code'] }} : {{ $itm['display'] }}</option>';
+            @endforeach
+            html_contact += '</select>';
+            html_contact += '</div></div>';
+            // relationship------------------------------------------------------------------------------------------
+
+        
+        html_contact += '<hr>';
+        html_contact += '<button type="button" class="btn btn-sm btn-danger btn-block btn-remove-contact"><i class="fas fa-minus-circle"></i> Remove</button>';
+        html_contact += '</div>';
+
+        $(add_contact).click(function(e) {
+            e.preventDefault();
+            $(form_contact).append(html_contact); //add input box
+            $('select').selectize({
+                sortField: 'text'
+            });
+        });
+        $(form_contact).on("click", ".btn-remove-contact", function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure ?',
+                text: "apakah anda yakin menghapus item ini?? ",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent('div').remove();
+                    x_contact--;
+                }
+            });
+        });
+        //contact==================================================================================================
 
     });
 </script>

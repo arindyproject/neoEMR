@@ -60,11 +60,12 @@
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                 </button>
-
             </div>
         </div>
 
         <div class="card-body">
+            <div id="form-contact"></div>
+            <button type="button" class="btn btn-sm btn-info btn-block btn-add-contact"><i class="fas fa-plus-circle"></i> ADD</button>
         </div>
     </div>
 </div>
@@ -81,11 +82,12 @@
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                 </button>
-
             </div>
         </div>
 
         <div class="card-body">
+            <div id="form-communication"></div>
+            <button type="button" class="btn btn-sm btn-info btn-block btn-add-communication"><i class="fas fa-plus-circle"></i> ADD</button>
         </div>
     </div>
 </div>
@@ -108,6 +110,8 @@
         </div>
 
         <div class="card-body">
+            <div id="form-address"></div>
+            <button type="button" class="btn btn-sm btn-info btn-block btn-add-address"><i class="fas fa-plus-circle"></i> ADD</button>
         </div>
     </div>
 </div>
@@ -125,11 +129,12 @@
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                 </button>
-
             </div>
         </div>
 
         <div class="card-body">
+            <div id="form-telecom"></div>
+            <button type="button" class="btn btn-sm btn-info btn-block btn-add-telecom"><i class="fas fa-plus-circle"></i> ADD</button>
         </div>
     </div>
 </div>
