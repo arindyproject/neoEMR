@@ -82,6 +82,7 @@ class PatientController extends Controller
             $this->to_return['name_use']            = Config::get_fhair_cs_name('name-use');
             $this->to_return['identifier_use']      = Config::get_fhair_cs_name('identifier-use');
             $this->to_return['identifier_type']     = Config::get_fhair_cs_name('identifier-type');
+            $this->to_return['administrative_gender']     = Config::get_fhair_cs_name('administrative-gender');
             
             $this->to_return['address_use']         = Config::get_fhair_cs_name('address-use');
             $this->to_return['address_type']        = Config::get_fhair_cs_name('address-type');
@@ -98,6 +99,7 @@ class PatientController extends Controller
     }
 
     public function store(Request $request ){
+        /**
         //----------------------------------------------------------------
         $to_val = [
             'full_name'         => "required|string|max:255",
@@ -135,6 +137,7 @@ class PatientController extends Controller
 
         $request->validate($to_val);
         //----------------------------------------------------------------
+         */
 
 
         //----------------------------------------------------------------
@@ -188,6 +191,26 @@ class PatientController extends Controller
             $to_store['bahasa']               = $request->bahasa; 
         }
         //----------------------------------------------------------------
+
+        //--------------------------advance--------------------------------------
+        if($this->mode_form == 'advance'){
+            //name---------------------------------------------------------------
+            $name = [];
+            foreach($request->name_use as $i=>$itm){
+                $tmp_name = [
+                    'use'       => $itm,
+                    'text'      => $request->name_text[$i],
+                    'family'    => $request->name_family[$i],
+                    'given'     => $request->name_given[$i],
+                    'prefix'    => $request->name_prefix[$i],
+                    'suffix'    => $request->name_suffix[$i],
+                ];
+                array_push($name, $tmp_name);
+            }
+            return $name;
+            //name---------------------------------------------------------------
+        }
+        //--------------------------advance--------------------------------------
        
         $pasien = Patient::create($to_store);
         if($pasien){

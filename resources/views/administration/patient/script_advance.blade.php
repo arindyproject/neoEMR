@@ -29,7 +29,7 @@
             //text------------------------------------------------------------------------------------------------
             html_name += '<div class="form-group row"><label for="text" class="col-sm-2 col-form-label">Text</label>';
             html_name += '<div class="col-sm-10">';
-            html_name += '<input name="name_text[]" type="text" class="form-control form-control-sm" id="text" placeholder="text" >';
+            html_name += '<input name="name_text[]" type="text" class="form-control form-control-sm" id="text" placeholder="text" required>';
             html_name += '<small>Text representation of the full name</small>';
             html_name += '</div></div>';
             //text------------------------------------------------------------------------------------------------
@@ -545,7 +545,7 @@
             html_contact += '<div class="col-sm-12">';
             html_contact += '<div class="callout callout-success">';
                 //use------------------------------------------------------------------------------------------
-                html_contact += '<div class="form-group row"><label for="use" class="col-sm-2 col-form-label">Use</label><div class="col-sm-10">';
+                html_contact += '<div class="form-group row"><label for="use" class="col-sm-3 col-form-label">Use</label><div class="col-sm-9">';
                 html_contact += '<select name="contact_name_use[]" id="use" class="form-control form-control-sm " required>';
                 html_contact += '<option value="">select item...</option>';
                 @foreach($name_use as $itm)
@@ -556,8 +556,8 @@
                 //use------------------------------------------------------------------------------------------
 
                 //text------------------------------------------------------------------------------------------------
-                html_contact += '<div class="form-group row"><label for="text" class="col-sm-2 col-form-label">Text</label>';
-                html_contact += '<div class="col-sm-10">';
+                html_contact += '<div class="form-group row"><label for="text" class="col-sm-3 col-form-label">Text</label>';
+                html_contact += '<div class="col-sm-9">';
                 html_contact += '<input name="contact_name_text[]" type="text" class="form-control form-control-sm" id="text" placeholder="text" >';
                 html_contact += '<small>Text representation of the full name</small>';
                 html_contact += '</div></div>';
@@ -565,8 +565,163 @@
 
             html_contact += '</div></div></div>';
             //name------------------------------------------------------------------------------------------------
+            
+            // gender------------------------------------------------------------------------------------------
+            html_contact += '<div class="form-group row"><label for="use" class="col-sm-3 col-form-label">Gender</label><div class="col-sm-9">';
+            html_contact += '<select name="contact_gender[]" id="contact_gender" class="form-control form-control-sm " required>';
+            html_contact += '<option value="">select item...</option>';
+            @foreach($administrative_gender as $itm)
+            html_contact += '<option value="{{ $itm['code'] }}">{{ $itm['display'] }}</option>';
+            @endforeach
+            html_contact += '</select>';
+            html_contact += '</div></div>';
+            // gender------------------------------------------------------------------------------------------
+            
 
-        
+            //telecom------------------------------------------------------------------------------------------
+            html_contact += '<label for="address" class="col-sm-12 col-form-label">Telecom</label><div class="form-group row">';
+            html_contact += '<div class="col-sm-12">';
+            html_contact += '<div class="callout callout-success">';
+                //use------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="use" class="col-sm-2 col-form-label">Use</label><div class="col-sm-10">';
+                html_contact += '<select name="contact_telecom_use[]" id="contact_telecom_use" class="form-control form-control-sm " required>';
+                html_contact += '<option value="">select item...</option>';
+                @foreach($telecom_use as $itm)
+                html_contact += '<option value="{{ $itm['code'] }}">{{ $itm['display'] }}</option>';
+                @endforeach
+                html_contact += '</select>';
+                html_contact += '</div></div>';
+                //use------------------------------------------------------------------------------------------
+
+
+                //system------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="use" class="col-sm-2 col-form-label">System</label><div class="col-sm-10">';
+                html_contact += '<select name="contact_telecom_system[]" id="contact_telecom_system" class="form-control form-control-sm " required>';
+                html_contact += '<option value="">select item...</option>';
+                @foreach($telecom_system as $itm)
+                html_contact += '<option value="{{ $itm['code'] }}">{{ $itm['display'] }}</option>';
+                @endforeach
+                html_contact += '</select>';
+                html_contact += '</div></div>';
+                //system------------------------------------------------------------------------------------------
+
+
+                //value------------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="value" class="col-sm-2 col-form-label">Value</label>';
+                html_contact += '<div class="col-sm-10">';
+                html_contact += '<input name="contact_telecom_value[]" type="text" class="form-control form-control-sm" id="value" placeholder="value" required>';
+                html_contact += '<small>The actual contact point details</small>';
+                html_contact += '</div></div>';
+                //value	------------------------------------------------------------------------------------------------
+
+            html_contact += '</div></div></div>';
+            //telecom------------------------------------------------------------------------------------------
+
+
+            //address------------------------------------------------------------------------------------------
+            html_contact += '<label for="address" class="col-sm-12 col-form-label">Address</label><div class="form-group row">';
+            html_contact += '<div class="col-sm-12">';
+            html_contact += '<div class="callout callout-success">';
+                //use------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="use" class="col-sm-3 col-form-label">Use</label><div class="col-sm-9">';
+                html_contact += '<select name="contact_address_use[]" id="contact_address_use" class="form-control form-control-sm " required>';
+                html_contact += '<option value="">select item...</option>';
+                @foreach($address_use as $itm)
+                html_contact += '<option value="{{ $itm['code'] }}">{{ $itm['display'] }}</option>';
+                @endforeach
+                html_contact += '</select>';
+                html_contact += '</div></div>';
+                //use------------------------------------------------------------------------------------------
+
+                //type------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="type" class="col-sm-3 col-form-label">Type</label><div class="col-sm-9">';
+                html_contact += '<select name="contact_address_type[]" id="contact_address_type" class="form-control form-control-sm " required>';
+                html_contact += '<option value="">select item...</option>';
+                @foreach($address_type as $itm)
+                html_contact += '<option value="{{ $itm['code'] }}">{{ $itm['code'] }} : {{ $itm['display'] }}</option>';
+                @endforeach
+                html_contact += '</select>';
+                html_contact += '</div></div>';
+                //type------------------------------------------------------------------------------------------
+
+                //text------------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="text" class="col-sm-3 col-form-label">Text</label>';
+                html_contact += '<div class="col-sm-9">';
+                html_contact += '<input name="contact_address_text[]" type="text" class="form-control form-control-sm" id="text" placeholder="text" >';
+                html_contact += '<small>Text representation of the address</small>';
+                html_contact += '</div></div>';
+                //text------------------------------------------------------------------------------------------------
+
+                //line------------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="text" class="col-sm-3 col-form-label">Line</label>';
+                html_contact += '<div class="col-sm-9">';
+                html_contact += '<input name="contact_address_line[]" type="text" class="form-control form-control-sm" id="line" placeholder="line" >';
+                html_contact += '<small>Street name, number, direction & P.O. Box etc. This repeating element order: The order in which lines should appear in an address label</small>';
+                html_contact += '</div></div>';
+                //line------------------------------------------------------------------------------------------------
+
+                //city------------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="city" class="col-sm-3 col-form-label">City</label>';
+                html_contact += '<div class="col-sm-9">';
+                html_contact += '<input name="contact_address_city[]" type="text" class="form-control form-control-sm" id="city" placeholder="city" >';
+                html_contact += '<small>Name of city, town etc.</small>';
+                html_contact += '</div></div>';
+                //city------------------------------------------------------------------------------------------------
+
+                //district------------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="district" class="col-sm-3 col-form-label">District</label>';
+                html_contact += '<div class="col-sm-9">';
+                html_contact += '<input name="contact_address_district[]" type="text" class="form-control form-control-sm" id="district" placeholder="district" >';
+                html_contact += '<small>District name (aka county)</small>';
+                html_contact += '</div></div>';
+                //district------------------------------------------------------------------------------------------------
+
+                //state------------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="state" class="col-sm-3 col-form-label">State</label>';
+                html_contact += '<div class="col-sm-9">';
+                html_contact += '<input name="contact_address_state[]" type="text" class="form-control form-control-sm" id="state" placeholder="state" >';
+                html_contact += '<small>Sub-unit of country (abbreviations ok)</small>';
+                html_contact += '</div></div>';
+                //state------------------------------------------------------------------------------------------------
+
+                //postalCode------------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="postalCode" class="col-sm-3 col-form-label">postalCode</label>';
+                html_contact += '<div class="col-sm-9">';
+                html_contact += '<input name="contact_address_postalCode[]" type="text" class="form-control form-control-sm" id="postalCode" placeholder="postalCode" >';
+                html_contact += '<small>Postal code for area</small>';
+                html_contact += '</div></div>';
+                //postalCode	------------------------------------------------------------------------------------------------
+
+                //country------------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"><label for="country" class="col-sm-3 col-form-label">Country</label>';
+                html_contact += '<div class="col-sm-9">';
+                html_contact += '<input name="contact_address_country[]" type="text" class="form-control form-control-sm" id="country" placeholder="country" >';
+                html_contact += '<small>Country (e.g. may be ISO 3166 2 or 3 letter code)</small>';
+                html_contact += '</div></div>';
+                //country------------------------------------------------------------------------------------------------
+            html_contact += '</div></div></div>';
+            //address------------------------------------------------------------------------------------------
+
+            //peroide------------------------------------------------------------------------------------------------
+            html_contact += '<label for="peroide" class="col-sm-12 col-form-label">peroide</label><div class="form-group row">';
+            html_contact += '<div class="col-sm-12">';
+            html_contact += '<div class="callout callout-success">';
+            html_contact += '<small>Time period when name was/is in use</small>';
+                //start---------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"> <label for="peroide_start" class="col-sm-4 col-form-label">Start</label>';
+                html_contact += '<div class="col-sm-8">';
+                html_contact += '<input type="date" class="form-control form-control-sm" id="contact_peroide_start" name="telecom_peroide_start[]" placeholder="Start" >';
+                html_contact += '</div></div>';
+                //start---------------------------------------------------------------------------------------------
+
+                //end---------------------------------------------------------------------------------------------
+                html_contact += '<div class="form-group row"> <label for="peroide_end" class="col-sm-4 col-form-label">end</label>';
+                html_contact += '<div class="col-sm-8">';
+                html_contact += '<input type="date" class="form-control form-control-sm" id="contact_peroide_end" name="telecom_peroide_end[]" placeholder="end" >';
+                html_contact += '</div></div>';
+                //end---------------------------------------------------------------------------------------------
+                html_contact += '</div></div></div>';
+            //peroide------------------------------------------------------------------------------------------------
         html_contact += '<hr>';
         html_contact += '<button type="button" class="btn btn-sm btn-danger btn-block btn-remove-contact"><i class="fas fa-minus-circle"></i> Remove</button>';
         html_contact += '</div>';
