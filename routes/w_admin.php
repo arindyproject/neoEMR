@@ -30,6 +30,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
         Route::post('/admin/permissions', 'AdminController@permissions_store')->name('admin.permissions.store');
         Route::put('/admin/permissions/{id}', 'AdminController@permissions_update')->name('admin.permissions.update');
         Route::delete('/admin/permissions/{id}', 'AdminController@permissions_delete')->name('admin.permissions.delete');
+        //===========>
+        Route::get('/admin/setting/form/mode', 'AdminController@setting_form_mode_index')->name('admin.setting.form.mode');
+        Route::post('/admin/setting/form/mode', 'AdminController@setting_form_mode_store')->name('admin.setting.form.mode');
         //---------------------------------ADMIN------------------------------------------------------------
     });
 });

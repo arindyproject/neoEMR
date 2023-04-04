@@ -39,7 +39,6 @@ class PatientController extends Controller
         ];
     }
 
-
     public function index(){
         $qr = request('q');
       
@@ -53,7 +52,6 @@ class PatientController extends Controller
             return view('administration.patient.index', $this->to_return);
         }
     }
-
 
     public function show($rm){
         $itm = Patient::where('no_rm', $rm)->first();
@@ -345,6 +343,102 @@ class PatientController extends Controller
             return redirect()->route('patient.show', $pasien->no_rm)->with('success', 'Data Berhasil Di Upload!!');
         }
         return redirect()->route('patient.create')->with('error', 'Data Gagal Di Upload!!');
+    }
+
+    public function fhir_json($id){
+        $data = Patient::find($id);
+        //-----------------------------------------------------------
+        $identifier = [];
+        if($data->identity_number != ''){
+            array_push($identifier, [
+                "use"   => "usual",
+                "type"  => [
+                    "text" => $data->identity_type_id != '' ? $data->identityType->nama  : ''
+                ],
+                "value" => $data->identity_number
+            ]);
+        }
+        if($data->no_bpjs != ''){
+            array_push($identifier, [
+                "use"   => "usual",
+                "type"  => [
+                    "text" => "BPJS"
+                ],
+                "value" => $data->no_bpjs
+            ]);
+        }
+        if($data->identifier){
+            foreach($data->identifier as $i){
+                array_push($identifier, $i);
+            }
+        }
+        //-----------------------------------------------------------
+        $name = [
+            [
+                "use"   => "official",
+                "text"  => $data->full_name,
+            ]
+        ];
+        if($data->name){
+            foreach($data->name as $i){
+                array_push($name, $i);
+            }
+        }
+        //-----------------------------------------------------------
+        $telecom = [];
+        if($data->no_tlp != ''){
+            array_push($telecom, [
+                "system" => "phone",
+                "value"  => $data->no_tlp,   
+            ]);
+        }
+        if($data->telecom){
+            foreach($data->telecom as $i){
+                array_push($telecom, $i);
+            }
+        }
+        //-----------------------------------------------------------
+        $text_address    = $data->address_alamat . ', ';
+        $text_address   .= $data->address_kelurahan_id   != '' ? $data->kelurahan->nama : '' . ', ';
+        $text_address   .= $data->address_kecamatan_id   != '' ? $data->kecamatan->nama : '' . ', ';
+        $text_address   .= $data->address_kota_id        != '' ? $data->kota->nama : '' . ', ';
+        $text_address   .= $data->address_provinsi_id    != '' ? $data->provinsi->nama : '' . ', ';
+        $address = [
+            [
+                'use'       => 'home',
+                'type'      => 'both',
+                'text'      => $text_address,
+                'line'      => [$data->address_alamat, $data->address_kelurahan_id   != '' ? $data->kelurahan->nama : ''],
+                'district'  => $data->address_kecamatan_id   != '' ? $data->kecamatan->nama : '',
+                'city'      => $data->address_kota_id != '' ? $data->kota->nama : '',
+                'state'     => $data->address_provinsi_id    != '' ? $data->provinsi->nama : '',
+            ]
+        ];
+
+        if($data->address){
+            foreach($data->address as $i){
+                array_push($address, $i);
+            }
+        }
+        //-----------------------------------------------------------
+        //-----------------------------------------------------------
+        //-----------------------------------------------------------
+        //-----------------------------------------------------------
+        //-----------------------------------------------------------
+        
+
+        $json = [
+            "resourceType"  => "Patient",
+            "id"            => $data->id,
+            "active"        => $data->active ? true : false,
+            "identifier"    => $identifier,
+            "name"          => $name,
+            "telecom"       => $telecom,
+            "gender"        => $data->gender_id ? $data->gender->nama : '',
+            "birthDate"     => $data->birthDate,
+            "address"       => $address,
+        ];
+        return $json;
     }
 
 }

@@ -88,4 +88,19 @@
     </a>
 </li>
 
+<li class="nav-item active">
+    <b>>> Settings </b>
+</li>
+
+<li class="nav-item active">
+    <a href="{{ route('admin.setting.form.mode') }}" class="nav-link">
+        <i class="fab fa-wpforms"></i>
+        @if(request()->is('admin/setting/form/mode') || request()->is('admin/setting/form/mode/*'))
+        <b>Form Mode</b>
+        @else
+        Form Mode
+        @endif
+    </a>
+</li>
+
 

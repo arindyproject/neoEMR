@@ -200,4 +200,16 @@ class Config extends Model
         $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
         file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
     }
+
+    public static function put_form_mode($jsn){
+    $jsonString = file_get_contents(base_path('resources/json/config.json'));
+    $data =  json_decode($jsonString, true);
+
+    // Update Key
+    $data['setting']['form'] = $jsn;
+
+    // Write File
+    $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
+    file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
+}
 }

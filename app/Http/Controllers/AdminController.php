@@ -327,4 +327,25 @@ class AdminController extends Controller
         $u->delete();
         return redirect()->route('admin.permissions')->with('success', 'Permissions Berhasil diHapus!!');
     }
+
+
+    ///=========================================================================================
+    ///=========================================================================================
+    ///=========================================================================================
+
+    public function setting_form_mode_index(){
+        $data = Config::get()['setting']['form'];
+        return view('admin.setting.form_mode_index', compact(['data'])); 
+    }
+
+    public function setting_form_mode_store(Request $request){
+        $data = [];
+        foreach($request->all() as $i=>$itm){
+            if($i != '_token'){
+                $data[$i]['mode'] = $itm;
+            }
+        }
+        Config::put_form_mode($data);
+        return redirect()->back()->with('success', 'Setting Form Mode berhasil DiEdit!!');
+    }
 }

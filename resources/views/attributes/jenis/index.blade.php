@@ -15,7 +15,7 @@
 
 <div class="row">
     
-    <div class="col">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
         <div class="card ">
             <div class="card-header bg-{{\App\Models\Config::get()['navbar_variants']}}">
                 <h3 class="card-title">
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="col">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
         <div class="card ">
             <div class="card-header bg-{{\App\Models\Config::get()['navbar_variants']}}">
                 <h3 class="card-title">

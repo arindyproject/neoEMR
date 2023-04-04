@@ -267,6 +267,7 @@
                         <td>{{$data->updated_at}}</td>
                     </tr>
                 </table>
+                <a href="{{Route('patient.fhir.json', $data->id)}}" target="_blank">fhir json</a>
             </p>
             <!-- -------------------------------------------------------------------- -->
 
