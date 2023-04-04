@@ -14,7 +14,7 @@
 <div class="row">
     @include('administration.patient.show_left')
 
-    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
+    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12" id="data-patient">
         <div class="card">
             <div class="card-header bg-{{$bg}}">
                 <h3 class="card-title">

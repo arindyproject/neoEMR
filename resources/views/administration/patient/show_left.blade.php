@@ -18,6 +18,13 @@
             <ul class="list-group list-group-unbordered mb-3">
                 <!-- ------------------------------------------------------ -->
                 <li class="list-group-item">
+                    <i class="fas fa-file"></i> - Data
+                    <b class="float-right">
+                        <a href="#data-patient" class="btn btn-sm btn-info">Go!!</a>
+                    </b>
+                </li>
+                <!-- ------------------------------------------------------ -->
+                <li class="list-group-item">
                     <i class="fas fa-venus-mars"></i> Gender 
                     <b class="float-right">
                         {{$data->gender_id != '' ? $data->gender->nama : ''}}

@@ -57,6 +57,23 @@ class Config extends Model
         ];
     }
 
+    public static function get_fhair_vs_name_code($name, $code){
+        $d = self::get_fhair_vs_name($name);
+        foreach($d as $i){
+            if($i['code'] == $code){
+                return [
+                    'code' => [
+                        'system'    => $i['url'],
+                        'version'   => $i['version'],
+                        'code'      => $i['code'],
+                        'display'   => $i['display'],
+                    ],
+                    'text' => $i['display']
+                ];
+            }
+        }
+        return null;
+    }
     //----------------------------------------------------------------------------------
     public static function get_fhair_cs_name($name){
         $jsonString = file_get_contents(base_path('resources/json/config.json'));

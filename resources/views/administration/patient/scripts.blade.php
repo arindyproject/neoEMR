@@ -1,8 +1,6 @@
 @push('scripts')
     <script type="text/javascript">
-        $(".select-search").select2({
-            minimumInputLength: 2 
-        });
+   
 
         //----------------------------------------------------------------------------  
         var id_provinsi = "{!! $default['def_alamat_provinsi']['id'] !!}";

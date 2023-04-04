@@ -530,7 +530,7 @@
 
             //relationship------------------------------------------------------------------------------------------
             html_contact += '<div class="form-group row"><label for="relationship" class="col-sm-3 col-form-label">Relationship</label><div class="col-sm-9">';
-            html_contact += '<select name="contact_relationship[]" id="contact_relationship" class="form-control form-control-sm " >';
+            html_contact += '<select name="contact_relationship[]" id="contact_relationship" class="form-control form-control-sm " required>';
             html_contact += '<option value="">select item...</option>';
             @foreach($contact_relationship as $itm)
             html_contact += '<option value="{{ $itm['code'] }}">{{ $itm['code'] }} : {{ $itm['display'] }}</option>';
@@ -702,6 +702,15 @@
             html_contact += '</div></div></div>';
             //address------------------------------------------------------------------------------------------
 
+
+            //organization------------------------------------------------------------------------------------------------
+            html_contact += '<div class="form-group row"><label for="text" class="col-sm-3 col-form-label">Organization</label>';
+            html_contact += '<div class="col-sm-9">';
+            html_contact += '<input name="contact_organization[]" type="text" class="form-control form-control-sm" id="text" placeholder="organization" >';
+            html_contact += '<small>Organization that is associated with the contact</small>';
+            html_contact += '</div></div>';
+            //organization------------------------------------------------------------------------------------------------
+
             //peroide------------------------------------------------------------------------------------------------
             html_contact += '<label for="peroide" class="col-sm-12 col-form-label">peroide</label><div class="form-group row">';
             html_contact += '<div class="col-sm-12">';
@@ -710,14 +719,14 @@
                 //start---------------------------------------------------------------------------------------------
                 html_contact += '<div class="form-group row"> <label for="peroide_start" class="col-sm-4 col-form-label">Start</label>';
                 html_contact += '<div class="col-sm-8">';
-                html_contact += '<input type="date" class="form-control form-control-sm" id="contact_peroide_start" name="telecom_peroide_start[]" placeholder="Start" >';
+                html_contact += '<input type="date" class="form-control form-control-sm" id="contact_peroide_start" name="contact_peroide_start[]" placeholder="Start" >';
                 html_contact += '</div></div>';
                 //start---------------------------------------------------------------------------------------------
 
                 //end---------------------------------------------------------------------------------------------
                 html_contact += '<div class="form-group row"> <label for="peroide_end" class="col-sm-4 col-form-label">end</label>';
                 html_contact += '<div class="col-sm-8">';
-                html_contact += '<input type="date" class="form-control form-control-sm" id="contact_peroide_end" name="telecom_peroide_end[]" placeholder="end" >';
+                html_contact += '<input type="date" class="form-control form-control-sm" id="contact_peroide_end" name="contact_peroide_end[]" placeholder="end" >';
                 html_contact += '</div></div>';
                 //end---------------------------------------------------------------------------------------------
                 html_contact += '</div></div></div>';
