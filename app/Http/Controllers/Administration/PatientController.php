@@ -369,7 +369,9 @@ class PatientController extends Controller
         }
         if($data->identifier){
             foreach($data->identifier as $i){
-                array_push($identifier, $i);
+                if($i['use'] != ''){
+                    array_push($identifier, $i);
+                }
             }
         }
         //-----------------------------------------------------------
@@ -381,7 +383,9 @@ class PatientController extends Controller
         ];
         if($data->name){
             foreach($data->name as $i){
-                array_push($name, $i);
+                if($i['use'] != ''){
+                    array_push($name, $i);
+                }
             }
         }
         //-----------------------------------------------------------
@@ -394,7 +398,9 @@ class PatientController extends Controller
         }
         if($data->telecom){
             foreach($data->telecom as $i){
-                array_push($telecom, $i);
+                if($i['use'] != ''){
+                    array_push($telecom, $i);
+                }
             }
         }
         //-----------------------------------------------------------
@@ -412,21 +418,41 @@ class PatientController extends Controller
                 'district'  => $data->address_kecamatan_id   != '' ? $data->kecamatan->nama : '',
                 'city'      => $data->address_kota_id != '' ? $data->kota->nama : '',
                 'state'     => $data->address_provinsi_id    != '' ? $data->provinsi->nama : '',
+                'postalCode'=> $data->postalCode
             ]
         ];
-
         if($data->address){
             foreach($data->address as $i){
-                array_push($address, $i);
+                if($i['use'] != ''){
+                    array_push($address, $i);
+                }
+            }
+        }
+        //-----------------------------------------------------------
+        $communication = [];
+        if($data->bahasa != ''){ 
+            $communication = [['text' => $data->bahasa]];
+        }
+        if($data->communication){
+            foreach($data->communication as $i){
+                if($i['text'] != ''){
+                    array_push($communication, $i);
+                }
+            }
+        }
+        //-----------------------------------------------------------
+        $contact = [];
+        if($data->contact){
+            foreach($data->contact as $i){
+                array_push($contact, $i);
             }
         }
         //-----------------------------------------------------------
         //-----------------------------------------------------------
         //-----------------------------------------------------------
-        //-----------------------------------------------------------
-        //-----------------------------------------------------------
         
 
+        //-----------------------------------------------------------
         $json = [
             "resourceType"  => "Patient",
             "id"            => $data->id,
@@ -437,7 +463,59 @@ class PatientController extends Controller
             "gender"        => $data->gender_id ? $data->gender->nama : '',
             "birthDate"     => $data->birthDate,
             "address"       => $address,
+            "communication" => $communication,
+            "contact"       => $contact,
         ];
+        //-----------------------------------------------------------
+        if($data->maritalStatus_id != '' ){
+            $json['maritalStatus'] = [['text' => $data->maritalStatus->nama]];
+        }
+        //-----------------------------------------------------------
+        if($data->photo != '' ){
+            $json['photo'] = $data->photo;
+        }
+        //-----------------------------------------------------------
+        if($data->deceased['deceasedBoolean'] ){
+            $json['deceased'] = $data->deceased;
+        }
+        //-----------------------------------------------------------
+        if($data->suku != ''){
+            $json['ethnicGroup'] = $data->suku;
+        }
+        //-----------------------------------------------------------
+        if($data->agama_id != ''){
+            $json['religion'] = $data->agama->nama;
+        }
+        //-----------------------------------------------------------
+        if($data->pendidikan_id != ''){
+            $json['education'] = [['text' => $data->pendidikan->nama]];
+        }
+        //-----------------------------------------------------------
+        if($data->pekerjaan_id != ''){
+            $json['work'] = [['text' => $data->pekerjaan->nama]];
+        }
+        //-----------------------------------------------------------
+
+
+
+
+        //-----------------------------------------------------------
+        //-----------------------------------------------------------
+        $html   = "<table>";
+        $html  .= "<tr><td>Active</td><td>". ($data->active ? "true" : "false") ."</td></tr>";
+        $html  .= "<tr><td>Name</td><td> <td><ul>";
+        foreach($json['name'] as $i=>$itm){
+            $html  .= "<li>". $itm['text'] . " (".$itm['use'] .") " . "</li>";
+        }
+        $html  .= "</ul><td></tr>";
+        $html  .= "<table>";
+        //-----------------------------------------------------------
+        //-----------------------------------------------------------
+        $json['text'] = [
+            "status" => "generated",
+            "div"    => $html
+        ];
+
         return $json;
     }
 
