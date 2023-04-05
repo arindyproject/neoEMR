@@ -431,11 +431,11 @@ class PatientController extends Controller
         //-----------------------------------------------------------
         $communication = [];
         if($data->bahasa != ''){ 
-            $communication = [['text' => $data->bahasa]];
+            $communication = ['language' => ['text' => $data->bahasa]];
         }
         if($data->communication){
             foreach($data->communication as $i){
-                if($i['text'] != ''){
+                if($i['language']['text'] != ''){
                     array_push($communication, $i);
                 }
             }
@@ -444,7 +444,9 @@ class PatientController extends Controller
         $contact = [];
         if($data->contact){
             foreach($data->contact as $i){
-                array_push($contact, $i);
+                if($i['name']['text'] != ''){
+                    array_push($contact, $i);
+                }
             }
         }
         //-----------------------------------------------------------
@@ -468,7 +470,7 @@ class PatientController extends Controller
         ];
         //-----------------------------------------------------------
         if($data->maritalStatus_id != '' ){
-            $json['maritalStatus'] = [['text' => $data->maritalStatus->nama]];
+            $json['maritalStatus'] = [['value' => $data->maritalStatus->nama]];
         }
         //-----------------------------------------------------------
         if($data->photo != '' ){
@@ -488,11 +490,11 @@ class PatientController extends Controller
         }
         //-----------------------------------------------------------
         if($data->pendidikan_id != ''){
-            $json['education'] = [['text' => $data->pendidikan->nama]];
+            $json['education'] = [['value' => $data->pendidikan->nama]];
         }
         //-----------------------------------------------------------
         if($data->pekerjaan_id != ''){
-            $json['work'] = [['text' => $data->pekerjaan->nama]];
+            $json['work'] = [['value' => $data->pekerjaan->nama]];
         }
         //-----------------------------------------------------------
 
@@ -502,14 +504,136 @@ class PatientController extends Controller
         //-----------------------------------------------------------
         //-----------------------------------------------------------
         $html   = "<table>";
-        $html  .= "<tr><td>Active</td><td>". ($data->active ? "true" : "false") ."</td></tr>";
-        $html  .= "<tr><td>Name</td><td> <td><ul>";
+        $html  .= "<tr><td>Active</td><td><ul><li>". ($data->active ? "true" : "false") ."</li></ul></td></tr>";
+        //---------------------------------------
+        $html  .= "<tr><td>Name</td>  <td><ul>";
         foreach($json['name'] as $i=>$itm){
-            $html  .= "<li>". $itm['text'] . " (".$itm['use'] .") " . "</li>";
+            $t_name = (@$itm['prefix'] ? $itm['prefix'] . '. ' : '');
+            $t_name .= (@$itm['given'] ? $itm['given'] . ' ' : '');
+            $t_name .= (@$itm['family'] ? $itm['family'] . ' .' : '') ;
+            $t_name .= (@$itm['suffix'] ? $itm['suffix'] . ' ' : '') ;
+            $t_name .= $itm['text'];
+            $html  .= "<li>". $t_name . " (".$itm['use'] .") " . "</li>";
         }
         $html  .= "</ul><td></tr>";
+        //---------------------------------------
+        if(@$json['gender']){
+        $html  .= "<tr><td>Gender</td><td><ul><li>". ($json['gender']) ."</li></ul></td></tr>";
+        }
+        //---------------------------------------
+        if(@$json['birthDate']){
+            $html  .= "<tr><td>birthDate</td><td><ul><li>". ($json['birthDate']) ."</li></ul></td></tr>";
+        }
+        //---------------------------------------
+        if(@$json['maritalStatus']){
+            $html  .= "<tr><td>maritalStatus</td><td><ul>"; 
+            foreach($json['maritalStatus'] as $i){
+                $html  .= "<li>" .$i['value']. "</li>";
+            }
+            $html  .= "</ul></td></tr>";
+        }
+        //---------------------------------------
+        if(@$json['religion']){
+            $html  .= "<tr><td>religion</td><td><ul><li>". (@$json['religion'] ? $json['religion'] : '') ."</li></ul></td></tr>";
+        }
+        //---------------------------------------
+        if(@$json['education']){
+            $html  .= "<tr><td>education</td><td><ul>"; 
+            foreach($json['education'] as $i){
+                $html  .= "<li>" .$i['value']. "</li>";
+            }
+            $html  .= "</ul></td></tr>";
+        }
+        //---------------------------------------
+        if(@$json['work']){
+            $html  .= "<tr><td>work</td><td><ul>"; 
+            foreach($json['work'] as $i){
+                $html  .= "<li>" .$i['value']. "</li>";
+            }
+            $html  .= "</ul></td></tr>";
+        }
+        //---------------------------------------
+        $html  .= "<tr><td>telecom</td><td><ul>"; 
+        foreach($json['telecom'] as $i){
+            $t_telecom = (@$i['system'] ? $i['system'] . ' : ' : '');
+            $t_telecom .= (@$i['value'] ? $i['value'] : '');
+            $t_telecom .= (@$i['use'] ? ' ('. $i['use'] . ')' : '');
+            $t_telecom .= (@$i['rank'] ? $i['rank'] : '');
+            $html  .= "<li>". $t_telecom . "</li>";
+        }
+        $html  .= "</ul></td></tr>";
+        //---------------------------------------
+        $html  .= "<tr><td>address</td><td><ul>"; 
+        foreach($json['address'] as $i){
+            $t_address = (@$i['type'] ? $i['type'] . ' : ' : '');
+            $t_address .= (@$i['text'] ? $i['text'] . ' - ' : '');
+            $t_address .= (@$i['use'] ? ' ('. $i['use'] . ') ' : '');
+            $t_address .= '<br>';
+            $t_address .= (@$i['line'] ? json_encode($i['line']) . ', ' : '');
+            $t_address .= (@$i['district'] ? $i['district'] . ', ' : '');
+            $t_address .= (@$i['city'] ? $i['city'] . ', ' : '');
+            $t_address .= (@$i['state'] ? $i['state'] . ', ' : '');
+            $t_address .= (@$i['country'] ? $i['country'] . ', ' : '');
+            $t_address .= (@$i['postalCode'] ? $i['postalCode'] . ', ' : '');
+            $html  .= "<li>". $t_address . "</li>";
+        }
+        $html  .= "</ul></td></tr>";
+        //---------------------------------------
+        if(@$json['communication']){
+            $html  .= "<tr><td>communication</td><td><ul>"; 
+            foreach($json['communication'] as $i){
+                $t_communication = (@$i['text'] ? $i['text'] . ' - ' : '');
+                $t_communication .= (@$i['language']['text'] ? $i['language']['text']  : '');
+                $html  .= "<li>". $t_communication . "</li>";
+            }
+            $html  .= "</ul></td></tr>";
+        }
+        //---------------------------------------
+        if(@$json['contact']){
+            $html  .= "<tr><td>contact</td><td><ul>"; 
+            foreach($json['contact'] as $i){
+                $t_contact = (@$i['relationship']['text'] ? 'relationship : ' . $i['relationship']['text'] : '');
+                $html  .= "<li>". $t_contact . "</li>";
+
+                $t_name = (@$i['name']['prefix'] ? $i['name']['prefix'] . '. ' : '');
+                $t_name .= (@$i['name']['given'] ? $i['name']['given'] . ' ' : '');
+                $t_name .= (@$i['name']['family'] ? $i['name']['family'] . ' .' : '') ;
+                $t_name .= (@$i['name']['suffix'] ? $i['name']['suffix'] . ' ' : '') ;
+                $t_name .= $i['name']['text'];
+                $html  .= "<li>". 'name : ' . $t_name . "</li>";
+
+                $html  .= "<li>". 'gender : ' . (@$i['gender'] ? $i['gender']  : '') . "</li>";
+
+                $t_telecom = (@$i['telecom']['system'] ? $i['telecom']['system'] . ' : ' : '');
+                $t_telecom .= (@$i['telecom']['value'] ? $i['telecom']['value'] : '');
+                $t_telecom .= (@$i['telecom']['use'] ? ' ('. $i['telecom']['use'] . ')' : '');
+                $t_telecom .= (@$i['telecom']['rank'] ? $i['telecom']['rank'] : '');
+                $html  .= "<li>". 'telecom : ' . $t_telecom . "</li>";
+
+                $t_address = (@$i['address']['type'] ? $i['address']['type'] . ' : ' : '');
+                $t_address .= (@$i['address']['text'] ? $i['address']['text'] . ' - ' : '');
+                $t_address .= (@$i['address']['use'] ? ' ('. $i['address']['use'] . ') ' : '');
+                $t_address .= '<br>';
+                $t_address .= (@$i['address']['line'] ? json_encode($i['address']['line']) . ', ' : '');
+                $t_address .= (@$i['address']['district'] ? $i['address']['district'] . ', ' : '');
+                $t_address .= (@$i['address']['city'] ? $i['address']['city'] . ', ' : '');
+                $t_address .= (@$i['address']['state'] ? $i['address']['state'] . ', ' : '');
+                $t_address .= (@$i['address']['country'] ? $i['address']['country'] . ', ' : '');
+                $t_address .= (@$i['address']['postalCode'] ? $i['address']['postalCode'] . ', ' : '');
+                $html  .= "<li>". 'address : '. $t_address . "</li>";
+
+                $html  .= "<li>". ' organization : ' . (@$i[' organization'] ? $i[' organization']  : '') . "</li>";
+            }
+            $html  .= "</ul></td></tr>";
+        }
+        //---------------------------------------
+        if(@$json['deceased'] && $json['deceased']['deceasedBoolean']){
+            $html  .= "<tr><td>deceased</td><td><ul><li>". (@$json['deceased']['deceasedDateTime']) ."</li></ul></td></tr>";
+        }
+        //---------------------------------------
         $html  .= "<table>";
         //-----------------------------------------------------------
+        
         //-----------------------------------------------------------
         $json['text'] = [
             "status" => "generated",

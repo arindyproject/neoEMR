@@ -197,9 +197,9 @@
             @if ($data->address != '')
             @foreach ($data->address as $item)
             <p class="text-muted">
-                {{$item['use']}} : {{$item['type']}}, {{$item['text']}}, {{$item['line']}},
-                {{$item['city']}}, {{$item['district']}}, {{$item['state']}}, {{$item['postalCode']}}
-                , {{$item['country']}}
+                {{@$item['use'] ? $item['use'] : ''}} : {{@$item['type'] ? $item['type'] :''}}, {{@$item['text'] ? $item['text'] :''}}, {{@$item['line'] ? $item['line'] : ''}},
+                {{@$item['city'] ? $item['city'] : ''}}, {{@$item['district'] ? $item['district'] :''}}, {{@$item['state'] ? $item['state'] : ''}}, {{@$item['postalCode'] ? $item['postalCode'] :''}}
+                , {{@$item['country'] ? $item['country'] : ''}}
             </p>
             @endforeach
             @endif
@@ -211,7 +211,7 @@
             <strong><i class="fas fa-phone-alt mr-1"></i> Telecom </strong>
             @foreach ($data->telecom as $item)
             <p class="text-muted">
-                {{$item['use']}} : {{$item['value']}}, {{$item['rank']}}
+                {{@$item['use'] ? $item['use'] : ''}} : {{@$item['value'] ? $item['value'] : ''}}, {{@$item['rank'] ? $item['rank'] : ''}}
             </p>
             @endforeach
             @endif
@@ -224,7 +224,7 @@
             <strong><i class="fas fa-comments mr-1"></i> Communication </strong>
             @foreach ($data->communication as $item)
             <p class="text-muted">
-                {{$item['text']}}
+                {{@$item['language']['text'] ? $item['language']['text'] : ''}}
             </p>
             @endforeach
             @endif
