@@ -96,6 +96,25 @@ class PatientController extends Controller
         return view('administration.patient.create', $this->to_return);
     }
 
+    public function edit($id){
+        $data = Patient::find($id);
+        $this->to_return['data']    = $data;
+        $this->to_return['title']   = "Edit : " . $data->full_name . " : " . $data->no_rm; 
+        $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
+        $this->to_return['gender']          = attJenisKelamin::get();
+        $this->to_return['status_nikah']    = attJenisPernikahan::get();
+        $this->to_return['pendidikan']      = attJenisPendidikan::get();
+        $this->to_return['pekerjaan']       = attJenisPekerjaan::get();
+        $this->to_return['agama']           = attJenisAgama::get();
+        $this->to_return['country']         = attAlamatCountry::get();
+
+        $this->to_return['default']         = Config::get_setting_default();
+        //return Config::get_fhair_cs_name('patient-contact-relationship');
+       
+
+        return view('administration.patient.edit', $this->to_return);
+    }
+
     public function store(Request $request ){
 
         //----------------------------------------------------------------

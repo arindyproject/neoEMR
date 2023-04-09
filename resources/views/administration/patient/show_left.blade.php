@@ -164,7 +164,7 @@
             </ul>
 
             @if(Auth::user()->hasRole('admin'))
-            <a href="{{route('profile.edit',$data->id )}}" type="button"
+            <a href="{{route('patient.edit',$data->id )}}" type="button"
                 class="btn btn-block btn-success bg-{{$bg}}">
                 <i class="fas fa-user-edit"></i>EDIT
             </a>
