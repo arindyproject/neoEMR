@@ -16,8 +16,9 @@
 @endpush
 
 @section('content')
-<form action="{{Route('patient.store')}}" method="POST" class="form form-sm" enctype="multipart/form-data">
+<form action="{{Route('patient.update', $data->id)}}" method="POST" class="form form-sm" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card">
@@ -39,7 +40,7 @@
                                     <div class="col-md-10 col-sm-8">
                                         <input type="text" class="form-control form-control-sm" name="full_name"
                                             id="full_name" placeholder="Nama Lengkap Pasien" required
-                                            value="{{old('full_name')}}">
+                                            value="{{$data->full_name}}">
                                         @if ($errors->has('full_name'))
                                         <span class="help-block">
                                             <strong class="text-danger">{{ $errors->first('full_name') }}</strong>
@@ -56,7 +57,7 @@
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm"
                                                     name="place_of_birth" id="place_of_birth" placeholder="Tempat Lahir"
-                                                    value="{{old('place_of_birth')}}">
+                                                    value="{{$data->place_of_birth}}">
                                                 @if ($errors->has('place_of_birth'))
                                                 <span class="help-block">
                                                     <strong
@@ -66,7 +67,7 @@
                                             </div>
                                             <div class="col">
                                                 <input type="date" class="form-control form-control-sm" name="birthDate"
-                                                    id="birthDate" placeholder="Tgl Lahir" value="{{old('birthDate')}}">
+                                                    id="birthDate" placeholder="Tgl Lahir" value="{{$data->birthDate}}">
                                                 @if ($errors->has('birthDate'))
                                                 <span class="help-block">
                                                     <strong
@@ -88,7 +89,7 @@
                                                     class="form-control form-control-sm">
                                                     <option value="">silahkan pilih</option>
                                                     @foreach ($identity_type as $item)
-                                                    <option {{$item->id == old('identity_type_id') ? 'selected' : ''}}
+                                                    <option {{$item->id == $data->identity_type_id ? 'selected' : ''}}
                                                         value="{{$item->id}}">{{$item->nama}}</option>
                                                     @endforeach
                                                 </select>
@@ -102,7 +103,7 @@
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm"
                                                     name="identity_number" id="identity_number"
-                                                    placeholder="Identity Number" value="{{old('identity_number')}}">
+                                                    placeholder="Identity Number" value="{{$data->identity_number}}">
                                                 @if ($errors->has('identity_number'))
                                                 <span class="help-block">
                                                     <strong
@@ -121,7 +122,7 @@
                                         <select name="gender_id" id="gender_id" class="form-control form-control-sm"
                                             required>
                                             @foreach ($gender as $item)
-                                            <option {{$item->id == old('gender_id') ? 'selected' : ''}}
+                                            <option {{$item->id == $data->gender_id ? 'selected' : ''}}
                                                 value="{{$item->id}}">{{$item->nama}}</option>
                                             @endforeach
                                         </select>
@@ -140,7 +141,7 @@
                                         <select name="maritalStatus_id" id="maritalStatus_id"
                                             class="form-control form-control-sm">
                                             @foreach ($status_nikah as $item)
-                                            <option {{$item->id == old('maritalStatus_id') ? 'selected' : ''}}
+                                            <option {{$item->id == $data->maritalStatus_id ? 'selected' : ''}}
                                                 value="{{$item->id}}">{{$item->nama}}</option>
                                             @endforeach
                                         </select>
@@ -157,7 +158,7 @@
                                     <label for="no_tlp" class="col-md-2 col-sm-4 col-form-label">Nomor TLP/HP</label>
                                     <div class="col-md-10 col-sm-8">
                                         <input type="text" class="form-control form-control-sm" name="no_tlp"
-                                            id="no_tlp" placeholder="Nomor TLP/HP" value="{{old('no_tlp')}}">
+                                            id="no_tlp" placeholder="Nomor TLP/HP" value="{{$data->no_tlp}}">
                                         @if ($errors->has('no_tlp'))
                                         <span class="help-block">
                                             <strong class="text-danger">{{ $errors->first('no_tlp') }}</strong>
@@ -170,7 +171,7 @@
                                     <label for="no_bpjs" class="col-md-2 col-sm-4 col-form-label">Nomor BPJS/JKN</label>
                                     <div class="col-md-10 col-sm-8">
                                         <input type="text" class="form-control form-control-sm" name="no_bpjs"
-                                            id="no_bpjs" placeholder="Nomor BPJS/JKN" value="{{old('no_bpjs')}}">
+                                            id="no_bpjs" placeholder="Nomor BPJS/JKN" value="{{$data->no_bpjs}}">
                                         @if ($errors->has('no_bpjs'))
                                         <span class="help-block">
                                             <strong class="text-danger">{{ $errors->first('no_bpjs') }}</strong>
@@ -188,7 +189,7 @@
                                     <div class="form-group">
                                         <label>Nama IBU Kandung</label>
                                         <input type="text" class="form-control form-control-sm" name="nama_ibu"
-                                            id="nama_ibu" placeholder="Nama IBU Kandung" value="{{old('nama_ibu')}}">
+                                            id="nama_ibu" placeholder="Nama IBU Kandung" value="{{$data->nama_ibu}}">
                                         @if ($errors->has('nama_ibu'))
                                         <span class="help-block">
                                             <strong
@@ -203,14 +204,14 @@
                                         <label>Gol Darah</label>
                                         <select name="blood" id="blood" class="form-control form-control-sm">
                                             <option value="">Pilih ...</option>
-                                            <option value="A">A</option>
-                                            <option value="A+">A+</option>
-                                            <option value="B">B</option>
-                                            <option value="B+">B+</option>
-                                            <option value="AB">AB</option>
-                                            <option value="AB+">AB+</option>
-                                            <option value="O">O</option>
-                                            <option value="O+">O+</option>
+                                            <option {{$data->blood == 'A' ? 'selected' : ''}} value="A">A</option>
+                                            <option {{$data->blood == 'A+' ? 'selected' : ''}} value="A+">A+</option>
+                                            <option {{$data->blood == 'B' ? 'selected' : ''}} value="B">B</option>
+                                            <option {{$data->blood == 'B+' ? 'selected' : ''}} value="B+">B+</option>
+                                            <option {{$data->blood == 'AB' ? 'selected' : ''}} value="AB">AB</option>
+                                            <option {{$data->blood == 'AB+' ? 'selected' : ''}} value="AB+">AB+</option>
+                                            <option {{$data->blood == 'O' ? 'selected' : ''}} value="O">O</option>
+                                            <option {{$data->blood == 'O+' ? 'selected' : ''}} value="O+">O+</option>
                                         </select>
                                         @if ($errors->has('blood'))
                                         <span class="help-block">
@@ -227,7 +228,7 @@
                                             class="form-control form-control-sm">
                                             <option value="">Pilih ...</option>
                                             @foreach ($pendidikan as $item)
-                                            <option {{$item->id == old('pendidikan_id') ? 'selected' : ''}}
+                                            <option {{$item->id == $data->pendidikan_id ? 'selected' : ''}}
                                                 value="{{$item->id}}">{{$item->nama}}</option>
                                             @endforeach
                                         </select>
@@ -247,7 +248,7 @@
                                             class="form-control form-control-sm select-search">
                                             <option value="">Pilih ...</option>
                                             @foreach ($pekerjaan as $item)
-                                            <option {{$item->id == old('pekerjaan_id') ? 'selected' : ''}}
+                                            <option {{$item->id == $data->pekerjaan_id ? 'selected' : ''}}
                                                 value="{{$item->id}}">{{$item->nama}}</option>
                                             @endforeach
                                         </select>
@@ -282,7 +283,7 @@
                                                 class="form-control form-control-sm">
                                                 <option value="">Pilih ...</option>
                                                 @foreach ($agama as $item)
-                                                <option {{$item->id == old('agama_id') ? 'selected' : ''}}
+                                                <option {{$item->id == $data->agama_id ? 'selected' : ''}}
                                                     value="{{$item->id}}">{{$item->nama}}</option>
                                                 @endforeach
                                             </select>
@@ -302,7 +303,7 @@
                                                 class="form-control form-control-sm select-search">
                                                 <option value="">Pilih ...</option>
                                                 @foreach ($country as $item)
-                                                <option  {{$default['def_alamat_country']['id'] == $item->id ? 'selected' : '' }}  {{$item->id == old('kewarganegaraan_id') ? 'selected' : ''}}
+                                                <option  {{$default['def_alamat_country']['id'] == $item->id ? 'selected' : '' }}  {{$item->id ==$data->kewarganegaraan_id ? 'selected' : ''}}
                                                     value="{{$item->id}}">{{$item->nama}}</option>
                                                 @endforeach
                                             </select>
@@ -319,7 +320,7 @@
                                         <div class="form-group">
                                             <label>SUKU</label>
                                             <input type="text" class="form-control form-control-sm" name="suku"
-                                                id="suku" placeholder="SUKU" value="{{old('suku')}}">
+                                                id="suku" placeholder="SUKU" value="{{$data->suku}}">
                                             @if ($errors->has('suku'))
                                             <span class="help-block">
                                                 <strong class="text-danger">{{ $errors->first('suku') }}</strong>
@@ -332,7 +333,7 @@
                                         <div class="form-group">
                                             <label>Bahasa</label>
                                             <input type="text" class="form-control form-control-sm" name="bahasa"
-                                                id="bahasa" placeholder="bahasa yang dikuasi" value="{{old('bahasa')}}">
+                                                id="bahasa" placeholder="bahasa yang dikuasi" value="{{$data->bahasa}}">
                                             @if ($errors->has('bahasa'))
                                             <span class="help-block">
                                                 <strong class="text-danger">{{ $errors->first('bahasa') }}</strong>
@@ -349,8 +350,12 @@
                                         <div class="form-group">
                                             <label>Provinsi</label>
                                             <select name="address_provinsi_id" id="address_provinsi_id" class="select2 form-control form-control-sm">
-                                                @if ($default['def_alamat_provinsi']['id'] != '')
+                                                @if ($data->address_provinsi_id != '')
+                                                <option selected value="{{$data->address_provinsi_id}}">{{$provinsi->nama}} </option>
+                                                @else
+                                                    @if ($default['def_alamat_provinsi']['id'] != '')
                                                     <option selected value="{{$default['def_alamat_provinsi']['id']}}">{{$default['def_alamat_provinsi']['nama']}} </option>
+                                                    @endif
                                                 @endif
                                             </select>
                                         </div>
@@ -360,8 +365,12 @@
                                         <div class="form-group">
                                             <label>Kota/KAB</label>
                                             <select name="address_kota_id" id="address_kota_id" class="select2 form-control form-control-sm">
-                                                @if ($default['def_alamat_kota']['id'] != '')
+                                                @if ($data->address_kota_id != '')
+                                                <option selected value="{{$data->address_kota_id}}">{{$kota->nama}} </option>
+                                                @else
+                                                    @if ($default['def_alamat_kota']['id'] != '')
                                                     <option selected value="{{$default['def_alamat_kota']['id']}}">{{$default['def_alamat_kota']['nama']}} </option>
+                                                    @endif
                                                 @endif
                                             </select>
                                         </div>
@@ -371,8 +380,12 @@
                                         <div class="form-group">
                                             <label>Kecamatan</label>
                                             <select name="address_kecamatan_id" id="address_kecamatan_id" class="select2 form-control form-control-sm">
-                                                @if ($default['def_alamat_kecamatan']['id'] != '')
+                                                @if ($data->address_kecamatan_id != '')
+                                                <option selected value="{{$data->address_kecamatan_id}}">{{$kecamatan->nama}} </option>
+                                                @else
+                                                    @if ($default['def_alamat_kecamatan']['id'] != '')
                                                     <option selected value="{{$default['def_alamat_kecamatan']['id']}}">{{$default['def_alamat_kecamatan']['nama']}} </option>
+                                                    @endif
                                                 @endif
                                             </select>
                                         </div>
@@ -382,8 +395,12 @@
                                         <div class="form-group">
                                             <label>Desa/Kelurahan</label>
                                             <select name="address_kelurahan_id" id="address_kelurahan_id" class="select2 form-control form-control-sm">
-                                                @if ($default['def_alamat_kelurahan']['id'] != '')
-                                                    <option selected value="{{$default['def_alamat_kelurahan']['id']}}">{{$default['def_alamat_kelurahan']['nama']}} </option>
+                                                @if ($data->address_kelurahan_id != '')
+                                                    <option selected value="{{$data->address_kelurahan_id}}">{{$kelurahan->nama}} </option> 
+                                                @else
+                                                    @if ($default['def_alamat_kelurahan']['id'] != '')
+                                                        <option selected value="{{$default['def_alamat_kelurahan']['id']}}">{{$default['def_alamat_kelurahan']['nama']}} </option>
+                                                    @endif
                                                 @endif
                                             </select>
                                         </div>
@@ -394,7 +411,7 @@
                                             <label>Alamat</label>
                                             <textarea class="form-control form-control-sm" name="address_alamat"
                                                 id="address_alamat" cols="30"
-                                                rows="2">{{old('address_alamat')}}</textarea>
+                                                rows="2">{{$data->address_alamat}}</textarea>
                                             @if ($errors->has('address_alamat'))
                                             <span class="help-block">
                                                 <strong
@@ -408,7 +425,7 @@
                                         <div class="form-group">
                                             <label>Kode Pos</label>
                                             <input type="text" class="form-control form-control-sm" name="postalCode"
-                                                id="postalCode" placeholder="Kode Pos" value="{{old('postalCode')}}">
+                                                id="postalCode" placeholder="Kode Pos" value="{{$data->postalCode}}">
                                             @if ($errors->has('postalCode'))
                                             <span class="help-block">
                                                 <strong class="text-danger">{{ $errors->first('postalCode') }}</strong>
@@ -422,7 +439,7 @@
                                             <label>Note (catatan untuk pasien)</label>
                                             <textarea class="form-control form-control-sm" name="note"
                                                 id="note" cols="30"
-                                                rows="2">{{old('note')}}</textarea>
+                                                rows="2">{{$data->note}}</textarea>
                                             @if ($errors->has('note'))
                                             <span class="help-block">
                                                 <strong

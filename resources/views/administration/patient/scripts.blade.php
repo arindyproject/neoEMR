@@ -2,11 +2,18 @@
     <script type="text/javascript">
    
 
-        //----------------------------------------------------------------------------  
+        //----------------------------------------------------------------------------
+        @if(request()->is('patient/edit/*'))
+        var id_provinsi = "{!! $data->address_provinsi_id !!}";
+        var id_kota     = "{!! $data->address_kota_id !!}";
+        var id_kecamatan= "{!! $data->address_kecamatan_id !!}";
+        var id_kelurahan= "{!! $data->address_kelurahan_id !!}";
+        @else
         var id_provinsi = "{!! $default['def_alamat_provinsi']['id'] !!}";
         var id_kota     = "{!! $default['def_alamat_kota']['id'] !!}";
         var id_kecamatan= "{!! $default['def_alamat_kecamatan']['id'] !!}";
         var id_kelurahan= "{!! $default['def_alamat_kelurahan']['id'] !!}";
+        @endif  
         //----------------------------------------------------------------------------
 
         //----------------------------------------------------------------------------

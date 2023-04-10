@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administration;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File; 
 
 use App\Models\Config;
 
@@ -17,6 +18,11 @@ use App\Models\attJenisPendidikan;
 use App\Models\attJenisPekerjaan;
 use App\Models\attJenisAgama;
 use App\Models\attAlamatCountry;
+
+use App\Models\attAlamatProvinsi;
+use App\Models\attAlamatKota;
+use App\Models\attAlamatKecamatan;
+use App\Models\attAlamatKelurahan;
 
 use Illuminate\Support\Str;
 class PatientController extends Controller
@@ -98,8 +104,8 @@ class PatientController extends Controller
 
     public function edit($id){
         $data = Patient::find($id);
-        $this->to_return['data']    = $data;
-        $this->to_return['title']   = "Edit : " . $data->full_name . " : " . $data->no_rm; 
+        $this->to_return['data']            = $data;
+        $this->to_return['title']           = "Edit : " . $data->full_name . " : " . $data->no_rm; 
         $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
         $this->to_return['gender']          = attJenisKelamin::get();
         $this->to_return['status_nikah']    = attJenisPernikahan::get();
@@ -108,10 +114,13 @@ class PatientController extends Controller
         $this->to_return['agama']           = attJenisAgama::get();
         $this->to_return['country']         = attAlamatCountry::get();
 
+        $this->to_return['provinsi']        = attAlamatProvinsi::find($data->address_provinsi_id);
+        $this->to_return['kota']            = attAlamatKota::find($data->address_kota_id);
+        $this->to_return['kecamatan']       = attAlamatKecamatan::find($data->address_kecamatan_id);
+        $this->to_return['kelurahan']       = attAlamatKelurahan::find($data->address_kelurahan_id);
+
         $this->to_return['default']         = Config::get_setting_default();
         //return Config::get_fhair_cs_name('patient-contact-relationship');
-       
-
         return view('administration.patient.edit', $this->to_return);
     }
 
@@ -362,6 +371,105 @@ class PatientController extends Controller
             return redirect()->route('patient.show', $pasien->no_rm)->with('success', 'Data Berhasil Di Upload!!');
         }
         return redirect()->route('patient.create')->with('error', 'Data Gagal Di Upload!!');
+    }
+
+
+    public function update(Request $request, $id ){
+        $pasien = Patient::find($id);
+        //----------------------------------------------------------------
+        $to_val = [
+            'full_name'         => "required|string|max:255",
+            'place_of_birth'    => "nullable|string|max:255",
+            'birthDate'         => "nullable|date",
+            'identity_type_id'  => "nullable",
+            'identity_number'   => "nullable|unique:patients,identity_number,".$id.",id",
+            'gender_id'         => "required",
+            'maritalStatus_id'  => "nullable",
+            'no_tlp'            => "nullable",
+            'no_bpjs'           => "nullable|unique:patients,no_bpjs,".$id.",id",
+
+            'address_alamat'        => "required",
+            'postalCode'            => "nullable",
+            'address_provinsi_id'   => "nullable",
+            'address_kota_id'       => "nullable",
+            'address_kecamatan_id'  => "nullable",
+            'address_kelurahan_id'  => "nullable",
+
+            'note'  => "nullable",
+            'photo' => 'nullable|mimes:jpeg,png,jpg|max:4000',
+        ];
+
+        if ($this->mode_form == 'medium' || $this->mode_form == 'advance'){
+            $to_val['nama_ibu']             = "nullable"; 
+            $to_val['blood']                = "nullable"; 
+            $to_val['pendidikan_id']        = "nullable"; 
+            $to_val['pekerjaan_id']         = "nullable"; 
+            $to_val['agama_id']             = "nullable"; 
+            $to_val['kewarganegaraan_id']   = "nullable"; 
+            $to_val['suku']                 = "nullable"; 
+            $to_val['bahasa']               = "nullable"; 
+        }
+        $request->validate($to_val);
+        //----------------------------------------------------------------
+
+
+         //----------------------------------------------------------------
+         $to_store = [
+          
+            'full_name'         => $request->full_name,
+            'place_of_birth'    => $request->place_of_birth ,
+            'birthDate'         => $request->birthDate ,
+            'identity_type_id'  => $request->identity_type_id ,
+            'identity_number'   => $request->identity_number ,
+            'gender_id'         => $request->gender_id ,
+            'maritalStatus_id'  => $request->maritalStatus_id ,
+            'no_tlp'            => $request->no_tlp ,
+            'no_bpjs'           => $request->no_bpjs ,
+
+            'address_alamat'        => $request->address_alamat ,
+            'postalCode'            => $request->postalCode ,
+            'address_provinsi_id'   => $request->address_provinsi_id,
+            'address_kota_id'       => $request->address_kota_id,
+            'address_kecamatan_id'  => $request->address_kecamatan_id,
+            'address_kelurahan_id'  => $request->address_kelurahan_id,
+
+            'note'              => $request->note ,
+            
+            'edithor_id'        => Auth::user()->id
+        ];
+
+        if ($this->mode_form == 'medium' || $this->mode_form == 'advance'){
+            $to_store['nama_ibu']             = $request->nama_ibu; 
+            $to_store['blood']                = $request->blood; 
+            $to_store['pendidikan_id']        = $request->pendidikan_id; 
+            $to_store['pekerjaan_id']         = $request->pekerjaan_id; 
+            $to_store['agama_id']             = $request->agama_id; 
+            $to_store['kewarganegaraan_id']   = $request->kewarganegaraan_id; 
+            $to_store['suku']                 = $request->suku; 
+            $to_store['bahasa']               = $request->bahasa; 
+        }
+        //----------------------------------------------------------------
+
+
+        //----------------------------------------------------------------
+        if ($request->hasFile('photo')) {
+            $destinationPath = public_path('/images/dp_patient');
+
+            if($pasien->photo != ''){
+                File::delete($destinationPath.'/'.$pasien->photo);
+            }
+            $image = $request->file('photo');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $image->move($destinationPath, $name);
+            $to_store['photo'] = $name;
+        }
+        //----------------------------------------------------------------
+
+
+        if($pasien->update($to_store)){
+            return redirect()->route('patient.show', $pasien->no_rm)->with('success', 'Data Berhasil Di Update!!');
+        }
+        return redirect()->route('patient.create')->with('error', 'Data Gagal Di Update!!');
     }
 
     public function fhir_json($id){

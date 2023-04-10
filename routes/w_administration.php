@@ -13,6 +13,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::get('/patient/create', 'PatientController@create')->name('patient.create');
     Route::get('/patient/edit/{id}', 'PatientController@edit')->name('patient.edit');
     Route::post('/patient/store', 'PatientController@store')->name('patient.store');
+    Route::put('/patient/update/{id}', 'PatientController@update')->name('patient.update');
     //patient-------------------------------------------------------------------------
 
 });
