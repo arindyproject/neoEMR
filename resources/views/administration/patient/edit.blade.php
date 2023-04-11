@@ -9,7 +9,7 @@
 @push('header_menus')
 <li class="nav-item d-none d-sm-inline-block">
     <a class="nav-link active">
-        <b>{{$title}}</b>
+        <i class="fas fa-user-edit"></i><b>{{$title}}</b>
     </a>
 </li>
 @include('administration.menus')
@@ -24,7 +24,7 @@
         <div class="card">
             <div class="card-header bg-{{$bg}}">
                 <h3 class="card-title">
-                    {{$title}}
+                    <i class="fas fa-user-edit"></i> {{$title}}
                 </h3>
             </div>
             <div class="card-body p-0">

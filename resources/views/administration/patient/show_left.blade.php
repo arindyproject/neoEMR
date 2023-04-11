@@ -25,14 +25,14 @@
                 </li>
                 <!-- ------------------------------------------------------ -->
                 <li class="list-group-item">
-                    <i class="fas fa-venus-mars"></i> Gender 
+                    <i class="fas fa-venus-mars"></i> Gender
                     <b class="float-right">
                         {{$data->gender_id != '' ? $data->gender->nama : ''}}
                     </b>
                 </li>
                 <!-- ------------------------------------------------------ -->
                 <li class="list-group-item">
-                    <i class="fas fa-hourglass-start"></i> Usia 
+                    <i class="fas fa-hourglass-start"></i> Usia
                     <b class="float-right">
                         {{$data->usia()}}
                     </b>
@@ -40,34 +40,46 @@
                 <!-- ------------------------------------------------------ -->
                 <li class="list-group-item">
                     <i class="far fa-id-card"></i>
-                    {{$data->identity_type_id != '' ? $data->identityType->nama : ''}} 
+                    {{$data->identity_type_id != '' ? $data->identityType->nama : ''}}
                     <b class="float-right">{{$data->identity_number}}</b>
                 </li>
                 <!-- ------------------------------------------------------ -->
                 @if($data->no_bpjs != '')
                 <li class="list-group-item">
-                    <i class="far fa-credit-card"></i> BPJS/JKN 
+                    <i class="far fa-credit-card"></i> BPJS/JKN
                     <b class="float-right">{{$data->no_bpjs}}</b>
                 </li>
                 @endif
                 <!-- ------------------------------------------------------ -->
                 @if($data->no_tlp != '')
                 <li class="list-group-item">
-                    <i class="fas fa-phone"></i> No HP/TLP 
+                    <i class="fas fa-phone"></i> No HP/TLP
                     <b class="float-right">{{$data->no_tlp}}</b>
                 </li>
                 @endif
                 <!-- ------------------------------------------------------ -->
                 <li class="list-group-item">
-                    <i class="fas fa-birthday-cake"></i> Tempat/TGL Lahir 
+                    <i class="fas fa-birthday-cake"></i> Tempat/TGL Lahir
                     <b class="float-right">
                         {{$data->place_of_birth}}, {{$data->birthDate}}
                     </b>
                 </li>
                 <!-- ------------------------------------------------------ -->
+                <li class="list-group-item">
+                    <i class="fas fa-map-marker-alt"></i> Alamat
+                    <b class="float-right text-right">
+                        {{$data->address_alamat}}
+                        {{$data->address_kelurahan_id   != '' ? $data->kelurahan->nama : ''}},
+                        {{$data->address_kecamatan_id   != '' ? $data->kecamatan->nama : ''}},
+                        {{$data->address_kota_id        != '' ? $data->kota->nama : ''}},
+                        {{$data->address_provinsi_id    != '' ? $data->provinsi->nama : ''}},
+                        {{$data->postalCode}}
+                    </b>
+                </li>
+                <!-- ------------------------------------------------------ -->
                 @if($data->maritalStatus_id != '')
                 <li class="list-group-item">
-                    <i class="fas fa-ring"></i> Status Nikah 
+                    <i class="fas fa-ring"></i> Status Nikah
                     <b class="float-right">
                         {{$data->maritalStatus->nama}}
                     </b>
@@ -76,7 +88,7 @@
                 <!-- ------------------------------------------------------ -->
                 @if ($data->agama_id != '')
                 <li class="list-group-item">
-                    <i class="fas fa-praying-hands"></i> Agama 
+                    <i class="fas fa-praying-hands"></i> Agama
                     <b class="float-right">
                         {{$data->agama->nama}}
                     </b>
@@ -85,7 +97,7 @@
                 <!-- ------------------------------------------------------- -->
                 @if ($data->pendidikan_id != '')
                 <li class="list-group-item">
-                    <i class="fas fa-graduation-cap"></i> Pendidikan 
+                    <i class="fas fa-graduation-cap"></i> Pendidikan
                     <b class="float-right">
                         {{$data->pendidikan->nama}}
                     </b>
@@ -94,20 +106,20 @@
                 <!-- ------------------------------------------------------ -->
                 @if ($data->pekerjaan_id != '')
                 <li class="list-group-item">
-                    <i class="fas fa-user-tie"></i> Pekerjaan 
+                    <i class="fas fa-user-tie"></i> Pekerjaan
                     <b class="float-right">
                         {{$data->pekerjaan->nama}}
                     </b>
-                </li>   
+                </li>
                 @endif
                 <!-- ------------------------------------------------------ -->
                 @if ($data->nama_ibu != '')
                 <li class="list-group-item">
-                    <i class="fas fa-female"></i> Nama Ibu Kandung 
+                    <i class="fas fa-female"></i> Nama Ibu Kandung
                     <b class="float-right">
                         {{$data->nama_ibu}}
                     </b>
-                </li> 
+                </li>
                 @endif
                 <!-- ------------------------------------------------------ -->
                 @if ($data->kewarganegaraan_id != '')
@@ -116,7 +128,7 @@
                     <b class="float-right">
                         {{$data->kewarganegaraan->nama}}
                     </b>
-                </li> 
+                </li>
                 @endif
                 <!-- ------------------------------------------------------ -->
                 @if ($data->bahasa != '')
@@ -125,7 +137,7 @@
                     <b class="float-right">
                         {{$data->bahasa}}
                     </b>
-                </li> 
+                </li>
                 @endif
                 <!-- ------------------------------------------------------ -->
                 @if ($data->suku != '')
@@ -134,7 +146,7 @@
                     <b class="float-right">
                         {{$data->suku}}
                     </b>
-                </li> 
+                </li>
                 @endif
                 <!-- ------------------------------------------------------ -->
                 @if ($data->blood != '')
@@ -143,7 +155,7 @@
                     <b class="float-right">
                         {{$data->blood}}
                     </b>
-                </li> 
+                </li>
                 @endif
                 <!-- ------------------------------------------------------ -->
 
@@ -163,26 +175,50 @@
 
             </ul>
 
-            @if(Auth::user()->hasRole('admin'))
-            <a href="{{route('patient.edit',$data->id )}}" type="button"
-                class="btn btn-block btn-success bg-{{$bg}}">
-                <i class="fas fa-user-edit"></i>EDIT
-            </a>
+            @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('administration'))
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-xl-6 col-lg-6">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fas fa-user-edit"></i> Edit Advance
+                        </button>
+                        <div class="dropdown-menu" style="">
+                            <a class="dropdown-item" href="#"><i class="far fa-id-badge"></i> Name</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-id-card"></i> Identifier</a>
+                            <a class="dropdown-item" href="#"><i class="far fa-address-book"></i> Contact</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-language"></i> Communication</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-map-marker-alt"></i> Address</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-phone"></i> Telecom</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 col-lg-6">
+                    <a href="{{route('patient.edit',$data->id )}}" type="button"
+                        class="btn btn-block btn-success bg-{{$bg}}">
+                        <i class="fas fa-user-edit"></i>EDIT
+                    </a>
+                </div>
+            </div>
             @endif
 
         </div>
         <!-- /.card-body -->
     </div>
-     <!-- Profile Image -->
+    <!-- Profile Image -->
 
 
-     <!-- About Me Box -->
-    <div class="card card-{{$bg}}">
+    <!-- About Me Box -->
+    <div class="card card-{{$bg}} collapsed-card">
         <div class="card-header ">
-          <h3 class="card-title">About Patient</h3>
+            <h3 class="card-title">About Patient</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                </button>
+            </div>
         </div>
         <div class="card-body">
-          
+
             <!-- -------------------------------------------------------------------- -->
             <hr>
             <strong><i class="fas fa-map-marker-alt mr-1"></i> Address</strong>
@@ -197,8 +233,10 @@
             @if ($data->address != '')
             @foreach ($data->address as $item)
             <p class="text-muted">
-                {{@$item['use'] ? $item['use'] : ''}} : {{@$item['type'] ? $item['type'] :''}}, {{@$item['text'] ? $item['text'] :''}}, {{@$item['line'] ? $item['line'] : ''}},
-                {{@$item['city'] ? $item['city'] : ''}}, {{@$item['district'] ? $item['district'] :''}}, {{@$item['state'] ? $item['state'] : ''}}, {{@$item['postalCode'] ? $item['postalCode'] :''}}
+                {{@$item['use'] ? $item['use'] : ''}} : {{@$item['type'] ? $item['type'] :''}},
+                {{@$item['text'] ? $item['text'] :''}}, {{@$item['line'] ? $item['line'] : ''}},
+                {{@$item['city'] ? $item['city'] : ''}}, {{@$item['district'] ? $item['district'] :''}},
+                {{@$item['state'] ? $item['state'] : ''}}, {{@$item['postalCode'] ? $item['postalCode'] :''}}
                 , {{@$item['country'] ? $item['country'] : ''}}
             </p>
             @endforeach
@@ -211,12 +249,13 @@
             <strong><i class="fas fa-phone-alt mr-1"></i> Telecom </strong>
             @foreach ($data->telecom as $item)
             <p class="text-muted">
-                {{@$item['use'] ? $item['use'] : ''}} : {{@$item['value'] ? $item['value'] : ''}}, {{@$item['rank'] ? $item['rank'] : ''}}
+                {{@$item['use'] ? $item['use'] : ''}} : {{@$item['value'] ? $item['value'] : ''}},
+                {{@$item['rank'] ? $item['rank'] : ''}}
             </p>
             @endforeach
             @endif
             <!-- -------------------------------------------------------------------- -->
-            
+
 
             <!-- -------------------------------------------------------------------- -->
             @if ($data->communication != '')
@@ -273,5 +312,5 @@
 
 
         </div>
-      </div>
+    </div>
 </div>
