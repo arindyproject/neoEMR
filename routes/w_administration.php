@@ -12,6 +12,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::get('/patient/show/{rm}', 'PatientController@show')->name('patient.show');
     Route::get('/patient/create', 'PatientController@create')->name('patient.create');
     Route::get('/patient/edit/{id}', 'PatientController@edit')->name('patient.edit');
+    Route::get('/patient/edit/advance/{type}/{id}', 'PatientController@edit_advance')->name('patient.edit_advance');
     Route::post('/patient/store', 'PatientController@store')->name('patient.store');
     Route::put('/patient/update/{id}', 'PatientController@update')->name('patient.update');
     //patient-------------------------------------------------------------------------

@@ -184,12 +184,12 @@
                             <i class="fas fa-user-edit"></i> Edit Advance
                         </button>
                         <div class="dropdown-menu" style="">
-                            <a class="dropdown-item" href="#"><i class="far fa-id-badge"></i> Name</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-id-card"></i> Identifier</a>
-                            <a class="dropdown-item" href="#"><i class="far fa-address-book"></i> Contact</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-language"></i> Communication</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-map-marker-alt"></i> Address</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-phone"></i> Telecom</a>
+                            <a class="dropdown-item" href="{{Route('patient.edit_advance', ['name', $data->id] )}}"><i class="far fa-id-badge"></i> Name</a>
+                            <a class="dropdown-item" href="{{Route('patient.edit_advance', ['identifier', $data->id] )}}"><i class="fas fa-id-card"></i> Identifier</a>
+                            <a class="dropdown-item" href="{{Route('patient.edit_advance', ['contact', $data->id] )}}"><i class="far fa-address-book"></i> Contact</a>
+                            <a class="dropdown-item" href="{{Route('patient.edit_advance', ['communication', $data->id] )}}"><i class="fas fa-language"></i> Communication</a>
+                            <a class="dropdown-item" href="{{Route('patient.edit_advance', ['address', $data->id] )}}"><i class="fas fa-map-marker-alt"></i> Address</a>
+                            <a class="dropdown-item" href="{{Route('patient.edit_advance', ['telecom', $data->id] )}}"><i class="fas fa-phone"></i> Telecom</a>
                         </div>
                     </div>
                 </div>

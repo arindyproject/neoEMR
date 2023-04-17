@@ -124,6 +124,49 @@ class PatientController extends Controller
         return view('administration.patient.edit', $this->to_return);
     }
 
+    public function edit_advance($type, $id){
+        $data = Patient::find($id);
+        $this->to_return['data']            = $data;
+        $this->to_return['title']           = "Edit Advance (".$type.") : " . $data->full_name . " : " . $data->no_rm; 
+
+        switch ($type) {
+            case 'name':
+                $this->to_return['name_use']    = Config::get_fhair_cs_name('name-use');
+                break;
+            case 'identifier':
+                $this->to_return['identifier_use']      = Config::get_fhair_cs_name('identifier-use');
+                $this->to_return['identifier_type']     = Config::get_fhair_cs_name('identifier-type');
+                break;
+            case 'communication':
+                $this->to_return['valueset_languages']  = Config::get_fhair_vs_name('valueset-languages');
+                break;
+            case 'address':
+                $this->to_return['address_use']         = Config::get_fhair_cs_name('address-use');
+                $this->to_return['address_type']        = Config::get_fhair_cs_name('address-type');
+                break;
+            case 'telecom':
+                $this->to_return['telecom_use']         = Config::get_fhair_cs_name('contact-point-use');
+                $this->to_return['telecom_system']      = Config::get_fhair_cs_name('contact-point-system');
+                break;
+            case 'contact':
+                $this->to_return['name_use']            = Config::get_fhair_cs_name('name-use');
+                $this->to_return['identifier_use']      = Config::get_fhair_cs_name('identifier-use');
+                $this->to_return['identifier_type']     = Config::get_fhair_cs_name('identifier-type');
+                $this->to_return['administrative_gender']     = Config::get_fhair_cs_name('administrative-gender');
+                $this->to_return['address_use']         = Config::get_fhair_cs_name('address-use');
+                $this->to_return['address_type']        = Config::get_fhair_cs_name('address-type');
+                $this->to_return['telecom_use']         = Config::get_fhair_cs_name('contact-point-use');
+                $this->to_return['telecom_system']      = Config::get_fhair_cs_name('contact-point-system');
+                $this->to_return['valueset_languages']  = Config::get_fhair_vs_name('valueset-languages');
+                $this->to_return['contact_relationship']= Config::get_fhair_cs_name('patient-contact-relationship');
+                break;
+            default:
+                return redirect()->route('patient.show', $data->no_rm)->with('error', '404!!');
+        }
+
+        return view('administration.patient.edit_advance.' .$type , $this->to_return);
+    }
+
     public function store(Request $request ){
 
         //----------------------------------------------------------------
@@ -372,7 +415,6 @@ class PatientController extends Controller
         }
         return redirect()->route('patient.create')->with('error', 'Data Gagal Di Upload!!');
     }
-
 
     public function update(Request $request, $id ){
         $pasien = Patient::find($id);
