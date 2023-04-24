@@ -202,15 +202,15 @@
                                     <div class="form-group">
                                         <label>Gol Darah</label>
                                         <select name="blood" id="blood" class="form-control form-control-sm">
-                                            <option value="">Pilih ...</option>
-                                            <option value="A">A</option>
-                                            <option value="A+">A+</option>
-                                            <option value="B">B</option>
-                                            <option value="B+">B+</option>
-                                            <option value="AB">AB</option>
-                                            <option value="AB+">AB+</option>
-                                            <option value="O">O</option>
-                                            <option value="O+">O+</option>
+                                            <option  value="">Pilih ...</option>
+                                            <option {{ old('blood') == 'A' ? 'selected' : ''}} value="A">A</option>
+                                            <option {{ old('blood') == 'A+' ? 'selected' : ''}} value="A+">A+</option>
+                                            <option {{ old('blood') == 'B' ? 'selected' : ''}} value="B">B</option>
+                                            <option {{ old('blood') == 'B+' ? 'selected' : ''}} value="B+">B+</option>
+                                            <option {{ old('blood') == 'AB' ? 'selected' : ''}} value="AB">AB</option>
+                                            <option {{ old('blood') == 'AB+' ? 'selected' : ''}} value="AB+">AB+</option>
+                                            <option {{ old('blood') == 'O' ? 'selected' : ''}} value="O">O</option>
+                                            <option {{ old('blood') == 'O+' ? 'selected' : ''}} value="O+">O+</option>
                                         </select>
                                         @if ($errors->has('blood'))
                                         <span class="help-block">
@@ -393,7 +393,7 @@
                                         <div class="form-group">
                                             <label>Alamat</label>
                                             <textarea class="form-control form-control-sm" name="address_alamat"
-                                                id="address_alamat" cols="30"
+                                                id="address_alamat" cols="30" required
                                                 rows="2">{{old('address_alamat')}}</textarea>
                                             @if ($errors->has('address_alamat'))
                                             <span class="help-block">

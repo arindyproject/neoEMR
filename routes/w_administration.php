@@ -15,6 +15,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::get('/patient/edit/advance/{type}/{id}', 'PatientController@edit_advance')->name('patient.edit_advance');
     Route::post('/patient/store', 'PatientController@store')->name('patient.store');
     Route::put('/patient/update/{id}', 'PatientController@update')->name('patient.update');
+    Route::put('/patient/update/advance/{type}/{id}', 'PatientController@update_advance')->name('patient.update_advance');
     //patient-------------------------------------------------------------------------
 
 });

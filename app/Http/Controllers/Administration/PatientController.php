@@ -128,7 +128,7 @@ class PatientController extends Controller
         $data = Patient::find($id);
         $this->to_return['data']            = $data;
         $this->to_return['title']           = "Edit Advance (".$type.") : " . $data->full_name . " : " . $data->no_rm; 
-
+        $this->to_return['type']            = $type;
         switch ($type) {
             case 'name':
                 $this->to_return['name_use']    = Config::get_fhair_cs_name('name-use');
@@ -395,7 +395,7 @@ class PatientController extends Controller
                     $request->contact_address_district[$i]  != '' ? $tmp_contact['address']['district']  = $request->contact_address_district[$i] : null;
                     $request->contact_address_state[$i]     != '' ? $tmp_contact['address']['state'] = $request->contact_address_state[$i] : null;
                     $request->contact_address_postalCode[$i]!= '' ? $tmp_contact['address']['postalCode']= $request->contact_address_postalCode[$i] : null;
-                    $request->contact_address_postalCode[$i]!= '' ? $tmp_contact['address']['postalCode']= $request->contact_address_postalCode[$i] : null;
+                    $request->contact_address_country[$i]!= '' ? $tmp_contact['address']['country']= $request->contact_address_country[$i] : null;
 
                     $request->contact_peroide_start[$i] != '' ? $tmp_contact['period']['start'] = $request->contact_peroide_start[$i] : null;
                     $request->contact_peroide_end[$i]   != '' ? $tmp_contact['period']['end']   = $request->contact_peroide_end[$i] : null;
@@ -510,6 +510,152 @@ class PatientController extends Controller
 
         if($pasien->update($to_store)){
             return redirect()->route('patient.show', $pasien->no_rm)->with('success', 'Data Berhasil Di Update!!');
+        }
+        return redirect()->route('patient.create')->with('error', 'Data Gagal Di Update!!');
+    }
+
+    public function update_advance(Request $request, $type, $id){
+        $to_store = [];
+        $pasien   = Patient::find($id);
+        if($type == 'name'){
+            //name---------------------------------------------------------------
+            $out = [];
+            if($request->use){
+                foreach($request->use as $i=>$itm){
+                    $tmp_name = [];
+                    $itm != '' ? $tmp_name['use'] = $itm : null;
+                    $request->text[$i]     != '' ? $tmp_name['text']   = $request->text[$i] : null;
+                    $request->family[$i]   != '' ? $tmp_name['family'] = $request->family[$i] : null;
+                    $request->given[$i]    != '' ? $tmp_name['given']  = $request->given[$i] : null;
+                    $request->prefix[$i]   != '' ? $tmp_name['prefix'] = $request->prefix[$i] : null;
+                    $request->suffix[$i]   != '' ? $tmp_name['suffix'] = $request->suffix[$i] : null;
+                    $request->period_start[$i] != '' ? $tmp_name['period']['start'] = $request->period_start[$i] : null;
+                    $request->period_end[$i]   != '' ? $tmp_name['period']['end']   = $request->period_end[$i] : null;
+
+                    array_push($out, $tmp_name);
+                }
+                $to_store[$type] = $out; 
+            }
+            //name---------------------------------------------------------------
+        }else if($type == 'identifier'){
+            //identifier---------------------------------------------------------
+            $v_identifier = [];
+            if($request->use ){
+                foreach($request->use as $i=>$itm){
+                    $tmp_identifier = [];
+                    $itm != '' ? $tmp_identifier['use'] = $itm : null;
+
+                    $request->type[$i]   != '' ? $tmp_identifier['type']   = Config::get_fhair_cs_name_code('identifier-type', $request->type[$i]) : null;
+                    $request->system[$i] != '' ? $tmp_identifier['system'] = $request->system[$i] : '';
+                    $request->value[$i]  != '' ? $tmp_identifier['value']  = $request->value[$i]  : '';
+                    $request->period_start[$i] != '' ? $tmp_identifier['period']['start'] = $request->period_start[$i] : null;
+                    $request->period_end[$i]   != '' ? $tmp_identifier['period']['end']   = $request->period_end[$i] : null;
+
+                    array_push($v_identifier, $tmp_identifier);
+                }
+                $to_store[$type] = $v_identifier; 
+            }
+            //identifier---------------------------------------------------------
+        }else if($type == 'communication'){
+            //communication---------------------------------------------------------
+            $v_communication = [];
+            if($request->language ){
+                foreach($request->language as $i=>$itm){
+                    $tmp_communication = [];
+
+                    $itm != '' ? $tmp_communication['language'] = Config::get_fhair_vs_name_code('valueset-languages', $itm) : null;
+
+                    array_push($v_communication, $tmp_communication);
+                }
+                $to_store[$type] = $v_communication; 
+            }
+            //communication---------------------------------------------------------
+        }else if($type == 'telecom'){
+            //telecom---------------------------------------------------------
+            $v_telecom = [];
+            if($request->use ){
+                foreach($request->use as $i=>$itm){
+                    $tmp_telecom = [];
+
+                    $itm != '' ? $tmp_telecom['use'] = $itm : null;
+                    $request->system[$i]    != '' ? $tmp_telecom['system']   = $request->system[$i] : null;
+                    $request->value[$i]     != '' ? $tmp_telecom['value']    = $request->value[$i] : null;
+                    $request->rank[$i]      != '' ? $tmp_telecom['rank']     = $request->rank[$i] : null;
+                    $request->period_start[$i] != '' ? $tmp_telecom['period']['start'] = $request->period_start[$i] : null;
+                    $request->period_end[$i]   != '' ? $tmp_telecom['period']['end']   = $request->period_end[$i] : null;
+
+                    array_push($v_telecom, $tmp_telecom);
+                }
+                $to_store[$type] = $v_telecom; 
+            }
+            //telecom---------------------------------------------------------
+        }else if($type == 'address'){
+            //address---------------------------------------------------------
+            $v_address = [];
+            if($request->use ){
+                foreach($request->use as $i=>$itm){
+                    $tmp_address = [];
+
+                    $itm != '' ? $tmp_address['use'] = $itm : null;
+                    $request->type[$i]      != '' ? $tmp_address['type']   = $request->type[$i] : null;
+                    $request->text[$i]      != '' ? $tmp_address['text']   = $request->text[$i] : null;
+                    $request->line[$i]      != '' ? $tmp_address['line']   = $request->line[$i] : null;
+                    $request->city[$i]      != '' ? $tmp_address['city']   = $request->city[$i] : null;
+                    $request->district[$i]  != '' ? $tmp_address['district']   = $request->district[$i] : null;
+                    $request->state[$i]     != '' ? $tmp_address['state']   = $request->state[$i] : null;
+                    $request->postalCode[$i]!= '' ? $tmp_address['postalCode']   = $request->postalCode[$i] : null;
+                    $request->country[$i]   != '' ? $tmp_address['country']   = $request->country[$i] : null;
+                    $request->period_start[$i] != '' ? $tmp_address['period']['start'] = $request->period_start[$i] : null;
+                    $request->period_end[$i]   != '' ? $tmp_address['period']['end']   = $request->period_end[$i] : null;
+
+                    array_push($v_address, $tmp_address);
+                }
+                $to_store['address'] = $v_address; 
+            }
+            //address---------------------------------------------------------
+        }else if($type == 'contact'){
+            $v_contact = [];
+            if($request->contact_relationship ){
+                foreach($request->contact_relationship as $i=>$itm){
+                    $tmp_contact = [];
+                    $itm != '' ? $tmp_contact['relationship'] = Config::get_fhair_cs_name_code('patient-contact-relationship', $itm) : null;
+
+                    $request->contact_name_use[$i]    != '' ? $tmp_contact['name']['use']   = $request->contact_name_use[$i] : null;
+                    $request->contact_name_text[$i]   != '' ? $tmp_contact['name']['text']   = $request->contact_name_text[$i] : null;
+
+                    $request->contact_gender[$i]      != '' ? $tmp_contact['gender']   = $request->contact_gender[$i] : null;
+
+                    $request->contact_organization[$i]!= '' ? $tmp_contact['organization']   = $request->contact_organization[$i] : null;
+
+                    $request->contact_telecom_use[$i]       != '' ? $tmp_contact['telecom']['use']   = $request->contact_telecom_use[$i] : null;
+                    $request->contact_telecom_system[$i]    != '' ? $tmp_contact['telecom']['system']= $request->contact_telecom_system[$i] : null;
+                    $request->contact_telecom_value[$i]     != '' ? $tmp_contact['telecom']['value'] = $request->contact_telecom_value[$i] : null;
+
+                    $request->contact_address_use[$i]       != '' ? $tmp_contact['address']['use']   = $request->contact_address_use[$i] : null;
+                    $request->contact_address_type[$i]      != '' ? $tmp_contact['address']['type']  = $request->contact_address_type[$i] : null;
+                    $request->contact_address_text[$i]      != '' ? $tmp_contact['address']['text']  = $request->contact_address_text[$i] : null;
+                    $request->contact_address_line[$i]      != '' ? $tmp_contact['address']['line']  = $request->contact_address_line[$i] : null;
+                    $request->contact_address_city[$i]      != '' ? $tmp_contact['address']['city']  = $request->contact_address_city[$i] : null;
+                    $request->contact_address_district[$i]  != '' ? $tmp_contact['address']['district']  = $request->contact_address_district[$i] : null;
+                    $request->contact_address_state[$i]     != '' ? $tmp_contact['address']['state'] = $request->contact_address_state[$i] : null;
+                    $request->contact_address_postalCode[$i]!= '' ? $tmp_contact['address']['postalCode']= $request->contact_address_postalCode[$i] : null;
+                    $request->contact_address_country[$i]!= '' ? $tmp_contact['address']['country']= $request->contact_address_country[$i] : null;
+
+                    $request->period_start[$i] != '' ? $tmp_contact['period']['start'] = $request->period_start[$i] : null;
+                    $request->period_end[$i]   != '' ? $tmp_contact['period']['end']   = $request->period_end[$i] : null;
+
+
+                    array_push($v_contact, $tmp_contact);
+                }
+                $to_store['contact'] = $v_contact; 
+                
+            }
+            //contact---------------------------------------------------------
+        }
+
+        if($pasien->update($to_store)){
+            //return redirect()->route('patient.show', $pasien->no_rm)->with('success', 'Data Berhasil Di Update!!');
+            return redirect()->back()->with('success', 'Data Berhasil Di Update!!');
         }
         return redirect()->route('patient.create')->with('error', 'Data Gagal Di Update!!');
     }

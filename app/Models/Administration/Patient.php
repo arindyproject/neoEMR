@@ -136,7 +136,7 @@ class Patient extends Model
             },
             "system"        : "",
             "value"         : "",
-            "peroide"       : {
+            "period"       : {
                 "start"     : "",
                 "end"       : ""
             },
@@ -150,7 +150,7 @@ class Patient extends Model
             "given"     : "",
             "prefix"    : "",
             "suffix"    : "",
-            "peroide"   : {
+            "period"   : {
                 "start" : "",
                 "end"   : ""
             }
@@ -161,7 +161,7 @@ class Patient extends Model
             "value"     : "",
             "use"       : "",
             "rank"      : "",
-            "peroide"   : {
+            "period"   : {
                 "start" : "",
                 "end"   : ""
             }
@@ -177,7 +177,7 @@ class Patient extends Model
             "state"     : "",
             "postalCode": "",
             "country"   : "",
-            "peroide"   : {
+            "period"   : {
                 "start" : "",
                 "end"   : ""
             }
@@ -215,7 +215,7 @@ class Patient extends Model
                 "given"     : "",
                 "prefix"    : "",
                 "suffix"    : "",
-                "peroide"   : {
+                "period"   : {
                     "start" : "",
                     "end"   : ""
                 }
@@ -225,7 +225,7 @@ class Patient extends Model
                 "value"     : "",
                 "use"       : "",
                 "rank"      : "",
-                "peroide"   : {
+                "period"   : {
                     "start" : "",
                     "end"   : ""
                 }
@@ -240,7 +240,7 @@ class Patient extends Model
                 "state"     : "",
                 "postalCode": "",
                 "country"   : "",
-                "peroide"   : {
+                "period"   : {
                     "start" : "",
                     "end"   : ""
                 }
