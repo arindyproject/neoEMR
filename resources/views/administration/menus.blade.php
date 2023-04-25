@@ -13,6 +13,13 @@
 </li>
 
 <li class="nav-item d-none d-sm-inline-block">
+    <a href="{{route('patient.index2')}}" class="nav-link {{ request()->is('patient2') ? 'active' : '' }} ">
+        <i class="fas fa-user-injured nav-icon"></i>
+        <b>Patients V2</b>
+    </a>
+</li>
+
+<li class="nav-item d-none d-sm-inline-block">
     <a href="{{route('patient.create')}}" class="nav-link {{ request()->is('patient/create') ? 'active' : '' }} ">
         <i class="fas fa-user-plus nav-icon"></i>
         <b>Add NEW Patient</b>

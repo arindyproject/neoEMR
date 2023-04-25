@@ -18,6 +18,17 @@
                 <h3 class="card-title">
                     {{$title}}
                 </h3>
+
+                <div class="card-tools">
+                    <form action="" method="GET">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="q" class="form-control" placeholder="nama / nomor RM" value="{{request('q')}}">
+                            <span class="input-group-append">
+                                <button type="submit" class="btn btn-info btn-flat">Cari!</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <div class="card-body table-responsive p-0">
@@ -36,36 +47,39 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $i=>$item)
-                            <tr>
-                                <td>{{$i + $data->firstItem() }}</td>
-                                <td>{{$item->no_rm}}</td>
-                                <td>{{$item->full_name}}</td>
-                                <td>{{$item->birthDate}}</td>
-                                <td>{{$item->usia()}}</td>
-                                <td>
-                                    {{$item->address_alamat}},
-                                    {{$item->address_kelurahan_id   != '' ? $item->kelurahan->nama : ''}},
-                                    {{$item->address_kecamatan_id   != '' ? $item->kecamatan->nama : ''}},
-                                    {{$item->address_kota_id        != '' ? $item->kota->nama : ''}},
-                                    {{$item->address_provinsi_id    != '' ? $item->provinsi->nama : ''}}
-                                </td>
-                                <td>
-                                    {{$item->identity_type_id != '' ? $item->identityType->nama : ''}}:
-                                    {{$item->identity_number}}
-                                </td>
-                                <td>{{$item->no_bpjs}}</td>
-                                <td>{{$item->no_tlp}}</td>
-                                <td>
-                                    <a href="{{Route('patient.show', $item->no_rm)}}" class="btn btn-info btn-sm">Lihat</a>
-                                </td>
+                        <tr>
+                            <td>{{$i + $data->firstItem() }}</td>
+                            <td>{{$item->no_rm}}</td>
+                            <td>{{$item->full_name}}</td>
+                            <td>{{$item->birthDate}}</td>
+                            <td>{{$item->usia()}}</td>
+                            <td>
+                                {{$item->address_alamat}},
+                                {{$item->address_kelurahan_id   != '' ? $item->kelurahan->nama : ''}},
+                                {{$item->address_kecamatan_id   != '' ? $item->kecamatan->nama : ''}},
+                                {{$item->address_kota_id        != '' ? $item->kota->nama : ''}},
+                                {{$item->address_provinsi_id    != '' ? $item->provinsi->nama : ''}}
                             </td>
-                        @endforeach
+                            <td>
+                                {{$item->identity_type_id != '' ? $item->identityType->nama : ''}}:
+                                {{$item->identity_number}}
+                            </td>
+                            <td>{{$item->no_bpjs}}</td>
+                            <td>{{$item->no_tlp}}</td>
+                            <td class="btn-group">
+                                @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('administration'))
+                                <a href="{{Route('administration.pendaftaran', $item->no_rm)}}" class="btn btn-warning btn-sm"><i class="fas fa-plus-circle"></i> Daftarkan</a>
+                                @endif
+                                <a href="{{Route('patient.show', $item->no_rm)}}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Lihat</a>
+                            </td>
+                            </td>
+                            @endforeach
                     </tbody>
                 </table>
             </div>
 
             <div class="card-footer">
-            {{$data->links()}}
+                {{$data->links()}}
             </div>
         </div>
     </div>

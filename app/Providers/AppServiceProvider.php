@@ -10,6 +10,8 @@ use App\Models\Config;
 
 use Illuminate\Pagination\Paginator;
 
+use Yajra\DataTables\Html\Builder;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -34,5 +36,7 @@ class AppServiceProvider extends ServiceProvider
                 'bg'    => $bg
             ]);
         });
+
+        Builder::useVite();
     }
 }

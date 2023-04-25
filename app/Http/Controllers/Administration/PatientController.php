@@ -24,6 +24,8 @@ use App\Models\attAlamatKota;
 use App\Models\attAlamatKecamatan;
 use App\Models\attAlamatKelurahan;
 
+
+
 use Illuminate\Support\Str;
 class PatientController extends Controller
 {
@@ -56,6 +58,15 @@ class PatientController extends Controller
             } )
             ->paginate(30);
             return view('administration.patient.index', $this->to_return);
+        }
+    }
+
+    public function index2(){
+        $qr = request('q');
+        if(Patient::where('no_rm', $qr)->first()){
+            return redirect()->route('patient.show', $qr);
+        }else{
+            return view('administration.patient.index2', $this->to_return);
         }
     }
 
@@ -956,6 +967,10 @@ class PatientController extends Controller
         ];
 
         return $json;
+    }
+
+    public function data_json(){
+
     }
 
 }
