@@ -24,7 +24,7 @@ use App\Models\attAlamatKota;
 use App\Models\attAlamatKecamatan;
 use App\Models\attAlamatKelurahan;
 
-
+use DataTables;
 
 use Illuminate\Support\Str;
 class PatientController extends Controller
@@ -970,7 +970,64 @@ class PatientController extends Controller
     }
 
     public function data_json(){
+        $data = Patient::get();
 
+        return Datatables::of($data)
+        ->addColumn('action', function($item){
+            return "<a target='_blank' href='" .route('patient.show', $item->no_rm).  "' class='btn btn-sm btn-info'><i class='fas fa-eye'></i></a>";
+        })
+        ->addColumn('gender', function($item){
+            if($item->gender_id != ''){
+                return $item->gender->nama;
+            }
+            return '--';
+        })
+        ->addColumn('usia', function($item){
+            return $item->usia();
+        })
+        ->addColumn('full_address', function($item){
+            return $item->address_alamat 
+            .' '. ($item->address_kelurahan_id   != '' ? $item->kelurahan->nama : '')
+            .' '. ($item->address_kecamatan_id   != '' ? $item->kecamatan->nama : '')
+            .' '. ($item->address_kota_id        != '' ? $item->kota->nama : '')
+            .' '. ($item->address_provinsi_id    != '' ? $item->provinsi->nama : '');
+        })
+        ->addColumn('kelurahan', function($item){
+            return $item->address_kelurahan_id   != '' ? $item->kelurahan->nama : '';
+        })
+        ->addColumn('kecamatan', function($item){
+            return $item->address_kecamatan_id   != '' ? $item->kecamatan->nama : '';
+        })
+        ->addColumn('kota', function($item){
+            return $item->address_kota_id        != '' ? $item->kota->nama : '';
+        })
+        ->addColumn('provinsi', function($item){
+            return $item->address_provinsi_id    != '' ? $item->provinsi->nama : '';
+        })
+        ->addColumn('kartu_identitas', function($item){
+            return ($item->identity_type_id != '' ? $item->identityType->nama . ' : ' : '') . $item->identity_number;
+        })
+        ->addColumn('status_nikah', function($item){
+            return $item->maritalStatus_id    != '' ? $item->maritalStatus->nama : '';
+        })
+        ->addColumn('agama', function($item){
+            return $item->agama_id    != '' ? $item->agama->nama : '';
+        })
+        ->addColumn('pendidikan', function($item){
+            return $item->pendidikan_id    != '' ? $item->pendidikan->nama : '';
+        })
+        ->addColumn('pekerjaan', function($item){
+            return $item->pekerjaan_id    != '' ? $item->pekerjaan->nama : '';
+        })
+        ->addColumn('kewarganegaraan', function($item){
+            return $item->kewarganegaraan_id    != '' ? $item->kewarganegaraan->nama : '';
+        })
+        ->addColumn('author', function($item){
+            return $item->author->name;
+        })
+        
+        ->rawColumns(['action'])
+        ->make(true);
     }
 
 }

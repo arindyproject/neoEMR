@@ -34,6 +34,7 @@
                 @csrf
                 @method('PUT')
                 <div class="card-body row" id="form-add">
+                    @if(@$data['telecom'])
                     @foreach ($data['telecom'] as $item)
 
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
@@ -123,6 +124,7 @@
                     </div>
 
                     @endforeach
+                    @endif
                 </div>
 
                 <div class="card-footer ">
