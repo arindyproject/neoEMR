@@ -66,6 +66,14 @@ class PatientController extends Controller
         if(Patient::where('no_rm', $qr)->first()){
             return redirect()->route('patient.show', $qr);
         }else{
+            $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
+            $this->to_return['gender']          = attJenisKelamin::get();
+            $this->to_return['status_nikah']    = attJenisPernikahan::get();
+            $this->to_return['pendidikan']      = attJenisPendidikan::get();
+            $this->to_return['pekerjaan']       = attJenisPekerjaan::get();
+            $this->to_return['agama']           = attJenisAgama::get();
+            $this->to_return['country']         = attAlamatCountry::get();
+
             return view('administration.patient.index2', $this->to_return);
         }
     }
