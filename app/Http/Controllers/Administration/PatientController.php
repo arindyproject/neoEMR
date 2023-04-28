@@ -66,6 +66,8 @@ class PatientController extends Controller
         if(Patient::where('no_rm', $qr)->first()){
             return redirect()->route('patient.show', $qr);
         }else{
+            $this->to_return['title']           = "Patients V2";
+
             $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
             $this->to_return['gender']          = attJenisKelamin::get();
             $this->to_return['status_nikah']    = attJenisPernikahan::get();
@@ -978,7 +980,153 @@ class PatientController extends Controller
     }
 
     public function data_json(){
-        $data = Patient::get();
+        $full_name          = request('full_name');
+        $place_of_birth     = request('place_of_birth');
+
+        $birthDate_samadengan   = request('birthDate_samadengan');
+        $birthDate_kurandari    = request('birthDate_kurandari');
+        $birthDate_lebihdari    = request('birthDate_lebihdari');
+
+        $gender_id = request('gender_id');
+
+        $address_provinsi_id   = request('address_provinsi_id');
+        $address_kota_id       = request('address_kota_id');
+        $address_kecamatan_id  = request('address_kecamatan_id');
+        $address_kelurahan_id  = request('address_kelurahan_id');
+        $address_alamat        = request('address_alamat');
+
+        $identity_type_id  = request('identity_type_id');
+        $identity_number   = request('identity_number');
+
+        $no_bpjs            = request('no_bpjs');
+        $no_tlp             = request('no_tlp');
+
+        $maritalStatus_id   = request('maritalStatus_id');
+
+        $agama_id           = request('agama_id');
+
+        $pendidikan_id      = request('pendidikan_id');
+        $pekerjaan_id       = request('pekerjaan_id');
+
+        $kewarganegaraan_id = request('kewarganegaraan_id');
+        $bahasa             = request('bahasa');
+        $suku               = request('suku');
+
+        $blood              = request('blood');
+
+        $data = Patient::where(function($q) use($full_name){
+            if($full_name != ''){
+                $q->where('full_name', 'LIKE', '%'.$full_name.'%');
+            }
+        })
+        ->where(function($q) use($place_of_birth){
+            if($place_of_birth != ''){
+                $q->where('place_of_birth', 'LIKE', '%'.$place_of_birth.'%');
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($birthDate_samadengan, $birthDate_kurandari, $birthDate_lebihdari){
+            if($birthDate_samadengan != '' && $birthDate_kurandari == '' && $birthDate_lebihdari == ''){
+                $q->whereDate('birthDate', $birthDate_samadengan);
+            }
+
+            if($birthDate_kurandari != ''){
+                $q->whereDate('birthDate', '<=', $birthDate_kurandari);
+            }
+
+            if($birthDate_lebihdari != ''){
+                $q->whereDate('birthDate', '>=', $birthDate_lebihdari);
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($gender_id){
+            if($gender_id != ''){
+                $q->where('gender_id', $gender_id);
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($address_provinsi_id, $address_kota_id, $address_kecamatan_id, $address_kelurahan_id, $address_alamat){
+            if($address_provinsi_id != ''){
+                $q->where('address_provinsi_id', $address_provinsi_id);
+            }
+            if($address_kota_id != ''){
+                $q->where('address_kota_id', $address_kota_id);
+            }
+            if($address_kecamatan_id != ''){
+                $q->where('address_kecamatan_id', $address_kecamatan_id);
+            }
+            if($address_kelurahan_id != ''){
+                $q->where('address_kelurahan_id', $address_kelurahan_id);
+            }
+            if($address_alamat != ''){
+                $q->where('address_alamat', 'LIKE',  '%'.$address_alamat.'%');
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($identity_type_id, $identity_number){
+            if($identity_type_id != ''){
+                $q->where('identity_type_id', $identity_type_id);
+            }
+            if($identity_number != ''){
+                $q->where('identity_number', 'LIKE',  '%'. $identity_number . '%');
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($no_bpjs){
+            if($no_bpjs != ''){
+                $q->where('no_bpjs', 'LIKE',  '%'. $no_bpjs . '%');
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($no_tlp){
+            if($no_tlp != ''){
+                $q->where('no_tlp', 'LIKE',  '%'. $no_tlp . '%');
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($maritalStatus_id){
+            if($maritalStatus_id != ''){
+                $q->where('maritalStatus_id', $maritalStatus_id);
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($agama_id){
+            if($agama_id != ''){
+                $q->where('agama_id', $agama_id);
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($pendidikan_id){
+            if($pendidikan_id != ''){
+                $q->where('pendidikan_id', $pendidikan_id);
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($pekerjaan_id){
+            if($pekerjaan_id != ''){
+                $q->where('pekerjaan_id', $pekerjaan_id);
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($kewarganegaraan_id, $bahasa, $suku){
+            if($kewarganegaraan_id != ''){
+                $q->where('kewarganegaraan_id', $kewarganegaraan_id);
+            }
+            if($bahasa != ''){
+                $q->where('bahasa', 'LIKE',  '%'. $bahasa . '%');
+            }
+            if($suku != ''){
+                $q->where('suku', 'LIKE',  '%'. $suku . '%');
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->where(function($q) use($blood){
+            if($blood != ''){
+                $q->where('blood', $blood);
+            }
+        })
+        //---------------------------------------------------------------------------------------------
+        ->get();
 
         return Datatables::of($data)
         ->addColumn('action', function($item){
@@ -994,11 +1142,11 @@ class PatientController extends Controller
             return $item->usia();
         })
         ->addColumn('full_address', function($item){
-            return $item->address_alamat 
-            .' '. ($item->address_kelurahan_id   != '' ? $item->kelurahan->nama : '')
-            .' '. ($item->address_kecamatan_id   != '' ? $item->kecamatan->nama : '')
-            .' '. ($item->address_kota_id        != '' ? $item->kota->nama : '')
-            .' '. ($item->address_provinsi_id    != '' ? $item->provinsi->nama : '');
+            return $item->address_alamat ;
+            //  .' '. ($item->address_kelurahan_id   != '' ? $item->kelurahan->nama : '')
+            //  .' '. ($item->address_kecamatan_id   != '' ? $item->kecamatan->nama : '')
+            //  .' '. ($item->address_kota_id        != '' ? $item->kota->nama : '')
+            //  .' '. ($item->address_provinsi_id    != '' ? $item->provinsi->nama : '');
         })
         ->addColumn('kelurahan', function($item){
             return $item->address_kelurahan_id   != '' ? $item->kelurahan->nama : '';
