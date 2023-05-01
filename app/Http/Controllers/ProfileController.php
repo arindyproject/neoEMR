@@ -159,6 +159,8 @@ class ProfileController extends Controller
             $name_file = $file->file;
             if ($request->hasFile('file')) {
                 $destinationPath = public_path('/files/user');
+                File::delete($destinationPath.'/'.$name_file);
+
                 $files = $request->file('file');
                 $name = $user->id .'_'. time().'.'.$files->getClientOriginalExtension();
                 $files->move($destinationPath, $name);

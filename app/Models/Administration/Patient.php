@@ -110,6 +110,12 @@ class Patient extends Model
         return $this->belongsTo('App\Models\User', 'edithor_id');
     }
 
+    //-----------------------------------------------------------------------
+    public function files(){
+        return $this->hasMany('App\Models\Administration\PatientFile', 'patient_id');
+    }
+    //-----------------------------------------------------------------------
+
     protected $casts = [
         'identifier'    => 'array' ,
         'name'          => 'array' ,

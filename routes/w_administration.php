@@ -26,6 +26,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
 
     //patient_file-------------------------------------------------------------------------
     Route::get('/file/patient/{rm}', 'PatientFileController@index')->name('file.patient.index');
+    Route::get('/file/patient/{rm}/create', 'PatientFileController@create')->name('file.patient.create');
+    Route::get('/file/patient/{rm}/edit/{slug}', 'PatientFileController@edit')->name('file.patient.edit');
+    Route::put('/file/patient/{id}/store', 'PatientFileController@store')->name('file.patient.store');
+    Route::put('/file/patient/{id}/update', 'PatientFileController@update')->name('file.patient.update');
+    Route::delete('/file/patient/{id}/delete', 'PatientFileController@delete')->name('file.patient.delete');
     //patient_file-------------------------------------------------------------------------
 
 });
