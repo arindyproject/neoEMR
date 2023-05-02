@@ -27,7 +27,7 @@
                 </ul>
             </div>
             <div class="card-body table-responsive p-0">
-                <a href="{{Route('file.patient.create', $data->no_rm)}}" class="btn btn-info"><i
+                <a href="{{Route('file.patient.create', $data->id)}}" class="btn btn-info"><i
                         class="fas fa-upload"></i> Upload File Baru</a>
                 <table class="table table-sm">
                     <thead>
@@ -64,7 +64,7 @@
                             <td>{{$item->edithor_id != '' ? $item->edithor->name : '-'}} <br>
                                 {{$item->updated_at != $item->created_at ? $item->updated_at : '-'}}</td>
                             <td class="btn-group">
-                                <a href="{{Route('file.patient.edit', [$data->no_rm,$item->slug])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                <a href="{{Route('file.patient.edit', [$data->id,$item->slug])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                 <form action="{{Route('file.patient.delete', $item->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')

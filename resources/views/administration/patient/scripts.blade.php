@@ -1,6 +1,9 @@
 @push('scripts')
+<script src="{{ asset('assets/plugins/selectize/selectize.min.js') }}"></script>
     <script type="text/javascript">
-   
+        $('.select-search').selectize({
+          sortField: 'text'
+        });
 
         //----------------------------------------------------------------------------
         @if(request()->is('patient/edit/*'))

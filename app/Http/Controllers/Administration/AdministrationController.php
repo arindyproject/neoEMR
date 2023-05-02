@@ -27,22 +27,27 @@ class AdministrationController extends Controller
         return view('administration.index', $this->to_return);
     }
 
-    public function pendaftaran($rm){
-        $itm = Patient::where('no_rm', $rm)->first();
+    public function pendaftaran($id){
+        $itm = Patient::find($id);
         if($itm){
-            $this->to_return['data']         = $itm;
-            $this->to_return['title']   = $itm->no_rm .' : '. $itm->full_name; 
-            return view('administration.pendaftaran', $this->to_return);
+            if($itm->active){
+                $this->to_return['data']         = $itm;
+                $this->to_return['title']        = $itm->no_rm .' : '. $itm->full_name; 
+                return view('administration.pendaftaran', $this->to_return);
+            }else{
+                return redirect()->route('patient.index')->with('error', 'Pasien ' . $itm->full_name . ' Non Active Tidak Dapat DiDaftarkan!!');
+            }
+            
         }else{
             return redirect()->route('patient.index')->with('error', 'Data NOT FOUND!!');
         }
     }
 
-    public function history($rm){
-        $itm = Patient::where('no_rm', $rm)->first();
+    public function history($id){
+        $itm = Patient::find($id);
         if($itm){
             $this->to_return['data']         = $itm;
-            $this->to_return['title']   = $itm->no_rm .' : '. $itm->full_name; 
+            $this->to_return['title']        = $itm->no_rm .' : '. $itm->full_name; 
             return view('administration.pendaftaran', $this->to_return);
         }else{
             return redirect()->route('patient.index')->with('error', 'Data NOT FOUND!!');

@@ -68,9 +68,14 @@
                             <td>{{$item->no_tlp}}</td>
                             <td class="btn-group">
                                 @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('administration'))
-                                <a href="{{Route('administration.pendaftaran', $item->no_rm)}}" class="btn btn-warning btn-sm"><i class="fas fa-plus-circle"></i> Daftarkan</a>
+                                @if ($item->active)
+                                <a href="{{Route('administration.pendaftaran', $item->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-plus-circle"></i> Daftarkan</a>
+                                @else   
+                                <button disabled class="btn btn-sm btn-outline-danger"><b class="text-danger"><i class="fas fa-power-off"></i> No Active</b></button>
                                 @endif
-                                <a href="{{Route('patient.show', $item->no_rm)}}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Lihat</a>
+                                @endif
+                                <a href="{{Route('patient.show', $item->no_rm)}}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> Lihat</a>
+                                <a href="{{Route('administration.history', $item->id)}}" class="btn btn-info btn-sm"><i class="fas fa-history"></i> History</a>
                             </td>
                             </td>
                             @endforeach

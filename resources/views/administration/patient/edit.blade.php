@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @push('styles')
+<link rel="stylesheet" href="{{ asset('assets/plugins/selectize/selectize.bootstrap3.min.css') }}"> 
     <!-- Select2-->
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
@@ -225,7 +226,7 @@
                                     <div class="form-group">
                                         <label>Pendidikan</label>
                                         <select name="pendidikan_id" id="pendidikan_id"
-                                            class="form-control form-control-sm">
+                                            class="form-control form-control-sm select-search">
                                             <option value="">Pilih ...</option>
                                             @foreach ($pendidikan as $item)
                                             <option {{$item->id == $data->pendidikan_id ? 'selected' : ''}}

@@ -244,7 +244,6 @@ class PatientController extends Controller
 
         //----------------------------------------------------------------
         $to_store = [
-            'no_rm'             => Str::uuid()->toString(),
             'full_name'         => $request->full_name,
             'place_of_birth'    => $request->place_of_birth ,
             'birthDate'         => $request->birthDate ,

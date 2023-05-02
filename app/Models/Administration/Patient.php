@@ -53,6 +53,45 @@ class Patient extends Model
         'edithor_id',
     ];
 
+    //--------------------------------------------------------------------------
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($pasien) {
+            $pasien->no_rm = static::generateNomorRm();
+        });
+
+        static::deleting(function ($pasien) {
+            // hapus record pasien dari database
+            $pasien->delete();
+            
+            // update nomor_rm dari record selanjutnya
+            $nextPasien = static::where('id', '>', $pasien->id)->orderBy('id', 'asc')->first();
+            if ($nextPasien) {
+                $nextPasien->no_rm = str_pad((string) $nextPasien->id, 6, '0', STR_PAD_LEFT);
+                $nextPasien->save();
+            }
+        });
+    }
+
+    public static function generateNomorRm()
+    {
+        $lastRecord = static::orderBy('id', 'desc')->first();
+
+        if (! $lastRecord) {
+            return '000000';
+        }
+
+        $lastId = (int) $lastRecord->no_rm;
+
+        return str_pad((string) $lastId + 1, 6, '0', STR_PAD_LEFT);
+    }
+    //--------------------------------------------------------------------------
+
     public function usia(){
         return \Carbon\Carbon::parse($this->birthDate)->diff(\Carbon\Carbon::now())->format('%y Tahun, %m Bulan, %d Hari');
     }

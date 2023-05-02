@@ -26,8 +26,8 @@ class PatientFileController extends Controller
     }
 
 
-    public function index($rm){
-        $itm = Patient::where('no_rm', $rm)->first();
+    public function index($id){
+        $itm = Patient::find($id);
         if($itm){
             $this->to_return['data']    = $itm;
             $this->to_return['title']   = 'FILE : ' . $itm->no_rm .' : '. $itm->full_name; 
@@ -38,8 +38,8 @@ class PatientFileController extends Controller
         }
     }
 
-    public function create($rm){
-        $itm = Patient::where('no_rm', $rm)->first();
+    public function create($id){
+        $itm = Patient::find($id);
         if($itm){
             $this->to_return['data']         = $itm;
             $this->to_return['title']   = 'Upload FILE : ' . $itm->no_rm .' : '. $itm->full_name; 
@@ -49,8 +49,8 @@ class PatientFileController extends Controller
         }
     }
 
-    public function edit($rm, $slug){
-        $itm = Patient::where('no_rm', $rm)->first();
+    public function edit($id, $slug){
+        $itm = Patient::find($id);
         $file= PatientFile::where('slug', $slug)->where('patient_id', $itm->id)->first();
         if($itm){
             $this->to_return['data']        = $itm;
@@ -84,7 +84,7 @@ class PatientFileController extends Controller
             'author_id' => Auth::user()->id,
         ]);
         if($q){
-            return redirect()->route('file.patient.index', $patient->no_rm)->with('success', 'File Berhasil di Upload!!');
+            return redirect()->route('file.patient.index', $patient->id)->with('success', 'File Berhasil di Upload!!');
         }
 
         return redirect()->route('home')->with('error', 'Anda tidak memiliki izin!!');
@@ -116,7 +116,7 @@ class PatientFileController extends Controller
 
         $x = $q->update($to_store);
         if($x){
-            return redirect()->route('file.patient.index', $q->patient->no_rm)->with('success', 'File Berhasil di Update!!');
+            return redirect()->route('file.patient.index', $q->patient->id)->with('success', 'File Berhasil di Update!!');
         }
 
         return redirect()->route('home')->with('error', 'Anda tidak memiliki izin!!');
