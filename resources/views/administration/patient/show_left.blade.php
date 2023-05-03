@@ -9,7 +9,7 @@
             </div>
 
             <h3 class="profile-username text-center">
-                {{$data->full_name}}
+                {{@$data->title ? $data->title . '.' : ''}} {{$data->full_name}}
             </h3>
             <p class="text-muted text-center">
                 {{$data->no_rm}}
@@ -46,8 +46,8 @@
                 <!-- ------------------------------------------------------ -->
                 @if($data->no_bpjs != '')
                 <li class="list-group-item">
-                    <i class="far fa-credit-card"></i> BPJS/JKN
-                    <b class="float-right">{{$data->no_bpjs}}</b>
+                    <i class="far fa-credit-card"></i> BPJS/JKN {{$data->jenis_bpjs_id != '' ? ' : '. $data->jenis_bpjs->nama : ''}}
+                    <b class="float-right">{{$data->no_bpjs}} (kelas {{$data->kelas_bpjs}})</b>
                 </li>
                 @endif
                 <!-- ------------------------------------------------------ -->

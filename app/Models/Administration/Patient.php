@@ -11,6 +11,7 @@ class Patient extends Model
 
     protected $fillable = [
         'no_rm',
+        'title',
         'full_name', 
         'place_of_birth',
         'birthDate',
@@ -18,7 +19,11 @@ class Patient extends Model
         'identity_type_id',
         'maritalStatus_id',
         'gender_id',
+
         'no_bpjs',
+        'jenis_bpjs_id',
+        'kelas_bpjs',
+        
         'no_tlp',
 
         'postalCode',
@@ -94,6 +99,10 @@ class Patient extends Model
 
     public function usia(){
         return \Carbon\Carbon::parse($this->birthDate)->diff(\Carbon\Carbon::now())->format('%y Tahun, %m Bulan, %d Hari');
+    }
+
+    public function jenis_bpjs(){
+        return $this->belongsTo('App\Models\attJenisBpjs', 'jenis_bpjs_id');
     }
 
     public function kelurahan(){

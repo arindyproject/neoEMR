@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('no_rm', 6)->unique();
 
             //-----------------------------------------------------------
+            $table->string('title')->nullable();
             $table->string('full_name');
 
             $table->unsignedBigInteger('gender_id')->nullable();
@@ -33,7 +34,13 @@ return new class extends Migration
            
 
             $table->string('photo')->nullable();
+
             $table->string('no_bpjs')->nullable();
+            $table->integer('kelas_bpjs')->nullable();
+            $table->unsignedBigInteger('jenis_bpjs_id')->nullable();
+            $table->foreign('jenis_bpjs_id')->references('id')->on('att_jenis_bpjs')->onDelete('set null'); 
+            
+
             $table->string('no_tlp')->nullable();
             //-----------------------------------------------------------
             $table->unsignedBigInteger('agama_id')->nullable();

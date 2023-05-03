@@ -17,12 +17,14 @@ use App\Models\attJenisPernikahan;
 use App\Models\attJenisPendidikan;
 use App\Models\attJenisPekerjaan;
 use App\Models\attJenisAgama;
+use App\Models\attJenisBpjs;
 use App\Models\attAlamatCountry;
 
 use App\Models\attAlamatProvinsi;
 use App\Models\attAlamatKota;
 use App\Models\attAlamatKecamatan;
 use App\Models\attAlamatKelurahan;
+
 
 use DataTables;
 
@@ -99,6 +101,7 @@ class PatientController extends Controller
         $this->to_return['pendidikan']      = attJenisPendidikan::get();
         $this->to_return['pekerjaan']       = attJenisPekerjaan::get();
         $this->to_return['agama']           = attJenisAgama::get();
+        $this->to_return['jenis_bpjs']      = attJenisBpjs::get();
         $this->to_return['country']         = attAlamatCountry::get();
 
         $this->to_return['default']         = Config::get_setting_default();
@@ -132,6 +135,7 @@ class PatientController extends Controller
         $this->to_return['status_nikah']    = attJenisPernikahan::get();
         $this->to_return['pendidikan']      = attJenisPendidikan::get();
         $this->to_return['pekerjaan']       = attJenisPekerjaan::get();
+        $this->to_return['jenis_bpjs']      = attJenisBpjs::get();
         $this->to_return['agama']           = attJenisAgama::get();
         $this->to_return['country']         = attAlamatCountry::get();
 
@@ -192,6 +196,7 @@ class PatientController extends Controller
 
         //----------------------------------------------------------------
         $to_val = [
+            
             'full_name'         => "required|string|max:255",
             'place_of_birth'    => "nullable|string|max:255",
             'birthDate'         => "nullable|date",
@@ -200,6 +205,10 @@ class PatientController extends Controller
             'gender_id'         => "required",
             'maritalStatus_id'  => "nullable",
             'no_tlp'            => "nullable",
+
+            'title'             => "nullable",
+            'kelas_bpjs'        => "nullable",
+            'jenis_bpjs_id'     => "nullable",
             'no_bpjs'           => "nullable|unique:patients",
 
             'address_alamat'        => "required",
@@ -252,6 +261,10 @@ class PatientController extends Controller
             'gender_id'         => $request->gender_id ,
             'maritalStatus_id'  => $request->maritalStatus_id ,
             'no_tlp'            => $request->no_tlp ,
+
+            'title'             => $request->title,
+            'kelas_bpjs'        => $request->kelas_bpjs,
+            'jenis_bpjs_id'     => $request->jenis_bpjs_id,
             'no_bpjs'           => $request->no_bpjs ,
 
             'address_alamat'        => $request->address_alamat ,
@@ -448,6 +461,10 @@ class PatientController extends Controller
             'gender_id'         => "required",
             'maritalStatus_id'  => "nullable",
             'no_tlp'            => "nullable",
+
+            'title'             => "nullable",
+            'kelas_bpjs'        => "nullable",
+            'jenis_bpjs_id'     => "nullable",
             'no_bpjs'           => "nullable|unique:patients,no_bpjs,".$id.",id",
 
             'address_alamat'        => "required",
@@ -486,6 +503,10 @@ class PatientController extends Controller
             'gender_id'         => $request->gender_id ,
             'maritalStatus_id'  => $request->maritalStatus_id ,
             'no_tlp'            => $request->no_tlp ,
+
+            'title'             => $request->title,
+            'kelas_bpjs'        => $request->kelas_bpjs,
+            'jenis_bpjs_id'     => $request->jenis_bpjs_id,
             'no_bpjs'           => $request->no_bpjs ,
 
             'address_alamat'        => $request->address_alamat ,

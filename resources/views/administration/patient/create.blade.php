@@ -39,7 +39,25 @@
                                 <!-- ---------------------------------------------------- -->
                                 <div class="form-group row">
                                     <label for="full_name" class="col-md-2 col-sm-4 col-form-label">Nama Lengkap*</label>
-                                    <div class="col-md-10 col-sm-8">
+                                    <div class="col-md-2 col-sm-2">
+                                        <select name="title" id="title" class="form-control form-control-sm">
+                                            <option value="">pilih title</option>
+                                            <option {{old('title') == 'BY' ? 'selected' : ''}} value="BY">BY.</option>
+                                            <option {{old('title') == 'AN' ? 'selected' : ''}} value="AN">AN.</option>
+                                            <option {{old('title') == 'SDR/i' ? 'selected' : ''}} value="SDR/i">SDR/i.</option>
+                                            <option {{old('title') == 'TN' ? 'selected' : ''}} value="TN">TN.</option>
+                                            <option {{old('title') == 'NY' ? 'selected' : ''}} value="NY">NY.</option>
+                                            <option {{old('title') == 'NN' ? 'selected' : ''}} value="NN">NN.</option>
+                                            <option {{old('title') == 'MR' ? 'selected' : ''}} value="MR">MR.</option>
+                                            <option {{old('title') == 'MRS' ? 'selected' : ''}} value="MRS">MRS.</option>
+                                        </select>
+                                        @if ($errors->has('title'))
+                                        <span class="help-block">
+                                            <strong class="text-danger">{{ $errors->first('title') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-8 col-sm-6">
                                         <input type="text" class="form-control form-control-sm" name="full_name"
                                             id="full_name" placeholder="Nama Lengkap Pasien" required
                                             value="{{old('full_name')}}">
@@ -171,7 +189,7 @@
                                 <!-- ---------------------------------------------------- -->
                                 <div class="form-group row">
                                     <label for="no_bpjs" class="col-md-2 col-sm-4 col-form-label">Nomor BPJS/JKN</label>
-                                    <div class="col-md-10 col-sm-8">
+                                    <div class="col-md-4 col-sm-4">
                                         <input type="text" class="form-control form-control-sm" name="no_bpjs"
                                             id="no_bpjs" placeholder="Nomor BPJS/JKN" value="{{old('no_bpjs')}}">
                                         @if ($errors->has('no_bpjs'))
@@ -180,6 +198,33 @@
                                         </span>
                                         @endif
                                     </div>
+
+                                    <div class="col-md-2 col-sm-2">
+                                        <select name="kelas_bpjs" id="kelas_bpjs" class="form-control form-control-sm">
+                                            <option {{old('kelas_bpjs') == '3' ? 'selected' : ''}} value="3">kelas 3</option>
+                                            <option {{old('kelas_bpjs') == '2' ? 'selected' : ''}} value="2">kelas 2</option>
+                                            <option {{old('kelas_bpjs') == '3' ? 'selected' : ''}} value="1">kelas 1</option>
+                                        </select>
+                                        @if ($errors->has('kelas_bpjs'))
+                                        <span class="help-block">
+                                            <strong class="text-danger">{{ $errors->first('kelas_bpjs') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-2">
+                                        <select name="jenis_bpjs_id" id="jenis_bpjs_id" class="form-control form-control-sm">
+                                            @foreach ($jenis_bpjs as $item)
+                                                <option {{old('jenis_bpjs_id') == $item->id ? 'selected' : ''}} value="{{$item->id}}">{{$item->nama}}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('jenis_bpjs_id'))
+                                        <span class="help-block">
+                                            <strong class="text-danger">{{ $errors->first('jenis_bpjs_id') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+
                                 </div>
                                 <!-- ---------------------------------------------------- -->
 

@@ -11,6 +11,7 @@ use App\Models\attJenisPendidikan;
 use App\Models\attJenisPekerjaan;
 use App\Models\attJenisPernikahan;
 use App\Models\attJenisKartuIdentitas;
+use App\Models\attJenisBpjs;
 
 class AttJenisSeeder extends Seeder
 {
@@ -21,15 +22,13 @@ class AttJenisSeeder extends Seeder
     {
         //agama
         $data = array(
-            ["id" => '1' , "nama" => 'ISLAM'],
-            ["id" => '2' , "nama" => 'Katolik'],
-            ["id" => '3' , "nama" => 'Kristen'],
+            ["id" => '1' , "nama" => 'Islam'],
+            ["id" => '2' , "nama" => 'Kristen'],
+            ["id" => '3' , "nama" => 'Katolik'],
             ["id" => '4' , "nama" => 'Hindu'],
-            ["id" => '5' , "nama" => 'Buddha'],
+            ["id" => '5' , "nama" => 'Budha'],
             ["id" => '6' , "nama" => 'Konghucu'],
-            ["id" => '7' , "nama" => 'Lainnya'],
-            ["id" => '8' , "nama" => 'Agnostisisme'],
-            ["id" => '9' , "nama" => 'Ateisme'],
+            ["id" => '7' , "nama" => 'Lainnya']
         );
         foreach ($data as $key => $d) {
             if(!attJenisAgama::find($d['id'])){
@@ -39,9 +38,11 @@ class AttJenisSeeder extends Seeder
 
         //kelamin
         $data = array(
-            ["id" => '1' , "kode" => 'L', "nama" => 'Laki-Laki'],
-            ["id" => '2' , "kode" => 'P', "nama" => 'Perempuan'],
-            ["id" => '3' , "kode" => 'X', "nama" => 'Lain-Lain'],
+            ["id" => '1' , "kode" => '0', "nama" => 'Tidak diketahui'],
+            ["id" => '2' , "kode" => '1', "nama" => 'Laki-laki'],
+            ["id" => '3' , "kode" => '2', "nama" => 'Perempuan'],
+            ["id" => '4' , "kode" => '3', "nama" => 'Tidak dapat dikategorikan'],
+            ["id" => '5' , "kode" => '9', "nama" => 'Tidak Berlaku'],
         );
         foreach ($data as $key => $d) {
             if(!attJenisKelamin::find($d['id'])){
@@ -52,19 +53,14 @@ class AttJenisSeeder extends Seeder
 
         //attJenisPendidikan
         $data = array(
-            ["id" => '1' , "nama" => 'Belum Sekolah'],
-            ["id" => '2' , "nama" => 'Buta Huruf / Tidak Sekolah'],
-            ["id" => '3' , "nama" => 'TK'],
-            ["id" => '4' , "nama" => 'SD / MI'],
-            ["id" => '5' , "nama" => 'SMP / MTS'],
-            ["id" => '6' , "nama" => 'SMA / MA'],
-            ["id" => '7' , "nama" => 'SMK'],
-            ["id" => '8' , "nama" => 'D1'],
-            ["id" => '9' , "nama" => 'D2'],
-            ["id" => '10' , "nama" => 'D3'],
-            ["id" => '11' , "nama" => 'S1 / D4'],
-            ["id" => '12' , "nama" => 'S2'],
-            ["id" => '13' , "nama" => 'S3'],
+            ["id" => '1' , "nama" => 'Tidak/Belum Sekolah'],
+            ["id" => '2' , "nama" => 'TK/Belum tamat SD/Sederajat'],
+            ["id" => '3' , "nama" => 'SD/Sederajat'],
+            ["id" => '4' , "nama" => 'SLTP/Sederajat'],
+            ["id" => '5' , "nama" => 'SLTA/Sederajat'],
+            ["id" => '6' , "nama" => 'Diploma I/II/III'],
+            ["id" => '7' , "nama" => 'Diploma IV/Strata I'],
+            ["id" => '8' , "nama" => 'Strata II/Strata III'],
         );
         foreach ($data as $key => $d) {
             if(!attJenisPendidikan::find($d['id'])){
@@ -102,9 +98,10 @@ class AttJenisSeeder extends Seeder
 
         //attJenisPernikahan
         $data = array(
-            ["id" => '1' , "nama" => 'Single'],
-            ["id" => '2' , "nama" => 'Menikah'],
-            ["id" => '3' , "nama" => 'Duda / Janda'],
+            ["id" => '1' , "nama" => 'Belum Kawin'],
+            ["id" => '2' , "nama" => 'Kawin'],
+            ["id" => '3' , "nama" => 'Cerai Hidup'],
+            ["id" => '4' , "nama" => 'Cerai Mati'],
         );
         foreach ($data as $key => $d) {
             if(!attJenisPernikahan::find($d['id'])){
@@ -126,6 +123,24 @@ class AttJenisSeeder extends Seeder
         foreach ($data as $key => $d) {
             if(!attJenisKartuIdentitas::find($d['id'])){
                 attJenisKartuIdentitas::insert($d);
+            }
+        }
+
+
+        //attJenisBpjs
+        $data = array(
+            ["id" => '1' , "nama" => 'BPJS Mandiri'],
+            ["id" => '2' , "nama" => 'BPJS PBI - JAMKESMAS'],
+            ["id" => '3' , "nama" => 'BPJS PBI - JAMKESDA'],
+            ["id" => '4' , "nama" => 'BPJS PBI - SKTM'],
+            ["id" => '5' , "nama" => 'BPJS Ketenagakerjaan'],
+            ["id" => '6' , "nama" => 'JAMKESKAB NGAWI'],
+            ["id" => '7' , "nama" => 'JAMKESDA NGAWI'],
+            ["id" => '8' , "nama" => 'BPJS ASKES'],
+        );
+        foreach ($data as $key => $d) {
+            if(!attJenisBpjs::find($d['id'])){
+                attJenisBpjs::insert($d);
             }
         }
         
