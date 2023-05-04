@@ -22,6 +22,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::post('/patient/store', 'PatientController@store')->name('patient.store');
     Route::put('/patient/update/{id}', 'PatientController@update')->name('patient.update');
     Route::put('/patient/update/advance/{type}/{id}', 'PatientController@update_advance')->name('patient.update_advance');
+    Route::put('/patient/set_activator/{id}', 'PatientController@set_activator')->name('patient.set_activator');
     //patient-------------------------------------------------------------------------
 
     //patient_file-------------------------------------------------------------------------

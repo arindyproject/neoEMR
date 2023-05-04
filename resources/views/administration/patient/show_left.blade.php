@@ -190,6 +190,14 @@
                             <a class="dropdown-item" href="{{Route('patient.edit_advance', ['communication', $data->id] )}}"><i class="fas fa-language"></i> Communication</a>
                             <a class="dropdown-item" href="{{Route('patient.edit_advance', ['address', $data->id] )}}"><i class="fas fa-map-marker-alt"></i> Address</a>
                             <a class="dropdown-item" href="{{Route('patient.edit_advance', ['telecom', $data->id] )}}"><i class="fas fa-phone"></i> Telecom</a>
+                            <form action="{{Route('patient.set_activator', $data->id)}}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <button onclick="return confirm('Are you sure?')" type="submit"  class="btn btn-sm btn-block btn-{{$data->active == 1 ? 'success' : 'danger'}}">
+                                    <i class="fas fa-power-off"></i> {{$data->active == 1 ? 'Non Aktifkan' : 'Aktifkan'}}
+                                </button>
+                            </form>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -218,6 +226,33 @@
             </div>
         </div>
         <div class="card-body">
+            <!-- -------------------------------------------------------------------- -->
+            @if ($data->contact != '')
+            <hr>
+            <strong><i class="far fa-address-book"></i> Contact</strong>
+            @foreach ($data->contact as $item)
+            <p class="text-muted">
+               {{@$item['relationship']['code']['code'] ? $item['relationship']['code']['code'] . ' : ' : ''}}
+               {{@$item['relationship']['text'] ? $item['relationship']['text'] : ''}}
+               <br>
+               Name : ({{@$item['name']['use'] ? $item['name']['use'] : ''}})
+               {{@$item['name']['text'] ? $item['name']['text'] : ''}} 
+               -> {{@$item['gender'] ? $item['gender'] : ''}} 
+               <br>
+               ({{@$item['telecom']['use'] ? $item['telecom']['use'] : ''}}) 
+               {{@$item['telecom']['system'] ? $item['telecom']['system'] : ''}} =
+               {{@$item['telecom']['value'] ? $item['telecom']['value'] : ''}}
+               <br>
+               ({{@$item['address']['use'] ? $item['address']['use'] : ''}} / {{@$item['address']['type'] ? $item['address']['type'] : ''}}) 
+               {{@$item['address']['text'] ? $item['address']['text'] :''}}, {{@$item['address']['line'] ? $item['address']['line'] : ''}},
+               {{@$item['address']['city'] ? $item['address']['city'] : ''}}, {{@$item['address']['district'] ? $item['address']['district'] :''}},
+               {{@$item['address']['state'] ? $item['address']['state'] : ''}}, {{@$item['address']['postalCode'] ? $item['address']['postalCode'] :''}}
+               ,{{@$item['address']['country'] ? $item['address']['country'] : ''}}
+            </p>
+            @endforeach
+            @endif
+            <!-- -------------------------------------------------------------------- -->
+
 
             <!-- -------------------------------------------------------------------- -->
             <hr>
@@ -303,7 +338,17 @@
                     <tr>
                         <td>Last Update</td>
                         <td>:</td>
-                        <td>{{$data->updated_at}}</td>
+                        <td>{{$data->updated_at != $data->created_at ? $data->updated_at : ''}}</td>
+                    </tr>
+                    <tr>
+                        <td>Activator</td>
+                        <td>:</td>
+                        <td>{{$data->activated_by != '' ? $data->activator->name : ''}} ( to {{$data->active ? 'ON' : 'OFF'}})</td>
+                    </tr>
+                    <tr>
+                        <td>Activated_at</td>
+                        <td>:</td>
+                        <td>{{$data->activated_by != '' ? $data->activated_at : ''}}</td>
                     </tr>
                 </table>
                 <a href="{{Route('patient.fhir.json', $data->id)}}" target="_blank">fhir json</a>

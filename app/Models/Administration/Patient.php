@@ -54,6 +54,9 @@ class Patient extends Model
         'note',
 
         'active',
+        'activated_by',
+        'activated_at',
+
         'author_id',
         'edithor_id',
     ];
@@ -156,6 +159,10 @@ class Patient extends Model
 
     public function edithor(){
         return $this->belongsTo('App\Models\User', 'edithor_id');
+    }
+
+    public function activator(){
+        return $this->belongsTo('App\Models\User', 'activated_by');
     }
 
     //-----------------------------------------------------------------------

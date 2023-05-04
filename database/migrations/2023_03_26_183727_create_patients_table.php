@@ -105,6 +105,10 @@ return new class extends Migration
 
             $table->unsignedBigInteger('edithor_id')->nullable();
             $table->foreign('edithor_id')->references('id')->on('users')->onDelete('set null'); 
+
+            $table->unsignedBigInteger('activated_by')->nullable();
+            $table->foreign('activated_by')->references('id')->on('users')->onDelete('set null'); 
+            $table->timestamp('activated_at')->useCurrent()->useCurrentOnUpdate();
             //-----------------------------------------------------------
             $table->timestamps();
         });

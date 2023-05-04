@@ -701,6 +701,24 @@ class PatientController extends Controller
         return redirect()->route('patient.create')->with('error', 'Data Gagal Di Update!!');
     }
 
+    public function set_activator($id){
+        $pasien   = Patient::find($id);
+        $msg = '';
+        if($pasien){
+            if($pasien->active){
+                $pasien->active = 0;
+                $msg = 'Pasien ' . $pasien->full_name . ' berhasil NON AKTIFKAN!!';
+            }else{
+                $pasien->active = 1;
+                $msg = 'Pasien ' . $pasien->full_name . ' berhasil DI AKTIFKAN!!';
+            }
+            $pasien->activated_by = Auth::user()->id;
+            $pasien->save();
+            return redirect()->back()->with('seccess', $msg);
+        }
+        return redirect()->back()->with('error', 'Data Todak Ditemukan!!');
+    }
+
     public function fhir_json($id){
         $data = Patient::find($id);
         //-----------------------------------------------------------
@@ -833,8 +851,10 @@ class PatientController extends Controller
             $json['photo'] = $data->photo;
         }
         //-----------------------------------------------------------
-        if($data->deceased['deceasedBoolean'] ){
-            $json['deceased'] = $data->deceased;
+        if(@$data->deceased){
+            if($data->deceased['deceasedBoolean'] ){
+                $json['deceased'] = $data->deceased;
+            }
         }
         //-----------------------------------------------------------
         if($data->suku != ''){
