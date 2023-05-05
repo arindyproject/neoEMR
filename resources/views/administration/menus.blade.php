@@ -25,3 +25,12 @@
         <b>Add NEW Patient</b>
     </a>
 </li>
+
+@if(Auth::user()->hasRole('admin'))
+<li class="nav-item d-none d-sm-inline-block">
+    <a href="{{route('administration.setting.index')}}" class="nav-link {{ request()->is('administration/setting') || request()->is('administration/setting/*') ? 'active' : '' }} ">
+        <i class="fas fa-tools"></i>
+        <b>Setting</b>
+    </a>
+</li>
+@endif

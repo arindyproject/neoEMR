@@ -10,6 +10,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::get('/administration/history/{id}', 'AdministrationController@history')->name('administration.history');
     //administration-------------------------------------------------------------------------
 
+
+    //administration setting-------------------------------------------------------------------------
+    Route::get('/administration/setting', 'AdministrationSettingController@index')->name('administration.setting.index');
+    //administration setting-------------------------------------------------------------------------
+
     //patient-------------------------------------------------------------------------
     Route::get('/patient', 'PatientController@index')->name('patient.index');
     Route::get('/patient2', 'PatientController@index2')->name('patient.index2');
