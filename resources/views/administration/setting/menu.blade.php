@@ -19,8 +19,39 @@
                         @endif
                     </a>
                 </li>   
-                
-                
+
+                <li class="nav-item active">
+                    <a href="{{ route('administration.setting.print.pasien.profil') }}" class="nav-link">
+                        <i class="fas fa-id-badge"></i>
+                        @if(request()->is('administration/setting/print/pasien/profil'))
+                        <b>Template Profil Pasien</b>
+                        @else
+                        Template Profil Pasien
+                        @endif
+                    </a>
+                </li>  
+
+                <li class="nav-item active">
+                    <a href="{{ route('administration.setting.print.pasien.card') }}" class="nav-link">
+                        <i class="far fa-id-card"></i>
+                        @if(request()->is('administration/setting/print/pasien/card'))
+                        <b>Template card Pasien</b>
+                        @else
+                        Template card Pasien
+                        @endif
+                    </a>
+                </li>  
+
+                <li class="nav-item active">
+                    <a href="{{ route('administration.setting.print.pasien.label') }}" class="nav-link">
+                        <i class="fas fa-tag"></i>
+                        @if(request()->is('administration/setting/print/pasien/label'))
+                        <b>Template label Pasien</b>
+                        @else
+                        Template label Pasien
+                        @endif
+                    </a>
+                </li>  
 
             </ul>
         </div>

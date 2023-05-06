@@ -173,10 +173,25 @@
                     </b>
                 </li>
 
+
+                <li class="list-group-item">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fas fa-print"></i> Cetak / Print
+                        </button>
+                        <div class="dropdown-menu" style="">
+                            <a  data-link="{{Route('print.patient.profil', $data->id)}}"  class="pdf-link dropdown-item" target="_blank"><i class="fas fa-id-badge"></i> Profil</a>
+                            <a  data-link="{{Route('print.patient.card', $data->id)}}"  class="pdf-link dropdown-item" target="_blank"><i class="far fa-id-card"></i> Card</a>
+                            <a  data-link="{{Route('print.patient.label', $data->id)}}"  class="pdf-link dropdown-item" target="_blank"><i class="fas fa-tag"></i> Label</a>
+                        </div>
+                    </div>
+                </li>
+
             </ul>
 
-            @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('administration'))
             <div class="row">
+            @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('administration'))
                 <div class="col-sm-12 col-md-6 col-xl-6 col-lg-6">
                     <div class="input-group-prepend">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
@@ -207,8 +222,9 @@
                         <i class="fas fa-user-edit"></i>EDIT
                     </a>
                 </div>
-            </div>
+            
             @endif
+            </div>
 
         </div>
         <!-- /.card-body -->
@@ -359,3 +375,18 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.pdf-link').click(function() {
+                var w = 1000;
+                var h = 800;
+                var left = (screen.width/2)-(w/2);
+                var top = (screen.height/2)-(h/2);
+                window.open($(this).data('link'),  '_blank', 'toolbar=0,location=0,menubar=0,scrollbars=yes,resizable=yes,width='+w+',height='+h+',top='+top+',left='+left);
+                return false;
+            });
+        });
+    </script>
+@endpush

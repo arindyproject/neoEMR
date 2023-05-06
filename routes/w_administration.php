@@ -13,6 +13,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
 
     //administration setting-------------------------------------------------------------------------
     Route::get('/administration/setting', 'AdministrationSettingController@index')->name('administration.setting.index');
+
+    Route::get('/administration/setting/print/pasien/profil', 'AdministrationSettingController@print_pasien_profil')->name('administration.setting.print.pasien.profil');
+    Route::post('/administration/setting/print/pasien/profil', 'AdministrationSettingController@print_pasien_profil_store')->name('administration.setting.print.pasien.profil.store');
+    
+    Route::get('/administration/setting/print/pasien/label', 'AdministrationSettingController@print_pasien_label')->name('administration.setting.print.pasien.label');
+    Route::post('/administration/setting/print/pasien/label', 'AdministrationSettingController@print_pasien_label_store')->name('administration.setting.print.pasien.label.store');
+    
+    Route::get('/administration/setting/print/pasien/card', 'AdministrationSettingController@print_pasien_card')->name('administration.setting.print.pasien.card');
+    Route::post('/administration/setting/print/pasien/card', 'AdministrationSettingController@print_pasien_card_store')->name('administration.setting.print.pasien.card.store');
     //administration setting-------------------------------------------------------------------------
 
     //patient-------------------------------------------------------------------------
@@ -38,5 +47,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::put('/file/patient/{id}/update', 'PatientFileController@update')->name('file.patient.update');
     Route::delete('/file/patient/{id}/delete', 'PatientFileController@delete')->name('file.patient.delete');
     //patient_file-------------------------------------------------------------------------
+
+    //patient print-------------------------------------------------------------------------
+    Route::get('/print/patient/{id}/profil/{tmp?}', 'PatientPrintController@print_profil')->name('print.patient.profil');
+    Route::get('/print/patient/{id}/card/{tmp?}', 'PatientPrintController@print_card')->name('print.patient.card');
+    Route::get('/print/patient/{id}/label/{tmp?}', 'PatientPrintController@print_label')->name('print.patient.label');
+    //patient print-------------------------------------------------------------------------
 
 });

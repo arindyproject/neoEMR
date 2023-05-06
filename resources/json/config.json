@@ -74,6 +74,13 @@
             "form_new_pasien": {
                 "mode": "simple"
             }
+        },
+        "template": {
+            "pasien": {
+                "profil": "tmp_2",
+                "label": "label_1",
+                "card": "card_1"
+            }
         }
     },
     "fhair_hl7": {
