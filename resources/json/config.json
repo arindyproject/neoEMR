@@ -1,5 +1,5 @@
 {
-    "name": "neoEMR",
+    "name": "Kelinik Thong Seng",
     "tag_line": "gratis, jangan diJual ya..",
     "alamat": "bukan alamat palsu ya",
     "email": "dummy@gmail.com",
@@ -72,7 +72,7 @@
         },
         "form": {
             "form_new_pasien": {
-                "mode": "simple"
+                "mode": "medium"
             }
         },
         "template": {

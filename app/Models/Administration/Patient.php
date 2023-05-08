@@ -100,6 +100,14 @@ class Patient extends Model
     }
     //--------------------------------------------------------------------------
 
+    public function full_address(){
+        return $this->address_alamat . ' ' .
+        ($this->address_kelurahan_id != '' ? $this->kelurahan->nama .' ,' : '').
+        ($this->address_kecamatan_id != '' ? $this->kecamatan->nama .' ,' : '').
+        ($this->address_kota_id != '' ? $this->kota->nama .' ,' : '').
+        ($this->address_provinsi_id != '' ? $this->provinsi->nama  : '');
+    }
+
     public function usia(){
         return \Carbon\Carbon::parse($this->birthDate)->diff(\Carbon\Carbon::now())->format('%y Tahun, %m Bulan, %d Hari');
     }

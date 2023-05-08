@@ -22,9 +22,13 @@
         font-size: 12px;
         vertical-align: top;
     }
+
+
   </style>
 </head>
 <body>
+
+
     <table class="table_t">
         <tr>
             <td><b style="font-size: 12px;">{{$profil_name}}</b></td>
@@ -54,14 +58,13 @@
             <td>:</td>
             <td>{{$data->place_of_birth}}, {{$data->birthDate != '' ? Carbon\Carbon::parse($data->birthDate)->format('d-m-Y') : '--' }}</td>
         </tr>
-        <tr valign="top">
-            <td>Alamat</td>
-            <td>:</td>
-            <td>{{$data->full_address()}}</td>
+        <tr>
+            <td colspan="3" >{!! DNS1D::getBarcodeHTML($data->no_rm, 'CODABAR') !!}</td>
         </tr>
         <tr>
             <td colspan="3" style="text-align: center"><b>Dibawa saat berobat</b></td>
         </tr>
     </table>
+    
 </body>
 </html>

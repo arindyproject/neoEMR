@@ -689,6 +689,10 @@ class ComposerStaticInit64432a41d4a9d71d811695688fc9d9df
             array (
                 0 => __DIR__ . '/..' . '/mockery/mockery/library',
             ),
+            'Milon\\Barcode' => 
+            array (
+                0 => __DIR__ . '/..' . '/milon/barcode/src',
+            ),
         ),
         'H' => 
         array (
@@ -712,8 +716,10 @@ class ComposerStaticInit64432a41d4a9d71d811695688fc9d9df
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\Administration\\AdministrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administration/AdministrationController.php',
+        'App\\Http\\Controllers\\Administration\\AdministrationSettingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administration/AdministrationSettingController.php',
         'App\\Http\\Controllers\\Administration\\PatientController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administration/PatientController.php',
         'App\\Http\\Controllers\\Administration\\PatientFileController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administration/PatientFileController.php',
+        'App\\Http\\Controllers\\Administration\\PatientPrintController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administration/PatientPrintController.php',
         'App\\Http\\Controllers\\Attributes\\AlamatCountryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Attributes/AlamatCountryController.php',
         'App\\Http\\Controllers\\Attributes\\AlamatKecamatanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Attributes/AlamatKecamatanController.php',
         'App\\Http\\Controllers\\Attributes\\AlamatKelurahanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Attributes/AlamatKelurahanController.php',
@@ -759,6 +765,7 @@ class ComposerStaticInit64432a41d4a9d71d811695688fc9d9df
         'App\\Models\\attAlamatKota' => __DIR__ . '/../..' . '/app/Models/attAlamatKota.php',
         'App\\Models\\attAlamatProvinsi' => __DIR__ . '/../..' . '/app/Models/attAlamatProvinsi.php',
         'App\\Models\\attJenisAgama' => __DIR__ . '/../..' . '/app/Models/attJenisAgama.php',
+        'App\\Models\\attJenisBpjs' => __DIR__ . '/../..' . '/app/Models/attJenisBpjs.php',
         'App\\Models\\attJenisKartuIdentitas' => __DIR__ . '/../..' . '/app/Models/attJenisKartuIdentitas.php',
         'App\\Models\\attJenisKelamin' => __DIR__ . '/../..' . '/app/Models/attJenisKelamin.php',
         'App\\Models\\attJenisPekerjaan' => __DIR__ . '/../..' . '/app/Models/attJenisPekerjaan.php',
@@ -988,6 +995,7 @@ class ComposerStaticInit64432a41d4a9d71d811695688fc9d9df
         'Database\\Seeders\\AlamatSeeder' => __DIR__ . '/../..' . '/database/seeders/AlamatSeeder.php',
         'Database\\Seeders\\AttJenisSeeder' => __DIR__ . '/../..' . '/database/seeders/AttJenisSeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\PatientSeeder' => __DIR__ . '/../..' . '/database/seeders/PatientSeeder.php',
         'Database\\Seeders\\RoleSeeder' => __DIR__ . '/../..' . '/database/seeders/RoleSeeder.php',
         'Database\\Seeders\\UserSeeder' => __DIR__ . '/../..' . '/database/seeders/UserSeeder.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
@@ -4449,6 +4457,15 @@ class ComposerStaticInit64432a41d4a9d71d811695688fc9d9df
         'Matrix\\Operators\\Multiplication' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operators/Multiplication.php',
         'Matrix\\Operators\\Operator' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operators/Operator.php',
         'Matrix\\Operators\\Subtraction' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operators/Subtraction.php',
+        'Milon\\Barcode\\BarcodeServiceProvider' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/BarcodeServiceProvider.php',
+        'Milon\\Barcode\\DNS1D' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/DNS1D.php',
+        'Milon\\Barcode\\DNS2D' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/DNS2D.php',
+        'Milon\\Barcode\\Datamatrix' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/Datamatrix.php',
+        'Milon\\Barcode\\Facades\\DNS1DFacade' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/Facades/DNS1DFacade.php',
+        'Milon\\Barcode\\Facades\\DNS2DFacade' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/Facades/DNS2DFacade.php',
+        'Milon\\Barcode\\PDF417' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/PDF417.php',
+        'Milon\\Barcode\\QRcode' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/QRcode.php',
+        'Milon\\Barcode\\WrongCheckDigitException' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/WrongCheckDigitException.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',

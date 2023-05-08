@@ -59,7 +59,7 @@
 
 <script>
     var options = {
-        height: "800px"
+        height: "400px"
     };
     @foreach($list as $i=>$file)
     PDFObject.embed("{{Route('print.patient.card',[1, str_replace(".blade.php","",$file->getFilename())])}}", "#pdf-{{ $i }}", options);
