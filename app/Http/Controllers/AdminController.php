@@ -76,13 +76,14 @@ class AdminController extends Controller
             }
         })
         ->where('status', 1)
-        ->whereHas(
-            'roles', function($q) use($role){
-                if($role != ''){
+        ->where(function($q) use($role){
+            if($role != ''){
+                $q->whereHas('roles', function($q) use($role){
                     $q->where('name', $role);
-                }
+                });
             }
-        )->paginate(30);
+        })
+        ->paginate(30);
 
         $roles  = Role::get();
         return view('admin.list_aktif', compact(['data','roles']));
