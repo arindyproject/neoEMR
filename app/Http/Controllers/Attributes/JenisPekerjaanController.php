@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Schema;
 
-use App\Models\attJenisPekerjaan;
+use App\Models\Attributes\attJenisPekerjaan;
 
 class JenisPekerjaanController extends Controller
 {

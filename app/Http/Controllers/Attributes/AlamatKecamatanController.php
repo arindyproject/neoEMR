@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\attAlamatKecamatan;
+use App\Models\Attributes\attAlamatKecamatan;
 
 class AlamatKecamatanController extends Controller
 {

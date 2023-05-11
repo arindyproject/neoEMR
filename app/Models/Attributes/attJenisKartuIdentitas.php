@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Attributes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class attJenisBpjs extends Model
+class attJenisKartuIdentitas extends Model
 {
     use HasFactory;
 

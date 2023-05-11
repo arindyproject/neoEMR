@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Schema;
 
-use App\Models\attJenisKelamin;
+use App\Models\Attributes\attJenisKelamin;
 
 class JenisKelaminController extends Controller
 {

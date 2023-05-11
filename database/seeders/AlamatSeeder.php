@@ -5,11 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\attAlamatCountry;
-use App\Models\attAlamatProvinsi;
-use App\Models\attAlamatKota;
-use App\Models\attAlamatKecamatan;
-use App\Models\attAlamatKelurahan;
+use App\Models\Attributes\attAlamatCountry;
+use App\Models\Attributes\attAlamatProvinsi;
+use App\Models\Attributes\attAlamatKota;
+use App\Models\Attributes\attAlamatKecamatan;
+use App\Models\Attributes\attAlamatKelurahan;
 use File;
 
 class AlamatSeeder extends Seeder

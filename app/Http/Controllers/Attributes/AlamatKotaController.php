@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\attAlamatKota;
+use App\Models\Attributes\attAlamatKota;
 
 class AlamatKotaController extends Controller
 {

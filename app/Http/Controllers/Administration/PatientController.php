@@ -11,19 +11,19 @@ use App\Models\Config;
 
 use App\Models\Administration\Patient;
 
-use App\Models\attJenisKartuIdentitas;
-use App\Models\attJenisKelamin;
-use App\Models\attJenisPernikahan;
-use App\Models\attJenisPendidikan;
-use App\Models\attJenisPekerjaan;
-use App\Models\attJenisAgama;
-use App\Models\attJenisBpjs;
-use App\Models\attAlamatCountry;
+use App\Models\Attributes\attJenisKartuIdentitas;
+use App\Models\Attributes\attJenisKelamin;
+use App\Models\Attributes\attJenisPernikahan;
+use App\Models\Attributes\attJenisPendidikan;
+use App\Models\Attributes\attJenisPekerjaan;
+use App\Models\Attributes\attJenisAgama;
+use App\Models\Attributes\attJenisBpjs;
+use App\Models\Attributes\attAlamatCountry;
 
-use App\Models\attAlamatProvinsi;
-use App\Models\attAlamatKota;
-use App\Models\attAlamatKecamatan;
-use App\Models\attAlamatKelurahan;
+use App\Models\Attributes\attAlamatProvinsi;
+use App\Models\Attributes\attAlamatKota;
+use App\Models\Attributes\attAlamatKecamatan;
+use App\Models\Attributes\attAlamatKelurahan;
 
 
 use DataTables;

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Schema;
 
-use App\Models\attJenisAgama;
+use App\Models\Attributes\attJenisAgama;
 use Illuminate\Support\Facades\Route;
 class JenisAgamaController extends Controller
 

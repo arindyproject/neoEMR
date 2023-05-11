@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Schema;
 
-use App\Models\attJenisKartuIdentitas;
+use App\Models\Attributes\attJenisKartuIdentitas;
 
 class JenisKartuIdentitasController extends Controller
 {

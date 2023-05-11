@@ -5,13 +5,13 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\attJenisAgama;
-use App\Models\attJenisKelamin;
-use App\Models\attJenisPendidikan;
-use App\Models\attJenisPekerjaan;
-use App\Models\attJenisPernikahan;
-use App\Models\attJenisKartuIdentitas;
-use App\Models\attJenisBpjs;
+use App\Models\Attributes\attJenisAgama;
+use App\Models\Attributes\attJenisKelamin;
+use App\Models\Attributes\attJenisPendidikan;
+use App\Models\Attributes\attJenisPekerjaan;
+use App\Models\Attributes\attJenisPernikahan;
+use App\Models\Attributes\attJenisKartuIdentitas;
+use App\Models\Attributes\attJenisBpjs;
 
 class AttJenisSeeder extends Seeder
 {

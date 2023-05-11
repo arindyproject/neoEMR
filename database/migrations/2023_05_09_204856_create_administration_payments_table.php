@@ -13,6 +13,26 @@ return new class extends Migration
     {
         Schema::create('administration_payments', function (Blueprint $table) {
             $table->id();
+
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->enum('type', ['TUNAI', 'BPJS', 'GRATIS', 'ASURANSI'])->default('TUNAI');
+            $table->text('ket');
+
+
+
+            //author----------------------------------------------------------------------
+            $table->unsignedBigInteger('author_id')->nullable();
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null'); 
+
+            $table->unsignedBigInteger('edithor_id')->nullable();
+            $table->foreign('edithor_id')->references('id')->on('users')->onDelete('set null');
+
+            $table->unsignedBigInteger('deleted_by')->nullable();
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('set null'); 
+            $table->timestamp('deleted_at')->useCurrent()->useCurrentOnUpdate();
+            //author---------------------------------------------------------------------- 
+
             $table->timestamps();
         });
     }

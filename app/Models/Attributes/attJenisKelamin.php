@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Attributes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class attJenisPekerjaan extends Model
+class attJenisKelamin extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nama', 
-        'poin',
+        'kode',
+        'nama',
+        'name', 
         'user_id'
     ];
 
