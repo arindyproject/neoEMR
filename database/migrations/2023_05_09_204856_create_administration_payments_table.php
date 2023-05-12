@@ -30,7 +30,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('deleted_by')->nullable();
             $table->foreign('deleted_by')->references('id')->on('users')->onDelete('set null'); 
-            $table->timestamp('deleted_at')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamp('deleted_at')->nullable();
             //author---------------------------------------------------------------------- 
 
             $table->timestamps();

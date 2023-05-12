@@ -26,6 +26,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     
     //payment
     Route::get('/administration/setting/payment', 'AdministrationSettingController@payment')->name('administration.setting.payment');
+    Route::post('/administration/setting/payment', 'AdministrationSettingController@payment_store')->name('administration.setting.payment.store');
+    
+    Route::get('/administration/setting/payment/{id}', 'AdministrationSettingController@payment_edit')->name('administration.setting.payment.edit');
+    Route::put('/administration/setting/payment/{id}', 'AdministrationSettingController@payment_update')->name('administration.setting.payment.update');
+    
+    Route::put('/administration/setting/payment/delete/{id}', 'AdministrationSettingController@payment_delete')->name('administration.setting.payment.delete');
     //administration setting-------------------------------------------------------------------------
 
     //patient-------------------------------------------------------------------------
