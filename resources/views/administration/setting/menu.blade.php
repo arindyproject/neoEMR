@@ -53,6 +53,18 @@
                     </a>
                 </li>  
 
+
+                <li class="nav-item active">
+                    <a href="{{ route('administration.setting.payment') }}" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        @if(request()->is('administration/setting/payment'))
+                        <b>Payment</b>
+                        @else
+                        Payment
+                        @endif
+                    </a>
+                </li>  
+
             </ul>
         </div>
         

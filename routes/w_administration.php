@@ -14,6 +14,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     //administration setting-------------------------------------------------------------------------
     Route::get('/administration/setting', 'AdministrationSettingController@index')->name('administration.setting.index');
 
+    //print
     Route::get('/administration/setting/print/pasien/profil', 'AdministrationSettingController@print_pasien_profil')->name('administration.setting.print.pasien.profil');
     Route::post('/administration/setting/print/pasien/profil', 'AdministrationSettingController@print_pasien_profil_store')->name('administration.setting.print.pasien.profil.store');
     
@@ -22,6 +23,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     
     Route::get('/administration/setting/print/pasien/card', 'AdministrationSettingController@print_pasien_card')->name('administration.setting.print.pasien.card');
     Route::post('/administration/setting/print/pasien/card', 'AdministrationSettingController@print_pasien_card_store')->name('administration.setting.print.pasien.card.store');
+    
+    //payment
+    Route::get('/administration/setting/payment', 'AdministrationSettingController@payment')->name('administration.setting.payment');
     //administration setting-------------------------------------------------------------------------
 
     //patient-------------------------------------------------------------------------

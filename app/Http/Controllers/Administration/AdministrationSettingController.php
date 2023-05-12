@@ -27,7 +27,7 @@ class AdministrationSettingController extends Controller
         return view('administration.setting.index', $this->to_return);
     }
 
-
+    //                                      PRINT
     //===================================================================================
     function save_json_print($tmp, $template){
         $jsonString = file_get_contents(base_path('resources/json/config.json'));
@@ -40,8 +40,8 @@ class AdministrationSettingController extends Controller
 
     function set_json_print($tmp){
         $this->to_return['data'] = Config::get()['setting']['template']['pasien'][$tmp];
-        $this->to_return['list'] = File::allFiles(resource_path('views/administration/template/'. $tmp));
-        return view('administration.setting.print_pasien_'. $tmp, $this->to_return);
+        $this->to_return['list'] = File::allFiles(resource_path('views/administration/setting/print/template/'. $tmp));
+        return view('administration.setting.print.print_pasien_'. $tmp, $this->to_return);
     }
 
     public function print_pasien_profil(){
@@ -65,4 +65,14 @@ class AdministrationSettingController extends Controller
     public function print_pasien_label_store(Request $request){
         return $this->save_json_print('label', $request->template);
     }
+    //===================================================================================
+
+
+
+    //                       Payment
+    //===================================================================================
+    public function payment(){
+        return view('administration.setting.payment.index', $this->to_return);
+    }
+    //===================================================================================
 }
