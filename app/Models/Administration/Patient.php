@@ -113,52 +113,52 @@ class Patient extends Model
     }
 
     public function jenis_bpjs(){
-        return $this->belongsTo('App\Models\attJenisBpjs', 'jenis_bpjs_id');
+        return $this->belongsTo('App\Models\Attributes\attJenisBpjs', 'jenis_bpjs_id');
     }
 
     public function kelurahan(){
-        return $this->belongsTo('App\Models\attAlamatKelurahan', 'address_kelurahan_id');
+        return $this->belongsTo('App\Models\Attributes\attAlamatKelurahan', 'address_kelurahan_id');
     }
 
     public function kecamatan(){
-        return $this->belongsTo('App\Models\attAlamatKecamatan', 'address_kecamatan_id');
+        return $this->belongsTo('App\Models\Attributes\attAlamatKecamatan', 'address_kecamatan_id');
     }
 
     public function kota(){
-        return $this->belongsTo('App\Models\attAlamatKota', 'address_kota_id');
+        return $this->belongsTo('App\Models\Attributes\attAlamatKota', 'address_kota_id');
     }
 
     public function provinsi(){
-        return $this->belongsTo('App\Models\attAlamatProvinsi', 'address_provinsi_id');
+        return $this->belongsTo('App\Models\Attributes\attAlamatProvinsi', 'address_provinsi_id');
     }
 
 
     public function gender(){
-        return $this->belongsTo('App\Models\attJenisKelamin', 'gender_id');
+        return $this->belongsTo('App\Models\Attributes\attJenisKelamin', 'gender_id');
     }
 
     public function identityType(){
-        return $this->belongsTo('App\Models\attJenisKartuIdentitas', 'identity_type_id');
+        return $this->belongsTo('App\Models\Attributes\attJenisKartuIdentitas', 'identity_type_id');
     }
 
     public function maritalStatus(){
-        return $this->belongsTo('App\Models\attJenisPernikahan', 'maritalStatus_id');
+        return $this->belongsTo('App\Models\Attributes\attJenisPernikahan', 'maritalStatus_id');
     }
 
     public function agama(){
-        return $this->belongsTo('App\Models\attJenisAgama', 'agama_id');
+        return $this->belongsTo('App\Models\Attributes\attJenisAgama', 'agama_id');
     }
 
     public function kewarganegaraan(){
-        return $this->belongsTo('App\Models\attAlamatCountry', 'kewarganegaraan_id');
+        return $this->belongsTo('App\Models\Attributes\attAlamatCountry', 'kewarganegaraan_id');
     }
 
     public function pendidikan(){
-        return $this->belongsTo('App\Models\attJenisPendidikan', 'pendidikan_id');
+        return $this->belongsTo('App\Models\Attributes\attJenisPendidikan', 'pendidikan_id');
     }
 
     public function pekerjaan(){
-        return $this->belongsTo('App\Models\attJenisPekerjaan', 'pekerjaan_id');
+        return $this->belongsTo('App\Models\Attributes\attJenisPekerjaan', 'pekerjaan_id');
     }
 
     public function author(){
