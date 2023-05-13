@@ -86,7 +86,7 @@
                                                 @endif
                                             </div>
                                             <div class="col">
-                                                <input type="date" class="form-control form-control-sm" name="birthDate"
+                                                <input type="text" class="form-control form-control-sm" name="birthDate" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask
                                                     id="birthDate" placeholder="Tgl Lahir" value="{{old('birthDate')}}">
                                                 @if ($errors->has('birthDate'))
                                                 <span class="help-block">

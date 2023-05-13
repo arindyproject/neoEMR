@@ -1,7 +1,12 @@
 @push('scripts')
 <script src="{{ asset('assets/plugins/selectize/selectize.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
     <script type="text/javascript">
-        
+
+        $(function () {
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('[data-mask]').inputmask()
+        })
 
        
 

@@ -85,8 +85,8 @@
                                                 @endif
                                             </div>
                                             <div class="col">
-                                                <input type="date" class="form-control form-control-sm" name="birthDate"
-                                                    id="birthDate" placeholder="Tgl Lahir" value="{{$data->birthDate}}">
+                                                <input type="text" class="form-control form-control-sm" name="birthDate" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask
+                                                    id="birthDate" placeholder="Tgl Lahir" value="{{$data->birthDate != '' ?  \Carbon\Carbon::parse($data->birthDate)->format('d/m/Y') : ''}}">
                                                 @if ($errors->has('birthDate'))
                                                 <span class="help-block">
                                                     <strong

@@ -16,11 +16,15 @@
         @include('administration.setting.menu')
         <div class="col-lg-9 col-xl-9 col-md-9 col-sm-12">
             
-            <div class="card">
+            <div class="card collapsed-card">
                 <div class="card-header bg-{{$bg}}">
                     <h3 class="card-title">
                         <i class="fas fa-plus-circle"></i> Add New Payment (Cara Bayar)
                     </h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body table-responsive p-2">
                     <form action="" method="POST" class="form form-sm">
@@ -145,11 +149,15 @@
 
 
 
-            <div class="card">
+            <div class="card collapsed-card">
                 <div class="card-header bg-danger">
                     <h3 class="card-title">
                         <i class="fas fa-trash-alt"></i> Payment (Cara Bayar) deleted
                     </h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-sm">

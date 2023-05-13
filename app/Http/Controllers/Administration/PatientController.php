@@ -27,6 +27,7 @@ use App\Models\Attributes\attAlamatKelurahan;
 
 
 use DataTables;
+use Carbon\Carbon;
 
 use Illuminate\Support\Str;
 class PatientController extends Controller
@@ -255,7 +256,7 @@ class PatientController extends Controller
         $to_store = [
             'full_name'         => $request->full_name,
             'place_of_birth'    => $request->place_of_birth ,
-            'birthDate'         => $request->birthDate ,
+            'birthDate'         => ($request->birthDate != '' ?  Carbon::createFromFormat('d/m/Y',$request->birthDate)->format('Y-m-d'):'') ,
             'identity_type_id'  => $request->identity_type_id ,
             'identity_number'   => $request->identity_number ,
             'gender_id'         => $request->gender_id ,
@@ -497,7 +498,7 @@ class PatientController extends Controller
           
             'full_name'         => $request->full_name,
             'place_of_birth'    => $request->place_of_birth ,
-            'birthDate'         => $request->birthDate ,
+            'birthDate'         => ($request->birthDate != '' ?  Carbon::createFromFormat('d/m/Y',$request->birthDate)->format('Y-m-d'):'') ,
             'identity_type_id'  => $request->identity_type_id ,
             'identity_number'   => $request->identity_number ,
             'gender_id'         => $request->gender_id ,
