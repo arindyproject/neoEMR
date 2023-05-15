@@ -210,7 +210,7 @@ class PatientController extends Controller
             'title'             => "nullable",
             'kelas_bpjs'        => "nullable",
             'jenis_bpjs_id'     => "nullable",
-            'no_bpjs'           => "nullable|unique:patients",
+            'no_bpjs'           => "nullable|min:13|max:13|unique:patients",
 
             'address_alamat'        => "required",
             'postalCode'            => "nullable",
@@ -466,7 +466,7 @@ class PatientController extends Controller
             'title'             => "nullable",
             'kelas_bpjs'        => "nullable",
             'jenis_bpjs_id'     => "nullable",
-            'no_bpjs'           => "nullable|unique:patients,no_bpjs,".$id.",id",
+            'no_bpjs'           => "nullable|min:13|max:13|unique:patients,no_bpjs,".$id.",id",
 
             'address_alamat'        => "required",
             'postalCode'            => "nullable",

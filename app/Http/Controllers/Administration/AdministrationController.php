@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Config;
 
 use App\Models\Administration\Patient;
+use App\Models\Administration\ATT;
+use App\Models\Administration\AdministrationPayment;
 
 class AdministrationController extends Controller
 {
@@ -31,8 +33,23 @@ class AdministrationController extends Controller
         $itm = Patient::find($id);
         if($itm){
             if($itm->active){
-                $this->to_return['data']         = $itm;
-                $this->to_return['title']        = $itm->no_rm .' : '. $itm->full_name; 
+                $att = new ATT();
+                $this->to_return['data']            = $itm;
+                $this->to_return['title']           = $itm->no_rm .' : '. $itm->full_name; 
+                $this->to_return['tgl_sekarang']    = date('Y-m-d');
+                $this->to_return['type_kunjungan']  = $att->TYPE_KUNJUNGAN;
+
+                $payment = AdministrationPayment::where(function($q) use($itm){
+                    if(strlen($itm->no_bpjs) != 13){
+                        $q->where('type', '!=', 'BPJS');
+                    }
+                })
+                ->get();
+
+                $this->to_return['payment']  = $payment;
+
+
+
                 return view('administration.pendaftaran', $this->to_return);
             }else{
                 return redirect()->route('patient.index')->with('error', 'Pasien ' . $itm->full_name . ' Non Active Tidak Dapat DiDaftarkan!!');
@@ -48,7 +65,7 @@ class AdministrationController extends Controller
         if($itm){
             $this->to_return['data']         = $itm;
             $this->to_return['title']        = $itm->no_rm .' : '. $itm->full_name; 
-            return view('administration.pendaftaran', $this->to_return);
+            return view('administration.patient.history', $this->to_return);
         }else{
             return redirect()->route('patient.index')->with('error', 'Data NOT FOUND!!');
         }
