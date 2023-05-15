@@ -46,7 +46,7 @@
                                         <div class="col-lg-3 col-sm-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Tgl Pemeriksaan</label>
-                                                <input type="date" name="tgl_pemeriksaan" class="form-control" value="{{$tgl_sekarang}}" value="{{old('tgl_sekarang')}}">
+                                                <input type="date" name="tgl_pemeriksaan" class="form-control" value="{{$tgl_sekarang}}"  min="{{old('tgl_sekarang')}}">
                                                 @if ($errors->has('tgl_pemeriksaan'))
                                                 <span class="help-block">
                                                     <strong
@@ -91,6 +91,7 @@
 
                                     </div>
 
+                                    <button type="submit" class="btn btn-block btn-info">SIMPAN</button>
                                 </form>
                             </div>
                             <!-- RANAP---------------------------------------------------- -->
