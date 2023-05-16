@@ -7,6 +7,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     //administration-------------------------------------------------------------------------
     Route::get('/administration', 'AdministrationController@index')->name('administration');
     Route::get('/administration/pendaftaran/{id}', 'AdministrationController@pendaftaran')->name('administration.pendaftaran');
+    Route::post('/administration/pendaftaran/store', 'AdministrationController@pendaftaran_store')->name('administration.pendaftaran.store');
     Route::get('/administration/history/{id}', 'AdministrationController@history')->name('administration.history');
     //administration-------------------------------------------------------------------------
 
@@ -43,8 +44,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::get('/patient/create', 'PatientController@create')->name('patient.create');
     Route::get('/patient/edit/{id}', 'PatientController@edit')->name('patient.edit');
     Route::get('/patient/edit/advance/{type}/{id}', 'PatientController@edit_advance')->name('patient.edit_advance');
+    Route::get('/patient/edit/pasien_gratis/{id}', 'PatientController@edit_pasien_gratis')->name('patient.edit_pasien_gratis');
     Route::post('/patient/store', 'PatientController@store')->name('patient.store');
     Route::put('/patient/update/{id}', 'PatientController@update')->name('patient.update');
+    Route::put('/patient/update/pasien_gratis/{id}', 'PatientController@update_pasien_gratis')->name('patient.pasien_gratis');
     Route::put('/patient/update/advance/{type}/{id}', 'PatientController@update_advance')->name('patient.update_advance');
     Route::put('/patient/set_activator/{id}', 'PatientController@set_activator')->name('patient.set_activator');
     //patient-------------------------------------------------------------------------

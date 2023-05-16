@@ -193,6 +193,32 @@ class PatientController extends Controller
         return view('administration.patient.edit_advance.' .$type , $this->to_return);
     }
 
+
+
+    public function edit_pasien_gratis($id){
+        $data = Patient::find($id);
+        $this->to_return['data']            = $data;
+        $this->to_return['title']           = "Pasien Gratis : " . $data->full_name . " : " . $data->no_rm; 
+        $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
+        $this->to_return['gender']          = attJenisKelamin::get();
+        $this->to_return['status_nikah']    = attJenisPernikahan::get();
+        $this->to_return['pendidikan']      = attJenisPendidikan::get();
+        $this->to_return['pekerjaan']       = attJenisPekerjaan::get();
+        $this->to_return['jenis_bpjs']      = attJenisBpjs::get();
+        $this->to_return['agama']           = attJenisAgama::get();
+        $this->to_return['country']         = attAlamatCountry::get();
+
+        $this->to_return['provinsi']        = attAlamatProvinsi::find($data->address_provinsi_id);
+        $this->to_return['kota']            = attAlamatKota::find($data->address_kota_id);
+        $this->to_return['kecamatan']       = attAlamatKecamatan::find($data->address_kecamatan_id);
+        $this->to_return['kelurahan']       = attAlamatKelurahan::find($data->address_kelurahan_id);
+
+        $this->to_return['default']         = Config::get_setting_default();
+        //return Config::get_fhair_cs_name('patient-contact-relationship');
+        return view('administration.patient.edit_pasien_gratis', $this->to_return);
+    }
+
+
     public function store(Request $request ){
 
         //----------------------------------------------------------------
@@ -200,7 +226,7 @@ class PatientController extends Controller
             
             'full_name'         => "required|string|max:255",
             'place_of_birth'    => "nullable|string|max:255",
-            'birthDate'         => "nullable|date",
+            'birthDate'         => "nullable|date_format:d/m/Y",
             'identity_type_id'  => "nullable",
             'identity_number'   => "nullable|unique:patients",
             'gender_id'         => "required",
@@ -456,7 +482,7 @@ class PatientController extends Controller
         $to_val = [
             'full_name'         => "required|string|max:255",
             'place_of_birth'    => "nullable|string|max:255",
-            'birthDate'         => "nullable|date",
+            'birthDate'         => "nullable|date_format:d/m/Y",
             'identity_type_id'  => "nullable",
             'identity_number'   => "nullable|unique:patients,identity_number,".$id.",id",
             'gender_id'         => "required",
@@ -492,7 +518,7 @@ class PatientController extends Controller
         $request->validate($to_val);
         //----------------------------------------------------------------
 
-
+        
          //----------------------------------------------------------------
          $to_store = [
           
@@ -702,6 +728,25 @@ class PatientController extends Controller
         return redirect()->route('patient.create')->with('error', 'Data Gagal Di Update!!');
     }
 
+    public function update_pasien_gratis(Request $request, $id ){
+        $p = Patient::find($id);
+        if($p){
+            $request->validate([
+                'is_pasien_gratis'   => 'required',
+                'ket_pasien_gratis'  => 'required',
+            ]);
+            $p->update([
+                'is_pasien_gratis'          => $request->is_pasien_gratis,
+                'ket_pasien_gratis'         => $request->ket_pasien_gratis,
+                'author_pasien_gratis_id'   => Auth::user()->id,
+                'pasien_gratis_at'          => date('Y-m-d H:i:s') 
+            ]);
+            return redirect()->back()->with('success', $p->full_name . ' berhasil diUpdate');
+        }
+        return redirect()->back()->with('error', 'Data Tidak Ditemukan!!');
+        
+    }
+
     public function set_activator($id){
         $pasien   = Patient::find($id);
         $msg = '';
@@ -717,7 +762,7 @@ class PatientController extends Controller
             $pasien->save();
             return redirect()->back()->with('seccess', $msg);
         }
-        return redirect()->back()->with('error', 'Data Todak Ditemukan!!');
+        return redirect()->back()->with('error', 'Data Tidak Ditemukan!!');
     }
 
     public function fhir_json($id){

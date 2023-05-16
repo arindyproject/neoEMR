@@ -23,6 +23,11 @@ class Patient extends Model
         'no_bpjs',
         'jenis_bpjs_id',
         'kelas_bpjs',
+
+        'is_pasien_gratis',
+        'ket_pasien_gratis',
+        'author_pasien_gratis_id',
+        'pasien_gratis_at',
         
         'no_tlp',
 
@@ -171,6 +176,11 @@ class Patient extends Model
 
     public function activator(){
         return $this->belongsTo('App\Models\User', 'activated_by');
+    }
+
+
+    public function authorGratis(){
+        return $this->belongsTo('App\Models\User', 'author_pasien_gratis_id');
     }
 
     //-----------------------------------------------------------------------

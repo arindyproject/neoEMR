@@ -39,9 +39,10 @@
                         <div class="tab-content">
                             <!-- RANAP---------------------------------------------------- -->
                             <div class="active tab-pane" id="ranap">
-                                <form action="" class="form">
+                                <form action="{{Route('administration.pendaftaran.store')}}" class="form" method="POST">
+                                    @csrf
                                     <input type="hidden" name="patient_id" value="{{$data->id}}">
-                                    <input type="hidden" name="type_kunjungan" value="RAJAL">
+                                    <input type="hidden" name="type_layanan" value="RAJAL">
                                     <div class="row">
                                         <div class="col-lg-3 col-sm-4 col-sm-6">
                                             <div class="form-group">

@@ -9,6 +9,8 @@ use App\Models\Config;
 use App\Models\Administration\Patient;
 use App\Models\Administration\ATT;
 use App\Models\Administration\AdministrationPayment;
+use App\Models\Administration\AdministrationKunjungan;
+use Illuminate\Support\Facades\Auth;
 
 class AdministrationController extends Controller
 {
@@ -43,21 +45,37 @@ class AdministrationController extends Controller
                     if(strlen($itm->no_bpjs) != 13){
                         $q->where('type', '!=', 'BPJS');
                     }
+
+                    if(!$itm->is_pasien_gratis){
+                        $q->where('type', '!=', 'GRATIS');
+                    }
                 })
                 ->get();
-
                 $this->to_return['payment']  = $payment;
-
-
-
                 return view('administration.pendaftaran', $this->to_return);
             }else{
                 return redirect()->route('patient.index')->with('error', 'Pasien ' . $itm->full_name . ' Non Active Tidak Dapat DiDaftarkan!!');
             }
-            
         }else{
             return redirect()->route('patient.index')->with('error', 'Data NOT FOUND!!');
         }
+    }
+
+    public function pendaftaran_store(Request $request){
+        $request->validate([
+            'patient_id'        => 'required',
+            'type_kunjungan'    => 'required',
+            'type_layanan'      => 'required', 
+            'tgl_pemeriksaan'   => 'required|date',
+            'payment_id'        => 'required', 
+        ]);
+
+        $request['tgl_mendaftar']   = date('Y-m-d H:i:s');
+        $request['author_id']       = Auth::user()->id;
+
+        $a=AdministrationKunjungan::create([
+            
+        ]);
     }
 
     public function history($id){

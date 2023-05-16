@@ -205,6 +205,9 @@
                             <a class="dropdown-item" href="{{Route('patient.edit_advance', ['communication', $data->id] )}}"><i class="fas fa-language"></i> Communication</a>
                             <a class="dropdown-item" href="{{Route('patient.edit_advance', ['address', $data->id] )}}"><i class="fas fa-map-marker-alt"></i> Address</a>
                             <a class="dropdown-item" href="{{Route('patient.edit_advance', ['telecom', $data->id] )}}"><i class="fas fa-phone"></i> Telecom</a>
+                            <hr>
+                            <a class="dropdown-item" href="{{Route('patient.edit_pasien_gratis', $data->id )}}"><i class="fab fa-creative-commons-nc"></i> Pasien Gratis</a>
+                            <hr>
                             <form action="{{Route('patient.set_activator', $data->id)}}" method="post">
                                 @csrf
                                 @method('PUT')
@@ -242,6 +245,19 @@
             </div>
         </div>
         <div class="card-body">
+            <!-- -------------------------------------------------------------------- -->
+            @if ($data->is_pasien_gratis == '1')
+            <hr>
+            <strong><i class="fab fa-creative-commons-nc"></i> Pasien Gratis</strong>
+            <p class="text-muted">
+                {{$data->ket_pasien_gratis}} <br>
+                oleh : {{$data->author_pasien_gratis_id != '' ? $data->authorGratis->name : ''}} <br>
+                pada : {{$data->pasien_gratis_at}}
+            </p>
+            @endif
+            <!-- -------------------------------------------------------------------- -->
+
+
             <!-- -------------------------------------------------------------------- -->
             @if ($data->contact != '')
             <hr>
