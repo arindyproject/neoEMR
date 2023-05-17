@@ -12,6 +12,7 @@ class AdministrationKunjungan extends Model
 
     protected $fillable = [
         'patient_id',
+        'antrian_urut',
 
         'payment_id',
         'tgl_mendaftar',

@@ -138,4 +138,37 @@ class AdministrationSettingController extends Controller
         return response()->json(['success' => false]);
     }
     //===================================================================================
+
+
+
+    //                       Pendaftaran
+    //===================================================================================
+    public function pendaftaran(){
+        $this->to_return['data'] = Config::get()['setting']['default']['def_administration'];
+        return view('administration.setting.pendaftaran.index', $this->to_return);
+    }
+
+    public function pendaftaran_store(Request $request){
+        $request->validate([
+            'max_day_pendaftaran' => "required",
+        ]);
+        
+        $jsn = [
+            'max_day_pendaftaran' => $request->max_day_pendaftaran
+        ];
+
+        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $data =  json_decode($jsonString, true);
+
+        // Update Key
+        $data['setting']['default']['def_administration'] = $jsn;
+
+        // Write File
+        $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
+
+        return redirect()->back()->with('success', 'Setting Pendaftaran berhasil DiEdit!!');
+    }
+    //===================================================================================
+
 }

@@ -84,14 +84,14 @@ class FhairHl7ResourceController extends Controller
     }
 
     public function setting_store(Request $request){
-        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $jsonString = file_get_contents(base_path('resources/json/fhir.json'));
         $data = json_decode($jsonString, true);
         $data['fhair_hl7']['CodeSystem'][$request->name] = [
             'url' => $request->url,
             'file'=> $request->file
         ];
         $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
-        file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
+        file_put_contents(base_path('resources/json/fhir.json'), stripslashes($newJsonString));
 
 
         $response = @file_get_contents($request->url);
@@ -110,13 +110,13 @@ class FhairHl7ResourceController extends Controller
     public function setting_delete($name){
         $d = $this->conf_cs[$name];
 
-        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $jsonString = file_get_contents(base_path('resources/json/fhir.json'));
         $data = json_decode($jsonString, true);
         $del = File::delete(base_path('resources/json/fhir/' . $d['file']));
 
         unset($data['fhair_hl7']['CodeSystem'][$name]);
         $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
-        file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
+        file_put_contents(base_path('resources/json/fhir.json'), stripslashes($newJsonString));
 
         //return $d;
         return redirect()->back()->with('success', 'Berhasil diHapus!!');

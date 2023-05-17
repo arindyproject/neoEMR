@@ -21,6 +21,17 @@
                 </li>   
 
                 <li class="nav-item active">
+                    <a href="{{ route('administration.setting.pendaftaran') }}" class="nav-link">
+                        <i class="fas fa-laptop-medical"></i>
+                        @if(request()->is('administration/setting/pendaftaran'))
+                        <b>Pendaftaran</b>
+                        @else
+                        Pendaftaran
+                        @endif
+                    </a>
+                </li>  
+
+                <li class="nav-item active">
                     <a href="{{ route('administration.setting.print.pasien.profil') }}" class="nav-link">
                         <i class="fas fa-id-badge"></i>
                         @if(request()->is('administration/setting/print/pasien/profil'))

@@ -11,6 +11,7 @@ use App\Models\Administration\ATT;
 use App\Models\Administration\AdministrationPayment;
 use App\Models\Administration\AdministrationKunjungan;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AdministrationController extends Controller
 {
@@ -20,9 +21,10 @@ class AdministrationController extends Controller
         $this->middleware(['role:administration|admin']);
 
         $this->title = "Administration";
+        $this->conf  = Config::get();
         $this->to_return = [
             'title'     => $this->title,
-            'bg'        => Config::get()['navbar_variants'],
+            'bg'        => $this->conf['navbar_variants'],
         ];
     }
 
@@ -35,10 +37,13 @@ class AdministrationController extends Controller
         $itm = Patient::find($id);
         if($itm){
             if($itm->active){
+                $now =  Carbon::now();
+
                 $att = new ATT();
                 $this->to_return['data']            = $itm;
                 $this->to_return['title']           = $itm->no_rm .' : '. $itm->full_name; 
-                $this->to_return['tgl_sekarang']    = date('Y-m-d');
+                $this->to_return['tgl_sekarang']    = $now->format('Y-m-d');
+                $this->to_return['tgl_maksimal']    = $now->addDays($this->conf['setting']['default']['def_administration']['max_day_pendaftaran'])->format('Y-m-d');
                 $this->to_return['type_kunjungan']  = $att->TYPE_KUNJUNGAN;
 
                 $payment = AdministrationPayment::where(function($q) use($itm){
@@ -70,12 +75,48 @@ class AdministrationController extends Controller
             'payment_id'        => 'required', 
         ]);
 
-        $request['tgl_mendaftar']   = date('Y-m-d H:i:s');
-        $request['author_id']       = Auth::user()->id;
+        //jika sudah terdaftar pada tgl dan poli yang sama tidak bisa
+        $cek = AdministrationKunjungan::where('tgl_pemeriksaan', $request->tgl_pemeriksaan)->where('patient_id',  $request->patient_id)->first();
+        if($cek){
+            $pasien = $cek->patient;
+            return redirect()->back()->with('warning', 'Pasien '.$pasien->full_name.' Sudah Terdaftar dengan nomor antrian ' . $cek->antrian_urut . ' pada ' . $cek->tgl_pemeriksaan );
+        }else{
+            $now                = Carbon::now();
+            $tgl_pemeriksaan    = Carbon::parse($request->tgl_pemeriksaan)->format('Y-m-d');
 
-        $a=AdministrationKunjungan::create([
-            
-        ]);
+            //cek get nomor antrian
+            $antrian = 1;
+            $kunjungan_last = AdministrationKunjungan::where('tgl_pemeriksaan', $request->tgl_pemeriksaan)->orderBy('id', 'DESC')->first();
+          
+            if($kunjungan_last){
+                $antrian = intval($kunjungan_last->antrian_urut) + 1;
+            }
+
+            $to_store = [
+                'antrian_urut'      => $antrian,
+                'patient_id'        => $request->patient_id,
+                'type_kunjungan'    => $request->type_kunjungan,
+                'type_layanan'      => $request->type_layanan, 
+                'tgl_pemeriksaan'   => $request->tgl_pemeriksaan,
+                'payment_id'        => $request->payment_id, 
+                'tgl_mendaftar'     => $now->format('Y-m-d h:i:s'),
+                'author_id'         => Auth::user()->id,
+                'is_cekin'          => 0,
+            ];
+
+            //check in
+            if($now->format('Y-m-d') == $tgl_pemeriksaan ){
+                $to_store['is_cekin'] = 1;
+                $to_store['cekin_at'] = $now->format('Y-m-d h:i:s');
+            }
+
+            $a = AdministrationKunjungan::create($to_store);
+            return $a;
+        }
+
+        
+ 
+        
     }
 
     public function history($id){

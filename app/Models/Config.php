@@ -25,14 +25,14 @@ class Config extends Model
 
     //==================================================================================
     public static function get_fhair_cs(){
-        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $jsonString = file_get_contents(base_path('resources/json/fhir.json'));
         $jsn = json_decode($jsonString, true);
         return $jsn['fhair_hl7']['CodeSystem'];
     }
 
     //----------------------------------------------------------------------------------
     public static function get_fhair_vs_name($name){
-        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $jsonString = file_get_contents(base_path('resources/json/fhir.json'));
         $jsn = json_decode($jsonString, true);
         $d = $jsn['fhair_hl7']['CodeSystem'][$name];
         if($d){
@@ -76,7 +76,7 @@ class Config extends Model
     }
     //----------------------------------------------------------------------------------
     public static function get_fhair_cs_name($name){
-        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $jsonString = file_get_contents(base_path('resources/json/fhir.json'));
         $jsn = json_decode($jsonString, true);
         $d = $jsn['fhair_hl7']['CodeSystem'][$name];
         if($d){
@@ -120,7 +120,7 @@ class Config extends Model
     //----------------------------------------------------------------------------------
 
     public static function put_fhair_cs_url($name, $url){
-        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $jsonString = file_get_contents(base_path('resources/json/fhir.json'));
         $data = json_decode($jsonString, true);
 
         // Update Key
@@ -128,7 +128,7 @@ class Config extends Model
 
         // Write File
         $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
-        file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
+        file_put_contents(base_path('resources/json/fhir.json'), stripslashes($newJsonString));
     }
     //==================================================================================
 
@@ -202,14 +202,14 @@ class Config extends Model
     }
 
     public static function put_form_mode($jsn){
-    $jsonString = file_get_contents(base_path('resources/json/config.json'));
-    $data =  json_decode($jsonString, true);
+        $jsonString = file_get_contents(base_path('resources/json/config.json'));
+        $data =  json_decode($jsonString, true);
 
-    // Update Key
-    $data['setting']['form'] = $jsn;
+        // Update Key
+        $data['setting']['form'] = $jsn;
 
-    // Write File
-    $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
-    file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
-}
+        // Write File
+        $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents(base_path('resources/json/config.json'), stripslashes($newJsonString));
+    }
 }

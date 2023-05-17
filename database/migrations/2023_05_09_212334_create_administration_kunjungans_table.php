@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('administration_kunjungans', function (Blueprint $table) {
             $table->id();
 
+            $table->string('antrian_urut');
+
             $table->unsignedBigInteger('patient_id');
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('CASCADE'); 
 

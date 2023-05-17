@@ -15,7 +15,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     //administration setting-------------------------------------------------------------------------
     Route::get('/administration/setting', 'AdministrationSettingController@index')->name('administration.setting.index');
 
-    //print
+    //print----------------------------------
     Route::get('/administration/setting/print/pasien/profil', 'AdministrationSettingController@print_pasien_profil')->name('administration.setting.print.pasien.profil');
     Route::post('/administration/setting/print/pasien/profil', 'AdministrationSettingController@print_pasien_profil_store')->name('administration.setting.print.pasien.profil.store');
     
@@ -25,7 +25,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::get('/administration/setting/print/pasien/card', 'AdministrationSettingController@print_pasien_card')->name('administration.setting.print.pasien.card');
     Route::post('/administration/setting/print/pasien/card', 'AdministrationSettingController@print_pasien_card_store')->name('administration.setting.print.pasien.card.store');
     
-    //payment
+    //payment---------------------------------
     Route::get('/administration/setting/payment', 'AdministrationSettingController@payment')->name('administration.setting.payment');
     Route::post('/administration/setting/payment', 'AdministrationSettingController@payment_store')->name('administration.setting.payment.store');
     
@@ -33,7 +33,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::put('/administration/setting/payment/{id}', 'AdministrationSettingController@payment_update')->name('administration.setting.payment.update');
     
     Route::put('/administration/setting/payment/delete/{id}', 'AdministrationSettingController@payment_delete')->name('administration.setting.payment.delete');
+    
+    //payment---------------------------------
+    Route::get('/administration/setting/pendaftaran', 'AdministrationSettingController@pendaftaran')->name('administration.setting.pendaftaran');
+    Route::post('/administration/setting/pendaftaran', 'AdministrationSettingController@pendaftaran_store')->name('administration.setting.pendaftaran');
     //administration setting-------------------------------------------------------------------------
+
+
+
 
     //patient-------------------------------------------------------------------------
     Route::get('/patient', 'PatientController@index')->name('patient.index');
@@ -52,6 +59,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::put('/patient/set_activator/{id}', 'PatientController@set_activator')->name('patient.set_activator');
     //patient-------------------------------------------------------------------------
 
+
+
+
     //patient_file-------------------------------------------------------------------------
     Route::get('/file/patient/{id}', 'PatientFileController@index')->name('file.patient.index');
     Route::get('/file/patient/{id}/create', 'PatientFileController@create')->name('file.patient.create');
@@ -60,6 +70,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::put('/file/patient/{id}/update', 'PatientFileController@update')->name('file.patient.update');
     Route::delete('/file/patient/{id}/delete', 'PatientFileController@delete')->name('file.patient.delete');
     //patient_file-------------------------------------------------------------------------
+
+
+
 
     //patient print-------------------------------------------------------------------------
     Route::get('/print/patient/{id}/profil/{tmp?}', 'PatientPrintController@print_profil')->name('print.patient.profil');

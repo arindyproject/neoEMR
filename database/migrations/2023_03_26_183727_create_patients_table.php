@@ -42,7 +42,7 @@ return new class extends Migration
             $table->foreign('jenis_bpjs_id')->references('id')->on('att_jenis_bpjs')->onDelete('set null'); 
             //GRATIS----------------
             $table->boolean('is_pasien_gratis')->default(0);
-            $table->text('ket_pasien_gratis');
+            $table->text('ket_pasien_gratis')->nullable();
             $table->unsignedBigInteger('author_pasien_gratis_id')->nullable();
             $table->foreign('author_pasien_gratis_id')->references('id')->on('users')->onDelete('set null'); 
             $table->timestamp('pasien_gratis_at')->nullable();

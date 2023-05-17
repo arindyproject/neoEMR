@@ -39,6 +39,22 @@
                         <div class="tab-content">
                             <!-- RANAP---------------------------------------------------- -->
                             <div class="active tab-pane" id="ranap">
+                                
+                                @if(session('error'))
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                                    {{ session("error") }}
+                                </div>
+                                @endif
+                                @if(session('warning'))
+                                <div class="alert alert-warning alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                    {{ session("warning") }}
+                                </div>
+                                @endif
+
                                 <form action="{{Route('administration.pendaftaran.store')}}" class="form" method="POST">
                                     @csrf
                                     <input type="hidden" name="patient_id" value="{{$data->id}}">
@@ -47,7 +63,7 @@
                                         <div class="col-lg-3 col-sm-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Tgl Pemeriksaan</label>
-                                                <input type="date" name="tgl_pemeriksaan" class="form-control" value="{{$tgl_sekarang}}"  min="{{old('tgl_sekarang')}}">
+                                                <input type="date" name="tgl_pemeriksaan" class="form-control" value="{{$tgl_sekarang}}"  min="{{$tgl_sekarang}}" max="{{$tgl_maksimal}}">
                                                 @if ($errors->has('tgl_pemeriksaan'))
                                                 <span class="help-block">
                                                     <strong
