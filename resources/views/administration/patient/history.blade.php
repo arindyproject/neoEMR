@@ -29,6 +29,7 @@
                         <!-- timeline time label -->
                         <div class="time-label">
                             @php
+                                $is_batal = false;
                                 if($tgl_now == $item->tgl_pemeriksaan){
                                     $sts_tgl = 'success';
                                 }elseif($tgl_now > $item->tgl_pemeriksaan){
@@ -41,6 +42,7 @@
 
                                 if($item->deleted_at != '' && $item->alasan_menghapus != ''){
                                     $sts_tgl = 'danger';
+                                    $is_batal = true;
                                 }
                             @endphp
                             <span class="bg-{{$sts_tgl}}">
@@ -51,7 +53,7 @@
 
                         <!-- timeline item -->
                         <div>
-                            <i class="fas fa-info-circle bg-{{$sts_tgl}}"></i>
+                            <i class="{{$is_batal ? 'fas fa-times-circle' : 'fas fa-info-circle'}} bg-{{$sts_tgl}}"></i>
                             <div class="timeline-item">
                                 <h3 class="timeline-header bg-{{$sts_tgl}}"><b>
                                     <i class="fas fa-info-circle"></i> Pendaftaran
@@ -92,9 +94,22 @@
                                     </tr> 
                                     @endif
 
+                                    @if ($is_batal)
+                                    <tr valign="top">
+                                        <td>Di Batalkan Oleh</td>
+                                        <td>:</td>
+                                        <td>{{$item->deleted_by != '' ? $item->deletedBy->name : '--'}}</td>
+                                    </tr>
+                                    <tr valign="top">
+                                        <td>Di Batalkan Pada</td>
+                                        <td>:</td>
+                                        <td>{{$item->deleted_at}}</td>
+                                    </tr>  
+                                    @endif
+
                                   </table>
                                 </div>
-                                @if ($tgl_now <= $item->tgl_pemeriksaan)
+                                @if ($tgl_now <= $item->tgl_pemeriksaan && !$is_batal)
                                 <div class="timeline-footer">
                                     <a href="#" class="btn btn-danger btn-sm">Batalkan</a>
                                 </div> 
