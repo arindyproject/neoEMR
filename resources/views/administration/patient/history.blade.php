@@ -23,7 +23,89 @@
             </div>
             <div class="card-body p-1">
                 <!-- ---------------------------------------------------- -->
-                
+                @foreach ($history as $item)
+                     <!-- The timeline -->
+                    <div class="timeline timeline-inverse">
+                        <!-- timeline time label -->
+                        <div class="time-label">
+                            @php
+                                if($tgl_now == $item->tgl_pemeriksaan){
+                                    $sts_tgl = 'success';
+                                }elseif($tgl_now > $item->tgl_pemeriksaan){
+                                    $sts_tgl =  'info';
+                                }elseif ($tgl_now < $item->tgl_pemeriksaan) {
+                                    $sts_tgl =  'warning';
+                                }else {
+                                    $sts_tgl = 'danger';
+                                }
+
+                                if($item->deleted_at != '' && $item->alasan_menghapus != ''){
+                                    $sts_tgl = 'danger';
+                                }
+                            @endphp
+                            <span class="bg-{{$sts_tgl}}">
+                              {{$item->tgl_pemeriksaan}}
+                            </span>
+                        </div>
+                        <!-- timeline time label -->
+
+                        <!-- timeline item -->
+                        <div>
+                            <i class="fas fa-info-circle bg-{{$sts_tgl}}"></i>
+                            <div class="timeline-item">
+                                <h3 class="timeline-header bg-{{$sts_tgl}}"><b>
+                                    <i class="fas fa-info-circle"></i> Pendaftaran
+                                </b></h3>
+      
+                                <div class="timeline-body">
+                                  <table>
+                                    <tr valign="top">
+                                        <td>Jenis Layanan</td>
+                                        <td>:</td>
+                                        <td>{{$item->type_layanan}}</td>
+                                    </tr>
+                                    <tr valign="top">
+                                        <td>Jenis Kunjungan</td>
+                                        <td>:</td>
+                                        <td>{{$item->type_kunjungan}}</td>
+                                    </tr>
+                                    <tr valign="top">
+                                        <td>Di daftar Oleh</td>
+                                        <td>:</td>
+                                        <td>{{$item->author_id != '' ? $item->author->name : '--'}}</td>
+                                    </tr>
+                                    <tr valign="top">
+                                        <td>Di daftar Pada</td>
+                                        <td>:</td>
+                                        <td>{{$item->tgl_mendaftar}}</td>
+                                    </tr>
+                                    @if ($item->created_at != $item->updated_at)
+                                    <tr valign="top">
+                                        <td>Di Edit Oleh</td>
+                                        <td>:</td>
+                                        <td>{{$item->edithor_id != '' ? $item->edithor->name : '--'}}</td>
+                                    </tr>
+                                    <tr valign="top">
+                                        <td>Di Edit Pada</td>
+                                        <td>:</td>
+                                        <td>{{$item->updated_at}}</td>
+                                    </tr> 
+                                    @endif
+
+                                  </table>
+                                </div>
+                                @if ($tgl_now <= $item->tgl_pemeriksaan)
+                                <div class="timeline-footer">
+                                    <a href="#" class="btn btn-danger btn-sm">Batalkan</a>
+                                </div> 
+                                @endif
+                                
+                            </div>
+                        </div>
+                        <!-- timeline item -->
+                    </div>
+                    <!-- The timeline -->
+                @endforeach
                 <!-- ---------------------------------------------------- -->
             </div>
         </div>

@@ -11,7 +11,7 @@
 @endif
 
 <li class="nav-item">
-    <a class="nav-link {{ request()->is('administration/history/'.$data->id)  ? 'active' : '' }}" href="{{Route('administration.history', $data->id)}}" ><i class="fas fa-history"></i> <b>History</b></a>
+    <a class="nav-link {{ request()->is('patient/history/'.$data->id)  ? 'active' : '' }}" href="{{Route('patient.history', $data->id)}}" ><i class="fas fa-history"></i> <b>History</b></a>
 </li>
 
 <li class="nav-item">

@@ -27,8 +27,8 @@
                     <!-- ---------------------------------------------------- -->
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active" href="#ranap" data-toggle="tab"><i class="fas fa-hospital-user"></i> Rawat Inap</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#rajal" data-toggle="tab"><i class="fas fa-procedures"></i> Rawat Jalan</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#ranap" data-toggle="tab"><i class="fas fa-wheelchair"></i> Rawat Jalan</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#rajal" data-toggle="tab"><i class="fas fa-procedures"></i> Rawat Inap</a></li>
                             <li class="nav-item"><a class="nav-link" href="#igd" data-toggle="tab"><i class="fas fa-ambulance"></i> IGD</a></li>
                         </ul>
                     </div>

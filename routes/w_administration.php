@@ -57,6 +57,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Administration'], function(){
     Route::put('/patient/update/pasien_gratis/{id}', 'PatientController@update_pasien_gratis')->name('patient.pasien_gratis');
     Route::put('/patient/update/advance/{type}/{id}', 'PatientController@update_advance')->name('patient.update_advance');
     Route::put('/patient/set_activator/{id}', 'PatientController@set_activator')->name('patient.set_activator');
+
+    Route::get('/patient/history/{id}', 'PatientController@history')->name('patient.history');
     //patient-------------------------------------------------------------------------
 
 

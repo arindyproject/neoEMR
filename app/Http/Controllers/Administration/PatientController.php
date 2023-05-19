@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\Config;
 
 use App\Models\Administration\Patient;
+use App\Models\Administration\AdministrationKunjungan;
 
 use App\Models\Attributes\attJenisKartuIdentitas;
 use App\Models\Attributes\attJenisKelamin;
@@ -35,7 +36,7 @@ class PatientController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['role:administration|admin'])->except(['index','show']);
+        $this->middleware(['role:administration|admin'])->except(['index','show', 'history']);
 
         $this->title     = "Patients";
 
@@ -50,6 +51,7 @@ class PatientController extends Controller
         ];
     }
 
+    // index =========================================================================================================
     public function index(){
         $qr = request('q');
       
@@ -82,7 +84,10 @@ class PatientController extends Controller
             return view('administration.patient.index2', $this->to_return);
         }
     }
+    // index =========================================================================================================
 
+
+    // show data=========================================================================================================
     public function show($rm){
         $itm = Patient::where('no_rm', $rm)->first();
         if($itm){
@@ -94,6 +99,23 @@ class PatientController extends Controller
         }
     }
 
+    public function history($id){
+        $itm = Patient::find($id);
+        if($itm){
+            $this->to_return['data']    = $itm;
+            $this->to_return['title']   = $itm->no_rm .' : '. $itm->full_name; 
+            $this->to_return['history'] = AdministrationKunjungan::where('patient_id', $id)->orderBy('tgl_pemeriksaan', 'DESC')->paginate(25);
+            $this->to_return['tgl_now'] = Carbon::now()->format('Y-m-d');
+
+            return view('administration.patient.history', $this->to_return);
+        }else{
+            return redirect()->route('patient.index')->with('error', 'Data NOT FOUND!!');
+        }
+    }
+    // show data=========================================================================================================
+
+
+    // add new =========================================================================================================
     public function create(){
         $this->to_return['title']   = "Add New Patient"; 
         $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
@@ -126,99 +148,6 @@ class PatientController extends Controller
 
         return view('administration.patient.create', $this->to_return);
     }
-
-    public function edit($id){
-        $data = Patient::find($id);
-        $this->to_return['data']            = $data;
-        $this->to_return['title']           = "Edit : " . $data->full_name . " : " . $data->no_rm; 
-        $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
-        $this->to_return['gender']          = attJenisKelamin::get();
-        $this->to_return['status_nikah']    = attJenisPernikahan::get();
-        $this->to_return['pendidikan']      = attJenisPendidikan::get();
-        $this->to_return['pekerjaan']       = attJenisPekerjaan::get();
-        $this->to_return['jenis_bpjs']      = attJenisBpjs::get();
-        $this->to_return['agama']           = attJenisAgama::get();
-        $this->to_return['country']         = attAlamatCountry::get();
-
-        $this->to_return['provinsi']        = attAlamatProvinsi::find($data->address_provinsi_id);
-        $this->to_return['kota']            = attAlamatKota::find($data->address_kota_id);
-        $this->to_return['kecamatan']       = attAlamatKecamatan::find($data->address_kecamatan_id);
-        $this->to_return['kelurahan']       = attAlamatKelurahan::find($data->address_kelurahan_id);
-
-        $this->to_return['default']         = Config::get_setting_default();
-        //return Config::get_fhair_cs_name('patient-contact-relationship');
-        return view('administration.patient.edit', $this->to_return);
-    }
-
-    public function edit_advance($type, $id){
-        $data = Patient::find($id);
-        $this->to_return['data']            = $data;
-        $this->to_return['title']           = "Edit Advance (".$type.") : " . $data->full_name . " : " . $data->no_rm; 
-        $this->to_return['type']            = $type;
-        switch ($type) {
-            case 'name':
-                $this->to_return['name_use']    = Config::get_fhair_cs_name('name-use');
-                break;
-            case 'identifier':
-                $this->to_return['identifier_use']      = Config::get_fhair_cs_name('identifier-use');
-                $this->to_return['identifier_type']     = Config::get_fhair_cs_name('identifier-type');
-                break;
-            case 'communication':
-                $this->to_return['valueset_languages']  = Config::get_fhair_vs_name('valueset-languages');
-                break;
-            case 'address':
-                $this->to_return['address_use']         = Config::get_fhair_cs_name('address-use');
-                $this->to_return['address_type']        = Config::get_fhair_cs_name('address-type');
-                break;
-            case 'telecom':
-                $this->to_return['telecom_use']         = Config::get_fhair_cs_name('contact-point-use');
-                $this->to_return['telecom_system']      = Config::get_fhair_cs_name('contact-point-system');
-                break;
-            case 'contact':
-                $this->to_return['name_use']            = Config::get_fhair_cs_name('name-use');
-                $this->to_return['identifier_use']      = Config::get_fhair_cs_name('identifier-use');
-                $this->to_return['identifier_type']     = Config::get_fhair_cs_name('identifier-type');
-                $this->to_return['administrative_gender']     = Config::get_fhair_cs_name('administrative-gender');
-                $this->to_return['address_use']         = Config::get_fhair_cs_name('address-use');
-                $this->to_return['address_type']        = Config::get_fhair_cs_name('address-type');
-                $this->to_return['telecom_use']         = Config::get_fhair_cs_name('contact-point-use');
-                $this->to_return['telecom_system']      = Config::get_fhair_cs_name('contact-point-system');
-                $this->to_return['valueset_languages']  = Config::get_fhair_vs_name('valueset-languages');
-                $this->to_return['contact_relationship']= Config::get_fhair_cs_name('patient-contact-relationship');
-                break;
-            default:
-                return redirect()->route('patient.show', $data->no_rm)->with('error', '404!!');
-        }
-
-        return view('administration.patient.edit_advance.' .$type , $this->to_return);
-    }
-
-
-
-    public function edit_pasien_gratis($id){
-        $data = Patient::find($id);
-        $this->to_return['data']            = $data;
-        $this->to_return['title']           = "Pasien Gratis : " . $data->full_name . " : " . $data->no_rm; 
-        $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
-        $this->to_return['gender']          = attJenisKelamin::get();
-        $this->to_return['status_nikah']    = attJenisPernikahan::get();
-        $this->to_return['pendidikan']      = attJenisPendidikan::get();
-        $this->to_return['pekerjaan']       = attJenisPekerjaan::get();
-        $this->to_return['jenis_bpjs']      = attJenisBpjs::get();
-        $this->to_return['agama']           = attJenisAgama::get();
-        $this->to_return['country']         = attAlamatCountry::get();
-
-        $this->to_return['provinsi']        = attAlamatProvinsi::find($data->address_provinsi_id);
-        $this->to_return['kota']            = attAlamatKota::find($data->address_kota_id);
-        $this->to_return['kecamatan']       = attAlamatKecamatan::find($data->address_kecamatan_id);
-        $this->to_return['kelurahan']       = attAlamatKelurahan::find($data->address_kelurahan_id);
-
-        $this->to_return['default']         = Config::get_setting_default();
-        //return Config::get_fhair_cs_name('patient-contact-relationship');
-        return view('administration.patient.edit_pasien_gratis', $this->to_return);
-    }
-
-
     public function store(Request $request ){
 
         //----------------------------------------------------------------
@@ -474,6 +403,98 @@ class PatientController extends Controller
             return redirect()->route('patient.show', $pasien->no_rm)->with('success', 'Data Berhasil Di Upload!!');
         }
         return redirect()->route('patient.create')->with('error', 'Data Gagal Di Upload!!');
+    }
+    // add new =========================================================================================================
+
+
+    // edit data=========================================================================================================
+    public function edit($id){
+        $data = Patient::find($id);
+        $this->to_return['data']            = $data;
+        $this->to_return['title']           = "Edit : " . $data->full_name . " : " . $data->no_rm; 
+        $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
+        $this->to_return['gender']          = attJenisKelamin::get();
+        $this->to_return['status_nikah']    = attJenisPernikahan::get();
+        $this->to_return['pendidikan']      = attJenisPendidikan::get();
+        $this->to_return['pekerjaan']       = attJenisPekerjaan::get();
+        $this->to_return['jenis_bpjs']      = attJenisBpjs::get();
+        $this->to_return['agama']           = attJenisAgama::get();
+        $this->to_return['country']         = attAlamatCountry::get();
+
+        $this->to_return['provinsi']        = attAlamatProvinsi::find($data->address_provinsi_id);
+        $this->to_return['kota']            = attAlamatKota::find($data->address_kota_id);
+        $this->to_return['kecamatan']       = attAlamatKecamatan::find($data->address_kecamatan_id);
+        $this->to_return['kelurahan']       = attAlamatKelurahan::find($data->address_kelurahan_id);
+
+        $this->to_return['default']         = Config::get_setting_default();
+        //return Config::get_fhair_cs_name('patient-contact-relationship');
+        return view('administration.patient.edit', $this->to_return);
+    }
+
+    public function edit_advance($type, $id){
+        $data = Patient::find($id);
+        $this->to_return['data']            = $data;
+        $this->to_return['title']           = "Edit Advance (".$type.") : " . $data->full_name . " : " . $data->no_rm; 
+        $this->to_return['type']            = $type;
+        switch ($type) {
+            case 'name':
+                $this->to_return['name_use']    = Config::get_fhair_cs_name('name-use');
+                break;
+            case 'identifier':
+                $this->to_return['identifier_use']      = Config::get_fhair_cs_name('identifier-use');
+                $this->to_return['identifier_type']     = Config::get_fhair_cs_name('identifier-type');
+                break;
+            case 'communication':
+                $this->to_return['valueset_languages']  = Config::get_fhair_vs_name('valueset-languages');
+                break;
+            case 'address':
+                $this->to_return['address_use']         = Config::get_fhair_cs_name('address-use');
+                $this->to_return['address_type']        = Config::get_fhair_cs_name('address-type');
+                break;
+            case 'telecom':
+                $this->to_return['telecom_use']         = Config::get_fhair_cs_name('contact-point-use');
+                $this->to_return['telecom_system']      = Config::get_fhair_cs_name('contact-point-system');
+                break;
+            case 'contact':
+                $this->to_return['name_use']            = Config::get_fhair_cs_name('name-use');
+                $this->to_return['identifier_use']      = Config::get_fhair_cs_name('identifier-use');
+                $this->to_return['identifier_type']     = Config::get_fhair_cs_name('identifier-type');
+                $this->to_return['administrative_gender']     = Config::get_fhair_cs_name('administrative-gender');
+                $this->to_return['address_use']         = Config::get_fhair_cs_name('address-use');
+                $this->to_return['address_type']        = Config::get_fhair_cs_name('address-type');
+                $this->to_return['telecom_use']         = Config::get_fhair_cs_name('contact-point-use');
+                $this->to_return['telecom_system']      = Config::get_fhair_cs_name('contact-point-system');
+                $this->to_return['valueset_languages']  = Config::get_fhair_vs_name('valueset-languages');
+                $this->to_return['contact_relationship']= Config::get_fhair_cs_name('patient-contact-relationship');
+                break;
+            default:
+                return redirect()->route('patient.show', $data->no_rm)->with('error', '404!!');
+        }
+
+        return view('administration.patient.edit_advance.' .$type , $this->to_return);
+    }
+
+    public function edit_pasien_gratis($id){
+        $data = Patient::find($id);
+        $this->to_return['data']            = $data;
+        $this->to_return['title']           = "Pasien Gratis : " . $data->full_name . " : " . $data->no_rm; 
+        $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
+        $this->to_return['gender']          = attJenisKelamin::get();
+        $this->to_return['status_nikah']    = attJenisPernikahan::get();
+        $this->to_return['pendidikan']      = attJenisPendidikan::get();
+        $this->to_return['pekerjaan']       = attJenisPekerjaan::get();
+        $this->to_return['jenis_bpjs']      = attJenisBpjs::get();
+        $this->to_return['agama']           = attJenisAgama::get();
+        $this->to_return['country']         = attAlamatCountry::get();
+
+        $this->to_return['provinsi']        = attAlamatProvinsi::find($data->address_provinsi_id);
+        $this->to_return['kota']            = attAlamatKota::find($data->address_kota_id);
+        $this->to_return['kecamatan']       = attAlamatKecamatan::find($data->address_kecamatan_id);
+        $this->to_return['kelurahan']       = attAlamatKelurahan::find($data->address_kelurahan_id);
+
+        $this->to_return['default']         = Config::get_setting_default();
+        //return Config::get_fhair_cs_name('patient-contact-relationship');
+        return view('administration.patient.edit_pasien_gratis', $this->to_return);
     }
 
     public function update(Request $request, $id ){
@@ -764,7 +785,12 @@ class PatientController extends Controller
         }
         return redirect()->back()->with('error', 'Data Tidak Ditemukan!!');
     }
+    // edit data=========================================================================================================
 
+    
+
+    
+    // other=========================================================================================================
     public function fhir_json($id){
         $data = Patient::find($id);
         //-----------------------------------------------------------
@@ -1271,5 +1297,8 @@ class PatientController extends Controller
         ->rawColumns(['action'])
         ->make(true);
     }
+    // other=========================================================================================================
+
+    
 
 }
