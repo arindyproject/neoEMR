@@ -23,6 +23,9 @@ return new class extends Migration
             $table->unsignedBigInteger('payment_id')->nullable();
             $table->foreign('payment_id')->references('id')->on('administration_payments')->onDelete('set null'); 
 
+            $table->string('payment_type');
+            $table->json('payment_json')->nullable();
+
             $table->timestamp('tgl_mendaftar');
             $table->date('tgl_pemeriksaan');
             //----

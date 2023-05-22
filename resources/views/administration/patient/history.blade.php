@@ -22,6 +22,7 @@
                 </ul>
             </div>
             <div class="card-body p-1">
+              
                 <!-- ---------------------------------------------------- -->
                 @foreach ($history as $item)
                      <!-- The timeline -->
@@ -46,7 +47,7 @@
                                 }
                             @endphp
                             <span class="bg-{{$sts_tgl}}">
-                              {{$item->tgl_pemeriksaan}}
+                              {!! $is_batal ? ' <i class="fas fa-times-circle"></i>' : '' !!} {{$item->tgl_pemeriksaan}}
                             </span>
                         </div>
                         <!-- timeline time label -->
@@ -60,54 +61,97 @@
                                 </b></h3>
       
                                 <div class="timeline-body">
-                                  <table>
-                                    <tr valign="top">
-                                        <td>Jenis Layanan</td>
-                                        <td>:</td>
-                                        <td>{{$item->type_layanan}}</td>
-                                    </tr>
-                                    <tr valign="top">
-                                        <td>Jenis Kunjungan</td>
-                                        <td>:</td>
-                                        <td>{{$item->type_kunjungan}}</td>
-                                    </tr>
-                                    <tr valign="top">
-                                        <td>Di daftar Oleh</td>
-                                        <td>:</td>
-                                        <td>{{$item->author_id != '' ? $item->author->name : '--'}}</td>
-                                    </tr>
-                                    <tr valign="top">
-                                        <td>Di daftar Pada</td>
-                                        <td>:</td>
-                                        <td>{{$item->tgl_mendaftar}}</td>
-                                    </tr>
-                                    @if ($item->created_at != $item->updated_at)
-                                    <tr valign="top">
-                                        <td>Di Edit Oleh</td>
-                                        <td>:</td>
-                                        <td>{{$item->edithor_id != '' ? $item->edithor->name : '--'}}</td>
-                                    </tr>
-                                    <tr valign="top">
-                                        <td>Di Edit Pada</td>
-                                        <td>:</td>
-                                        <td>{{$item->updated_at}}</td>
-                                    </tr> 
-                                    @endif
+                                    <div class="row ">
+                                        <!-- 1 ------------------------------------------------------------->
+                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 table-responsive">
+                                            <table class="table table-sm">
+                                                <tr valign="top">
+                                                    <td>Antrian Admin</td>
+                                                    <td>:</td>
+                                                    <td><b>{{$item->antrian_urut}}</b></td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <td>Jenis Layanan</td>
+                                                    <td>:</td>
+                                                    <td><b>{{$item->type_layanan}}</b></td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <td>Jenis Kunjungan</td>
+                                                    <td>:</td>
+                                                    <td><b>{{$item->type_kunjungan}}</b></td>
+                                                </tr>
+                                               
+                                              </table>
+                                        </div>
+                                        <!-- 1 ------------------------------------------------------------->
 
-                                    @if ($is_batal)
-                                    <tr valign="top">
-                                        <td>Di Batalkan Oleh</td>
-                                        <td>:</td>
-                                        <td>{{$item->deleted_by != '' ? $item->deletedBy->name : '--'}}</td>
-                                    </tr>
-                                    <tr valign="top">
-                                        <td>Di Batalkan Pada</td>
-                                        <td>:</td>
-                                        <td>{{$item->deleted_at}}</td>
-                                    </tr>  
-                                    @endif
+                                        <!-- 2 ------------------------------------------------------------->
+                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 table-responsive">
+                                            <table class="table table-sm">
+                                                @if ($item->payment_json != '')
+                                                @foreach (json_decode($item->payment_json) as $i=>$p)
+                                                <tr valign="top">
+                                                    <td>{{$i}}</td>
+                                                    <td>:</td>
+                                                    <td><b>{{$p}}</b></td>
+                                                </tr>
+                                                @endforeach
+                                                @endif
+                                            </table>
+                                        </div>
+                                        <!-- 2 ------------------------------------------------------------->
 
-                                  </table>
+                                        <!-- 2 ------------------------------------------------------------->
+                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 table-responsive">
+                                            <table class="table table-sm">
+                                                <tr valign="top">
+                                                    <td>Di daftar Oleh</td>
+                                                    <td>:</td>
+                                                    <td>{{$item->author_id != '' ? $item->author->name : '--'}}</td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <td>Di daftar Pada</td>
+                                                    <td>:</td>
+                                                    <td>{{$item->tgl_mendaftar}}</td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <td>CHECK IN </td>
+                                                    <td>:</td>
+                                                    <td>{{$item->cekin_at}}</td>
+                                                </tr>
+                                                @if ($item->created_at != $item->updated_at)
+                                                <tr valign="top">
+                                                    <td>Di Edit Oleh</td>
+                                                    <td>:</td>
+                                                    <td>{{$item->edithor_id != '' ? $item->edithor->name : '--'}}</td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <td>Di Edit Pada</td>
+                                                    <td>:</td>
+                                                    <td>{{$item->updated_at}}</td>
+                                                </tr> 
+                                                @endif
+                                                @if ($is_batal)
+                                                <tr valign="top">
+                                                    <td>Di Batalkan Oleh</td>
+                                                    <td>:</td>
+                                                    <td>{{$item->deleted_by != '' ? $item->deletedBy->name : '--'}}</td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <td>Di Batalkan Pada</td>
+                                                    <td>:</td>
+                                                    <td>{{$item->deleted_at}}</td>
+                                                </tr>  
+                                                <tr valign="top">
+                                                    <td>Alasan di Batalkan</td>
+                                                    <td>:</td>
+                                                    <td>{{$item->alasan_menghapus}}</td>
+                                                </tr>  
+                                                @endif
+                                            </table>
+                                        </div>
+                                        <!-- 2 ------------------------------------------------------------->
+                                    </div>
                                 </div>
                                 @if ($tgl_now <= $item->tgl_pemeriksaan && !$is_batal)
                                 <div class="timeline-footer">
@@ -122,6 +166,7 @@
                     <!-- The timeline -->
                 @endforeach
                 <!-- ---------------------------------------------------- -->
+             
             </div>
         </div>
     </div>

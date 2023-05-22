@@ -15,6 +15,9 @@ class AdministrationKunjungan extends Model
         'antrian_urut',
 
         'payment_id',
+        'payment_type',
+        'payment_json',
+        
         'tgl_mendaftar',
         'tgl_pemeriksaan',
 

@@ -75,7 +75,7 @@
                                 @endif
                                 @endif
                                 <a href="{{Route('patient.show', $item->no_rm)}}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> Lihat</a>
-                                <a href="{{Route('administration.history', $item->id)}}" class="btn btn-info btn-sm"><i class="fas fa-history"></i> History</a>
+                                <a href="{{Route('patient.history', $item->id)}}" class="btn btn-info btn-sm"><i class="fas fa-history"></i> History</a>
                             </td>
                             </td>
                             @endforeach

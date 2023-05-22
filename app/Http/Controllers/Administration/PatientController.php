@@ -104,7 +104,7 @@ class PatientController extends Controller
         if($itm){
             $this->to_return['data']    = $itm;
             $this->to_return['title']   = $itm->no_rm .' : '. $itm->full_name; 
-            $this->to_return['history'] = AdministrationKunjungan::where('patient_id', $id)->orderBy('tgl_pemeriksaan', 'DESC')->paginate(25);
+            $this->to_return['history'] = AdministrationKunjungan::where('patient_id', $id)->orderBy('tgl_pemeriksaan', 'DESC')->orderBy('id', 'DESC')->paginate(25);
             $this->to_return['tgl_now'] = Carbon::now()->format('Y-m-d');
 
             return view('administration.patient.history', $this->to_return);

@@ -76,7 +76,7 @@ class AdministrationController extends Controller
         ]);
 
         //jika sudah terdaftar pada tgl dan poli yang sama tidak bisa
-        $cek = AdministrationKunjungan::where('tgl_pemeriksaan', $request->tgl_pemeriksaan)->where('patient_id',  $request->patient_id)->first();
+        $cek = AdministrationKunjungan::where('tgl_pemeriksaan', $request->tgl_pemeriksaan)->where('patient_id',  $request->patient_id)->whereNull('deleted_at')->first();
         if($cek){
             $pasien = $cek->patient;
             return redirect()->back()->with('warning', 'Pasien '.$pasien->full_name.' Sudah Terdaftar dengan nomor antrian ' . $cek->antrian_urut . ' pada ' . $cek->tgl_pemeriksaan );
@@ -92,13 +92,39 @@ class AdministrationController extends Controller
                 $antrian = intval($kunjungan_last->antrian_urut) + 1;
             }
 
+            $pasien = Patient::find($request->patient_id);
+            //Payment-------------------------------------------------------------
+            $pay = AdministrationPayment::find($request->payment_id);
+            $pay_json = [
+                'cara_bayar'  => $pay->name,
+                'code_bayar'  => $pay->code,
+                'ket_bayar'   => $pay->ket,
+                'type_bayar'  => $pay->type,
+            ];
+            if($pay->type == 'BPJS'){
+                $pay_json['nomor_bpjs'] =  $pasien->no_bpjs;
+                $pay_json['kelas_bpjs'] =  $pasien->kelas_bpjs;
+                $pay_json['jenis_bpjs'] =  $pasien->jenis_bpjs_id != '' ? $pasien->jenis_bpjs->nama : '--';
+            }
+            if($pay->type == 'GRATIS'){
+                $pay_json['keterangan_gratis'] =  $pasien->ket_pasien_gratis;
+                $pay_json['gratis_by'] =  $pasien->author_pasien_gratis_id ? $pasien->authorGratis->name : '--';
+                $pay_json['gratis_at'] =  $pasien->pasien_gratis_at;
+            }
+            //Payment-------------------------------------------------------------
+
+
             $to_store = [
                 'antrian_urut'      => $antrian,
                 'patient_id'        => $request->patient_id,
                 'type_kunjungan'    => $request->type_kunjungan,
                 'type_layanan'      => $request->type_layanan, 
                 'tgl_pemeriksaan'   => $request->tgl_pemeriksaan,
+
                 'payment_id'        => $request->payment_id, 
+                'payment_type'      => $pay->type,
+                'payment_json'      => json_encode($pay_json),
+
                 'tgl_mendaftar'     => $now->format('Y-m-d h:i:s'),
                 'author_id'         => Auth::user()->id,
                 'is_cekin'          => 0,

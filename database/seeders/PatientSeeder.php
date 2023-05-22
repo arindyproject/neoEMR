@@ -26,6 +26,15 @@ class PatientSeeder extends Seeder
                 'author_id'         => 1,
                 'active'            => 1,
 
+                'no_bpjs'           => '0000111444555',
+                'jenis_bpjs_id'     => 1,
+                'kelas_bpjs'        => 1,
+
+                'is_pasien_gratis'  => 1,
+                'ket_pasien_gratis' => 'karena yang membuat aplikasi ini',
+                'author_pasien_gratis_id'   => 1,
+                'pasien_gratis_at'          => '2023-01-01 12:00:00',
+
                 'name'              => '',
                 'identifier'        => '',
                 'communication'     => '',
