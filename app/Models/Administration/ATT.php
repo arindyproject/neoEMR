@@ -30,4 +30,48 @@ class ATT extends Model{
             'name'  => 'IGD'
         ],
     ];
+
+    public $TITLE_PATIENT = [
+        [
+            'id'    => 'BY',
+            'name'  => 'BY.'
+        ],
+        [
+            'id'    => 'AN',
+            'name'  => 'AN.'
+        ],
+        [
+            'id'    => 'SDR/i',
+            'name'  => 'SDR/i.'
+        ],
+        [
+            'id'    => 'TN',
+            'name'  => 'TN.'
+        ],
+        [
+            'id'    => 'NY',
+            'name'  => 'NY.'
+        ],
+        [
+            'id'    => 'NN',
+            'name'  => 'NN.'
+        ],
+        [
+            'id'    => 'MR',
+            'name'  => 'MR.'
+        ],
+        [
+            'id'    => 'MRS',
+            'name'  => 'MRS.'
+        ],
+        [
+            'id'    => 'dr',
+            'name'  => 'dr.'
+        ],
+
+        [
+            'id'    => 'DR',
+            'name'  => 'DR.'
+        ],
+    ];
 }

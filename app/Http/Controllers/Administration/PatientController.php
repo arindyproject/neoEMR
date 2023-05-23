@@ -11,6 +11,7 @@ use App\Models\Config;
 
 use App\Models\Administration\Patient;
 use App\Models\Administration\AdministrationKunjungan;
+use App\Models\Administration\ATT;
 
 use App\Models\Attributes\attJenisKartuIdentitas;
 use App\Models\Attributes\attJenisKelamin;
@@ -27,6 +28,7 @@ use App\Models\Attributes\attAlamatKecamatan;
 use App\Models\Attributes\attAlamatKelurahan;
 
 
+
 use DataTables;
 use Carbon\Carbon;
 
@@ -39,6 +41,7 @@ class PatientController extends Controller
         $this->middleware(['role:administration|admin'])->except(['index','show', 'history']);
 
         $this->title     = "Patients";
+        $this->att       = new ATT();
 
         $this->mode_form = Config::get_setting_form()['form_new_pasien']['mode'];
         $this->default   = Config::get_setting_default();
@@ -117,7 +120,7 @@ class PatientController extends Controller
 
     // add new =========================================================================================================
     public function create(){
-        $this->to_return['title']   = "Add New Patient"; 
+        $this->to_return['title']           = "Add New Patient"; 
         $this->to_return['identity_type']   = attJenisKartuIdentitas::get();
         $this->to_return['gender']          = attJenisKelamin::get();
         $this->to_return['status_nikah']    = attJenisPernikahan::get();
@@ -128,6 +131,7 @@ class PatientController extends Controller
         $this->to_return['country']         = attAlamatCountry::get();
 
         $this->to_return['default']         = Config::get_setting_default();
+        $this->to_return['title_patient']   = $this->att->TITLE_PATIENT;
         //return Config::get_fhair_cs_name('patient-contact-relationship');
         if($this->mode_form == 'advance'){
             $this->to_return['name_use']            = Config::get_fhair_cs_name('name-use');
@@ -427,6 +431,7 @@ class PatientController extends Controller
         $this->to_return['kelurahan']       = attAlamatKelurahan::find($data->address_kelurahan_id);
 
         $this->to_return['default']         = Config::get_setting_default();
+        $this->to_return['title_patient']   = $this->att->TITLE_PATIENT;
         //return Config::get_fhair_cs_name('patient-contact-relationship');
         return view('administration.patient.edit', $this->to_return);
     }

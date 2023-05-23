@@ -41,14 +41,9 @@
                                     <div class="col-md-2 col-sm-2">
                                         <select name="title" id="title" class="form-control form-control-sm">
                                             <option value="">pilih title</option>
-                                            <option {{$data->title == 'BY' ? 'selected' : ''}} value="BY">BY.</option>
-                                            <option {{$data->title == 'AN' ? 'selected' : ''}} value="AN">AN.</option>
-                                            <option {{$data->title == 'SDR/i' ? 'selected' : ''}} value="SDR/i">SDR/i.</option>
-                                            <option {{$data->title == 'TN' ? 'selected' : ''}} value="TN">TN.</option>
-                                            <option {{$data->title == 'NY' ? 'selected' : ''}} value="NY">NY.</option>
-                                            <option {{$data->title == 'NN' ? 'selected' : ''}} value="NN">NN.</option>
-                                            <option {{$data->title == 'MR' ? 'selected' : ''}} value="MR">MR.</option>
-                                            <option {{$data->title == 'MRS' ? 'selected' : ''}} value="MRS">MRS.</option>
+                                            @foreach ($title_patient as $item)
+                                            <option {{$data->title == $item['id'] ? 'selected' : ''}} value="{{$item['id']}}">{{$item['name']}}</option>
+                                            @endforeach
                                         </select>
                                         @if ($errors->has('title'))
                                         <span class="help-block">

@@ -90,11 +90,13 @@
                                             <table class="table table-sm">
                                                 @if ($item->payment_json != '')
                                                 @foreach (json_decode($item->payment_json) as $i=>$p)
+                                                @if ($i != 'code_bayar' && $i != 'ket_bayar')
                                                 <tr valign="top">
                                                     <td>{{$i}}</td>
                                                     <td>:</td>
                                                     <td><b>{{$p}}</b></td>
                                                 </tr>
+                                                @endif
                                                 @endforeach
                                                 @endif
                                             </table>

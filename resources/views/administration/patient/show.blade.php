@@ -11,6 +11,7 @@
 
 @section('content')
 
+
 <div class="row">
     @include('administration.patient.show_left')
 
