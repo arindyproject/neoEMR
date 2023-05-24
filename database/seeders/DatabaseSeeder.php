@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PatientSeeder::class);
         $this->call(AlamatSeeder::class);
         $this->call(AdministrationPaymentSeeder::class);
+        $this->call(attKepegawaianSeeder::class);
     }
 }

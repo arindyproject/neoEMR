@@ -36,6 +36,11 @@ class RoleSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
+        Role::create([
+            'name' => 'kepegawaian',
+            'guard_name' => 'web'
+        ]);
+
         $post_test_reader = Role::create([
             'name' => 'post_test.reader',
             'guard_name' => 'web'

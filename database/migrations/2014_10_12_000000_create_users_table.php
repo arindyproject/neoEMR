@@ -37,7 +37,7 @@ return new class extends Migration
             $table->integer('level')->default(0);
             $table->integer('status')->default(0);
 
-
+            
             
             $table->string('gender')->nullable();
             $table->text('address_alamat')->nullable();
@@ -58,7 +58,10 @@ return new class extends Migration
             $table->datetime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
 
-
+            $table->float('poin', 8, 2)->default(0.0);
+            $table->string('code_in_pcare')->nullable();
+            $table->string('code_in_vclaim')->nullable();
+            $table->json('log')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

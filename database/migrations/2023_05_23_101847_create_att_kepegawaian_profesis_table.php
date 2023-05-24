@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('att_kepegawaian_profesis', function (Blueprint $table) {
             $table->id();
 
-            $table->string('nama_profesi');
+            $table->string('nama');
             $table->text('ket')->nullable();
-            $table->integer('poin')->default(0);
+            $table->float('poin', 8, 2)->default(0.0);
             $table->string('jenis_profesi');
             $table->json('log')->nullable();
 

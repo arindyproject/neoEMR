@@ -107,7 +107,7 @@ class ProfileController extends Controller
         $data = $this->user_table::findOrFail($id);
         $file = $this->file_table::where('user_id', $id)
         ->where(function($q) use($id){
-            if(Auth::user()->id != $id && !Auth::user()->hasRole('admin')){
+            if(Auth::user()->id != $id && !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('kepegawaian')){
                 $q->where('is_privat', 0);
             }
         })
@@ -121,7 +121,7 @@ class ProfileController extends Controller
 
     public function create_file($id)
     {
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id || Auth::user()->hasRole('kepegawaian') ){
             $data = $this->user_table::findOrFail($id);
             $this->to_return['id']      = $id;
             $this->to_return['data']    = $data;
@@ -134,7 +134,7 @@ class ProfileController extends Controller
     public function edit_file($id)
     {
         $file = UserFile::find($id);
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $file->user_id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $file->user_id || Auth::user()->hasRole('kepegawaian')){
             $data = User::findOrFail($file->user_id);
             $this->to_return['id']      = $id;
             $this->to_return['data']    = $data;
@@ -148,7 +148,7 @@ class ProfileController extends Controller
     public function update_file($id, Request $request)
     {   
         $file = $this->file_table::find($id);
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $file->user_id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $file->user_id || Auth::user()->hasRole('kepegawaian')){
             $user = $this->user_table::findOrFail($file->user_id);
             $request->validate([
                 'title' => "required|string",
@@ -180,7 +180,7 @@ class ProfileController extends Controller
 
     public function store_file($id, Request $request)
     {
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id || Auth::user()->hasRole('kepegawaian')){
             $request->validate([
                 'title' => "required|string",
                 'ket' => "nullable", 
@@ -209,7 +209,7 @@ class ProfileController extends Controller
     public function file_delete($id)
     {
         $file = $this->file_table::find($id);
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $file->user_id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $file->user_id || Auth::user()->hasRole('kepegawaian')){
             $destinationPath = public_path('/files/user');
             File::delete($destinationPath.'/'.$file->file);
             $file->delete();
@@ -222,7 +222,7 @@ class ProfileController extends Controller
 
     public function edit($id)
     {
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id || Auth::user()->hasRole('kepegawaian')){
             $data = $this->user_table::findOrFail($id);
             $this->to_return['data'] = $data;
             return view($this->v_edit, $this->to_return);
@@ -235,7 +235,7 @@ class ProfileController extends Controller
 
     public function edit_advance($id)
     {
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id || Auth::user()->hasRole('kepegawaian')){
             $data = $this->user_table::findOrFail($id);
             $this->to_return['data'] = $data;
             return view($this->v_advance , $this->to_return );
@@ -248,7 +248,7 @@ class ProfileController extends Controller
     //=================================================================================================
     public function edit_advance_identifier(Request $request,$id)
     {
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id || Auth::user()->hasRole('kepegawaian')){
             $data = $this->user_table::findOrFail($id);
             $iden = [];
             if($request->use != ''){
@@ -294,7 +294,7 @@ class ProfileController extends Controller
     //=================================================================================================
     public function edit_advance_telecom(Request $request,$id)
     {
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id  || Auth::user()->hasRole('kepegawaian')){
             $data = $this->user_table::findOrFail($id);
             $iden = [];
             if($request->use != ''){
@@ -330,7 +330,7 @@ class ProfileController extends Controller
     //=================================================================================================
     public function edit_advance_address(Request $request,$id)
     {
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id || Auth::user()->hasRole('kepegawaian')){
             $data = $this->user_table::findOrFail($id);
             $iden = [];
             if($request->use != ''){
@@ -371,7 +371,7 @@ class ProfileController extends Controller
     //=================================================================================================
     public function edit_advance_communication(Request $request,$id)
     {
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id || Auth::user()->hasRole('kepegawaian')){
             $data = $this->user_table::findOrFail($id);
             $iden = [];
             if($request->text != ''){
@@ -408,7 +408,7 @@ class ProfileController extends Controller
 
     public function edit_submit(Request $request, $id)
     {
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id || Auth::user()->hasRole('kepegawaian')){
             $data = $this->user_table::findOrFail($id);
             $request->validate([
                 'name' => "required|string|max:255",
@@ -454,7 +454,7 @@ class ProfileController extends Controller
 
     public function ganti_password($id)
     {
-        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id){
+        if(Auth::user()->hasRole('admin') || Auth::user()['id'] == $id || Auth::user()->hasRole('kepegawaian')){
             $data = $this->user_table::findOrFail($id);
             $this->to_return['data'] = $data;
             return view($this->v_ganti_password, $this->to_return);
@@ -464,7 +464,7 @@ class ProfileController extends Controller
         
     }
 
-    public function ganti_password_submit(Request $request, $id)
+    public function ganti_password_submit(Request $request, $id )
     {
         if(Auth::user()['id'] == $id){
             $data = $this->user_table::findOrFail($id);
@@ -480,7 +480,7 @@ class ProfileController extends Controller
             }else{
                 return redirect()->back()->with('error', 'Password Lama Salah!!');
             }
-        }else if(Auth::user()->hasRole('admin') ){
+        }else if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('kepegawaian')){
             $data = User::findOrFail($id);
             $request->validate([
                 'password' => "required|string|min:6|confirmed", 
@@ -498,7 +498,7 @@ class ProfileController extends Controller
 
     public function edit_role($id)
     {
-        if(Auth::user()->hasRole('admin')){
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('kepegawaian')){
             $this->to_return['data']    = $this->user_table::findOrFail($id);
             $this->to_return['roles']   = Role::get();
             $this->to_return['role']    = $this->to_return['data']->getRoleNames();
@@ -511,7 +511,7 @@ class ProfileController extends Controller
 
     public function store_role($id, Request $request)
     {
-        if(Auth::user()->hasRole('admin')){
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('kepegawaian')){
             $data = $this->user_table::findOrFail($id);
 
             $data->roles()->detach();

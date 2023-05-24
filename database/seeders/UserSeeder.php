@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        //admin
         $admin = User::create([
             'name' => 'SuperAdmin',
             'email' => 'admin@gmail.com',
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
         ]);
         $admin->assignRole('admin');
 
+        //attribute
         $attribute = User::create([
             'name' => 'attribute',
             'email' => 'attribute@gmail.com',
@@ -38,6 +40,32 @@ class UserSeeder extends Seeder
         ]);
         $attribute->assignRole('attribute');
 
+        //administration
+        $administration = User::create([
+            'name' => 'administration',
+            'email' => 'administration@gmail.com',
+            'username' => 'administration',
+            'level' => '0',
+            'status' => '1',
+            'password' => Hash::make('jiwamantap'),
+        ]);
+        $administration->assignRole('administration');
+
+        //kepegawaian
+        $kepegawaian = User::create([
+            'name' => 'kepegawaian',
+            'email' => 'kepegawaian@gmail.com',
+            'username' => 'kepegawaian',
+            'level' => '0',
+            'status' => '1',
+            'password' => Hash::make('jiwamantap'),
+        ]);
+        $kepegawaian->assignRole('kepegawaian');
+
+
+
+
+        //=============================================================
         $user = User::create([
             'name' => 'User',
             'email' => 'user@gmail.com',
@@ -48,35 +76,6 @@ class UserSeeder extends Seeder
         ]);
 
 
-        $post_reader = User::create([
-            'name' => 'post_reader',
-            'email' => 'post_reader@gmail.com',
-            'username' => 'post_reader',
-            'level' => '0',
-            'status' => '1',
-            'password' => Hash::make('jiwamantap'),
-        ]);
-        $post_reader->assignRole('post_test.reader');
-
-
-        $post_creator = User::create([
-            'name' => 'post_creator',
-            'email' => 'post_creator@gmail.com',
-            'username' => 'post_creator',
-            'level' => '0',
-            'status' => '1',
-            'password' => Hash::make('jiwamantap'),
-        ]);
-        $post_creator->assignRole('post_test.creator');
-
-        $post_admin = User::create([
-            'name' => 'post_admin',
-            'email' => 'post_admin@gmail.com',
-            'username' => 'post_admin',
-            'level' => '0',
-            'status' => '1',
-            'password' => Hash::make('jiwamantap'),
-        ]);
-        $post_admin->assignRole('post_test.admin');
+       
     }
 }

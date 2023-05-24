@@ -77,6 +77,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
         Route::resource('attributes/jenis/pernikahan', 'Attributes\JenisPernikahanController',  ['as' => 'attributes.jenis']);
         //pernikahan-----------------------------------------------------------------------------------------------
 
+
+        //pernikahan-----------------------------------------------------------------------------------------------
+        Route::resource('attributes/jenis/pernikahan', 'Attributes\JenisPernikahanController',  ['as' => 'attributes.jenis']);
+        //pernikahan-----------------------------------------------------------------------------------------------
+
         //--------------jenis---------------------------------------------------------------------------------
 
 

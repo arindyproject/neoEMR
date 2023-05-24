@@ -48,6 +48,11 @@ class User extends Authenticatable
 
         'last_login_at',
         'last_login_ip',
+
+        'poin',
+        'code_in_pcare',
+        'code_in_vclaim',
+        'log',
     ];
 
     /**

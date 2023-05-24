@@ -25,6 +25,22 @@
 @endif
 
 
+
+@if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('kepegawaian'))
+<li class="nav-item">
+    <a href="{{ route('kepegawaian.index') }}" class="nav-link {{ request()->is('kepegawaian/*') ? 'active' : '' }} {{ request()->is('kepegawaian') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-users"></i>
+        <p>
+            <b>
+                Kepegawaian
+            </b>
+        </p>
+
+    </a>
+</li>
+@endif
+
+
 @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('attribute'))
 <li class="nav-item">
     <a  class="nav-link {{ request()->is('attributes/*') ? 'active' : '' }}">
