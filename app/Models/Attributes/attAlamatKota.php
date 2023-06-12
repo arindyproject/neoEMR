@@ -23,11 +23,11 @@ class attAlamatKota extends Model
     }
 
     public function provinsi(){
-        return $this->belongsTo('App\Models\attAlamatProvinsi', 'att_alamat_provinsis_id');
+        return $this->belongsTo('App\Models\Attributes\attAlamatProvinsi', 'att_alamat_provinsis_id');
     }
 
     public function kecamatan(){
-        return $this->hasMany('App\Models\attAlamatKecamatan', 'att_alamat_kotas_id');
+        return $this->hasMany('App\Models\Attributes\attAlamatKecamatan', 'att_alamat_kotas_id');
     }
 
     public function kelurahan(){

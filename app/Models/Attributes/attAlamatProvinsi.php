@@ -20,7 +20,7 @@ class attAlamatProvinsi extends Model
     }
 
     public function kota(){
-        return $this->hasMany('App\Models\attAlamatKota', 'att_alamat_provinsis_id');
+        return $this->hasMany('App\Models\Attributes\attAlamatKota', 'att_alamat_provinsis_id');
     }
 
     public function kecamatan(){

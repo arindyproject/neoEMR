@@ -8,7 +8,7 @@
     </a>
 </li>
 
-@include('attributes.jenis.menus')
+@include('attributes.kepegawaian.menus')
 @endpush
 
 @section('content')
@@ -28,10 +28,23 @@
                     @csrf
                     @method('PUT')
                     @foreach ($cols as $col)
-                        @if ( $col != 'id' && $col != 'user_id' && $col != 'created_at' && $col != 'updated_at')
+                        @if ( $col != 'id' && $col != 'author_id' && $col != 'edithor_id' && $col != 'created_at' && $col != 'updated_at')
                         <div class="form-group">
                             <label for="{{$col}}">{{$col}}</label>
-                            <input type="text" class="form-control" name="{{$col}}" id="{{$col}}" placeholder="{{$col}}" value="{{$itm[$col]}}">
+                            @php
+                                foreach ($to_select as $key=>$item) {
+                                    if($col == $key){
+                                        $rr = '<select class="form-control" name="'.$col.'" id="'.$col.'" placeholder="'.$col.'"  value="'.$itm[$col].'">';
+                                        foreach ($item as $i) {
+                                            $rr .= '<option '. ($itm[$col] == $i ? 'selected' : '') .' value="'.$i.'">'.$i.'</option>';
+                                        }
+                                        $rr .= '</select>';
+                                        echo $rr;
+                                    }else{
+                                        echo '<input type="text" class="form-control" name="'.$col.'" id="'.$col.'" placeholder="'.$col.'"  value="'.$itm[$col].'">';
+                                    }
+                                }
+                            @endphp
 
                             @if ($errors->has($col))
                             <span class="help-block">
@@ -71,11 +84,15 @@
                     <thead>
                         @foreach ($cols as $col)
                             <th>
-                                @if ($col == 'user_id')
-                                    Author
-                                @else
-                                    {{$col}}
-                                @endif
+                                @php
+                                    if ($col == 'author_id'){
+                                        echo "Author";
+                                    }elseif ($col == 'edithor_id') {
+                                        echo "Editor";
+                                    }else{
+                                        echo $col;
+                                    }
+                                @endphp
                             </th>
                         @endforeach
                         <th>Menu</th>
@@ -85,11 +102,15 @@
                             <tr>
                                 @foreach ($cols as $col)
                                 <td>
-                                    @if ($col == 'user_id' && $item[$col] != '')
-                                        {{ $item->author->name }}
-                                    @else
-                                        {{$item[$col]}}
-                                    @endif
+                                    @php
+                                        if ($col == 'author_id' && $item[$col] != '') {
+                                            echo $item->author->name ;
+                                        }elseif($col == 'edithor_id' && $item[$col] != ''){
+                                            echo $item->edithor->name ;
+                                        }else{
+                                            echo $item[$col];
+                                        }
+                                    @endphp
                                 </td>
                                 @endforeach
                                 <td class="btn-group">
@@ -98,7 +119,7 @@
                                         class="delete-submit-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button onclick="return false" class="btn btn-sm btn-danger delete-btn"><i
+                                        <button onclick="return confirm('Are you sure?')" type="submit" data-id="{{$item->id}}" class="btn btn-sm btn-danger delete-btnd"><i
                                                 class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
@@ -111,5 +132,5 @@
     </div>
 </div>
 
-@include('attributes.jenis.basic.m_float')
+@include('attributes.kepegawaian.m_float')
 @endsection

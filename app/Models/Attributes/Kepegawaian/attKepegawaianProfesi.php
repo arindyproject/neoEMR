@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Attributes;
+namespace App\Models\Attributes\Kepegawaian;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class attKepegawaianPendidikan extends Model
+class attKepegawaianProfesi extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,7 @@ class attKepegawaianPendidikan extends Model
         'nama',
         'ket',
         'poin',
+        'jenis_profesi',
         'log',
 
         'author_id',

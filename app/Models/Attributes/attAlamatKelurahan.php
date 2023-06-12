@@ -25,6 +25,6 @@ class attAlamatKelurahan extends Model
 
 
     public function kecamatan(){
-        return $this->belongsTo('App\Models\attAlamatKecamatan', 'att_alamat_kecamatans_id');
+        return $this->belongsTo('App\Models\Attributes\attAlamatKecamatan', 'att_alamat_kecamatans_id');
     }
 }

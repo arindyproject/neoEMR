@@ -67,6 +67,13 @@
                 <p>Jenis-Jenis</p>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a href="{{ route('attributes.kepegawaian.profesi.index') }}" class="nav-link {{ request()->is('attributes/kepegawaian/*') ? 'active' : '' }} ">
+                <i class="fas fa-user-tie nav-icon"></i>
+                <p>Kepegawaian</p>
+            </a>
+        </li>
     </ul>
 </li>
 @endif

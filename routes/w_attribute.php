@@ -100,4 +100,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
         //---------------------------------Attributes----------------------------------------------------------
     //});
     //role admin & attribute========================================================================================
+
+        //---------------------------------Kepegawaian----------------------------------------------------------
+        Route::resource('attributes/kepegawaian/profesi', 'Kepegawaian\Att\JenisProfesiController',  ['as' => 'attributes.kepegawaian']);
+        //---------------------------------Kepegawaian----------------------------------------------------------
 });
