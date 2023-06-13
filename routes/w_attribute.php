@@ -102,6 +102,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
     //role admin & attribute========================================================================================
 
         //---------------------------------Kepegawaian----------------------------------------------------------
+        //profesi
+        Route::get('attributes/kepegawaian/profesi/deleted', 'Kepegawaian\Att\JenisProfesiController@deleted')->name('attributes.kepegawaian.profesi.deleted');
         Route::resource('attributes/kepegawaian/profesi', 'Kepegawaian\Att\JenisProfesiController',  ['as' => 'attributes.kepegawaian']);
+        //profesi
+
+        //pendidikan
+        Route::get('attributes/kepegawaian/pendidikan/deleted', 'Kepegawaian\Att\JenisPendidikanController@deleted')->name('attributes.kepegawaian.pendidikan.deleted');
+        Route::resource('attributes/kepegawaian/pendidikan', 'Kepegawaian\Att\JenisPendidikanController',  ['as' => 'attributes.kepegawaian']);
+        //pendidikan
         //---------------------------------Kepegawaian----------------------------------------------------------
 });

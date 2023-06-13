@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\Attributes\attKepegawaianPendidikan;
-use App\Models\Attributes\attKepegawaianProfesi;
+use App\Models\Attributes\Kepegawaian\attKepegawaianPendidikan;
+use App\Models\Attributes\Kepegawaian\attKepegawaianProfesi;
 
 class attKepegawaianSeeder extends Seeder
 {

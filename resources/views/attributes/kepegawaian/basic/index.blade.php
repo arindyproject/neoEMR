@@ -32,17 +32,21 @@
                         <div class="form-group">
                             <label for="{{$col}}">{{$col}}</label>
                             @php
-                                foreach ($to_select as $key=>$item) {
-                                    if($col == $key){
-                                        $rr = '<select class="form-control" name="'.$col.'" id="'.$col.'" placeholder="'.$col.'"  value="'.old($col).'">';
-                                        foreach ($item as $i) {
-                                            $rr .= '<option '. (old($col) == $i ? 'selected' : '') .' value="'.$i.'">'.$i.'</option>';
+                                if($to_select){
+                                    foreach ($to_select as $key=>$item) {
+                                        if($col == $key){
+                                            $rr = '<select class="form-control" name="'.$col.'" id="'.$col.'" placeholder="'.$col.'"  value="'.old($col).'">';
+                                            foreach ($item as $i) {
+                                                $rr .= '<option '. (old($col) == $i ? 'selected' : '') .' value="'.$i.'">'.$i.'</option>';
+                                            }
+                                            $rr .= '</select>';
+                                            echo $rr;
+                                        }else{
+                                            echo '<input type="text" class="form-control" name="'.$col.'" id="'.$col.'" placeholder="'.$col.'"  value="'.old($col).'">';
                                         }
-                                        $rr .= '</select>';
-                                        echo $rr;
-                                    }else{
-                                        echo '<input type="text" class="form-control" name="'.$col.'" id="'.$col.'" placeholder="'.$col.'"  value="'.old($col).'">';
                                     }
+                                }else{
+                                    echo '<input type="text" class="form-control" name="'.$col.'" id="'.$col.'" placeholder="'.$col.'"  value="'.old($col).'">';
                                 }
                             @endphp
                             @if ($errors->has($col))
@@ -114,21 +118,18 @@
                                 @endforeach
                                 <td class="btn-group">
                                     <a href="{{Route($url_edit, $item->id)}}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
-                                    <form action="{{Route($url_delete, $item->id)}}" method="post"
-                                        class="delete-submit-form">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button onclick="return confirm('Are you sure?')" type="submit" data-id="{{$item->id}}" class="btn btn-sm btn-danger delete-btnd"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                    <a href="{{Route($url_show, $item->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-history"></i></a>
+                                    <button class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <a href="{{route($url_deleted)}}">deleted_table</a>
             </div>
         </div>
     </div>
 </div>
+@include('attributes.kepegawaian.basic.modal')
 @include('attributes.kepegawaian.m_float')
 @endsection

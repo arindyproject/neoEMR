@@ -5,6 +5,14 @@
     </a>
 </li>
 
+<li class="nav-item d-none d-sm-inline-block">
+    <a href="{{route('attributes.kepegawaian.pendidikan.index')}}" class="nav-link {{ request()->is('attributes/kepegawaian/pendidikan') ? 'active' : '' }} ">
+        <i class="fas fa-graduation-cap"></i>
+        <b>Pendidikan</b>
+    </a>
+</li>
+
+
 
 
 

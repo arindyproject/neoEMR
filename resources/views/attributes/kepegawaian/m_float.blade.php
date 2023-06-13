@@ -19,10 +19,18 @@
 		<div class="card-body p-0 overflow-hidden">
             <a href="{{Route('home')}}" class="btn btn-sm btn-block btn-success"><i class="fas fa-home"></i> HOME</a>
             <ul class="nav nav-pills flex-column">
+                
                 <li class="nav-item  d-sm-inline-block">
                     <a href="{{route('attributes.kepegawaian.profesi.index')}}" class="nav-link {{ request()->is('attributes/kepegawaian/profesi') ? 'active' : '' }} ">
                         <i class="fas fa-user-tie"></i>
                         <b>Profesi</b>
+                    </a>
+                </li>
+
+                <li class="nav-item  d-sm-inline-block">
+                    <a href="{{route('attributes.kepegawaian.pendidikan.index')}}" class="nav-link {{ request()->is('attributes/kepegawaian/pendidikan') ? 'active' : '' }} ">
+                        <i class="fas fa-graduation-cap"></i>
+                        <b>Pendidikan</b>
                     </a>
                 </li>
             </ul>
