@@ -94,6 +94,7 @@ class JenisPendidikanController extends Controller
         $data = $this->table::whereNull('deleted_at')->find($id);
         if($data){
             $this->to_return['data'] = $data;
+            $this->to_return['title_2'] = "User yang menggunakan";
             $this->to_return['users']= User::paginate(20);
             return view($this->view_show, $this->to_return);
         }

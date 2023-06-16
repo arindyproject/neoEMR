@@ -76,8 +76,7 @@
         <div class="card">
             <div class="card-header bg-{{$bg}} ">
                 <h3 class="card-title">
-                    <i class="fas fa-user-tag"></i>
-                    <b>User Yang Menggunakan {{$title}}</b>
+                    <b>{{$title_2}}</b>
                 </h3>
                 <div class="card-tools">
                     <div class="input-group input-group-sm">
